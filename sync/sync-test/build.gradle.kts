@@ -19,7 +19,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.core.sync.test"
+    namespace = "com.onepercentbetter.core.sync.test"
 }
 
 dependencies {

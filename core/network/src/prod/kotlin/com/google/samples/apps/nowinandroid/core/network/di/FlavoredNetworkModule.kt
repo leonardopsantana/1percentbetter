@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.nowinandroid.core.network.di
+package com.onepercentbetter.core.network.di
 
-import com.google.samples.apps.nowinandroid.core.network.NiaNetworkDataSource
-import com.google.samples.apps.nowinandroid.core.network.retrofit.RetrofitNiaNetwork
+import com.onepercentbetter.core.network.NiaNetworkDataSource
+import com.onepercentbetter.core.network.retrofit.RetrofitNiaNetwork
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

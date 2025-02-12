@@ -21,7 +21,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.feature.search"
+    namespace = "com.onepercentbetterfeature.search"
 }
 
 dependencies {

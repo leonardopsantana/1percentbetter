@@ -15,8 +15,8 @@
  */
 
 import com.android.build.gradle.TestExtension
-import com.google.samples.apps.nowinandroid.configureGradleManagedDevices
-import com.google.samples.apps.nowinandroid.configureKotlinAndroid
+import com.onepercentbetter.configureGradleManagedDevices
+import com.onepercentbetter.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.nowinandroid.core.analytics
+package com.onepercentbetter.core.analytics
 
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics

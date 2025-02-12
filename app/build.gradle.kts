@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import com.google.samples.apps.nowinandroid.NiaBuildType
+import com.onepercentbetter.NiaBuildType
 
 plugins {
     alias(libs.plugins.nowinandroid.android.application)
@@ -30,12 +30,12 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId = "com.google.samples.apps.nowinandroid"
-        versionCode = 8
-        versionName = "0.1.2" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        applicationId = "com.onepercentbetter"
+        versionCode = 1
+        versionName = "1.0.20" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         // Custom test runner to set up Hilt dependency graph
-        testInstrumentationRunner = "com.google.samples.apps.nowinandroid.core.testing.NiaTestRunner"
+        testInstrumentationRunner = "com.onepercentbetter.core.testing.NiaTestRunner"
     }
 
     buildTypes {
@@ -66,7 +66,7 @@ android {
             isIncludeAndroidResources = true
         }
     }
-    namespace = "com.google.samples.apps.nowinandroid"
+    namespace = "com.onepercentbetter"
 }
 
 dependencies {

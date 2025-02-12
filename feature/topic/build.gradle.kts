@@ -21,7 +21,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.feature.topic"
+    namespace = "com.onepercentbetterfeature.topic"
 }
 
 dependencies {

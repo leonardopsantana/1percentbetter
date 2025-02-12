@@ -22,7 +22,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.feature.foryou"
+    namespace = "com.onepercentbetterfeature.foryou"
 }
 
 dependencies {
