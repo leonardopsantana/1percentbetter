@@ -46,7 +46,7 @@ object DataStoreModule {
         @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
         @ApplicationScope scope: CoroutineScope,
         userPreferencesSerializer: UserPreferencesSerializer,
-    ): DataStore<_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences> =
+    ): DataStore<UserPreferences> =
         DataStoreFactory.create(
             serializer = userPreferencesSerializer,
             scope = CoroutineScope(scope.coroutineContext + ioDispatcher),

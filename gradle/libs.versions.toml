@@ -183,17 +183,17 @@ room = { id = "androidx.room", version.ref = "room" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
 
 # Plugins defined by this project
-nowinandroid-android-application = { id = "nowinandroid.android.application" }
-nowinandroid-android-application-compose = { id = "nowinandroid.android.application.compose" }
-nowinandroid-android-application-firebase = { id = "nowinandroid.android.application.firebase" }
-nowinandroid-android-application-flavors = { id = "nowinandroid.android.application.flavors" }
-nowinandroid-android-application-jacoco = { id = "nowinandroid.android.application.jacoco" }
-nowinandroid-android-feature = { id = "nowinandroid.android.feature" }
-nowinandroid-android-library = { id = "nowinandroid.android.library" }
-nowinandroid-android-library-compose = { id = "nowinandroid.android.library.compose" }
-nowinandroid-android-library-jacoco = { id = "nowinandroid.android.library.jacoco" }
-nowinandroid-android-lint = { id = "nowinandroid.android.lint" }
-nowinandroid-android-room = { id = "nowinandroid.android.room" }
-nowinandroid-android-test = { id = "nowinandroid.android.test" }
-nowinandroid-hilt = { id = "nowinandroid.hilt" }
-nowinandroid-jvm-library = { id = "nowinandroid.jvm.library" }
+onepercentbetter-android-application = { id = "onepercentbetter.android.application" }
+onepercentbetter-android-application-compose = { id = "onepercentbetter.android.application.compose" }
+onepercentbetter-android-application-firebase = { id = "onepercentbetter.android.application.firebase" }
+onepercentbetter-android-application-flavors = { id = "onepercentbetter.android.application.flavors" }
+onepercentbetter-android-application-jacoco = { id = "onepercentbetter.android.application.jacoco" }
+onepercentbetter-android-feature = { id = "onepercentbetter.android.feature" }
+onepercentbetter-android-library = { id = "onepercentbetter.android.library" }
+onepercentbetter-android-library-compose = { id = "onepercentbetter.android.library.compose" }
+onepercentbetter-android-library-jacoco = { id = "onepercentbetter.android.library.jacoco" }
+onepercentbetter-android-lint = { id = "onepercentbetter.android.lint" }
+onepercentbetter-android-room = { id = "onepercentbetter.android.room" }
+onepercentbetter-android-test = { id = "onepercentbetter.android.test" }
+onepercentbetter-hilt = { id = "onepercentbetter.hilt" }
+onepercentbetter-jvm-library = { id = "onepercentbetter.jvm.library" }

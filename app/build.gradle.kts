@@ -16,12 +16,12 @@
 import com.onepercentbetter.NiaBuildType
 
 plugins {
-    alias(libs.plugins.nowinandroid.android.application)
-    alias(libs.plugins.nowinandroid.android.application.compose)
-    alias(libs.plugins.nowinandroid.android.application.flavors)
-    alias(libs.plugins.nowinandroid.android.application.jacoco)
-    alias(libs.plugins.nowinandroid.android.application.firebase)
-    alias(libs.plugins.nowinandroid.hilt)
+    alias(libs.plugins.onepercentbetter.android.application)
+    alias(libs.plugins.onepercentbetter.android.application.compose)
+    alias(libs.plugins.onepercentbetter.android.application.flavors)
+    alias(libs.plugins.onepercentbetter.android.application.jacoco)
+    alias(libs.plugins.onepercentbetter.android.application.firebase)
+    alias(libs.plugins.onepercentbetter.hilt)
     id("com.google.android.gms.oss-licenses-plugin")
     alias(libs.plugins.baselineprofile)
     alias(libs.plugins.roborazzi)

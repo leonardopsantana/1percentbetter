@@ -26,18 +26,18 @@ import javax.inject.Inject
 /**
  * An [androidx.datastore.core.Serializer] for the [UserPreferences] proto.
  */
-class UserPreferencesSerializer @Inject constructor() : Serializer<_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences> {
-    override val defaultValue: _root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences = _root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.getDefaultInstance()
+class UserPreferencesSerializer @Inject constructor() : Serializer<UserPreferences> {
+    override val defaultValue: UserPreferences = UserPreferences.getDefaultInstance()
 
-    override suspend fun readFrom(input: InputStream): _root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences =
+    override suspend fun readFrom(input: InputStream): UserPreferences =
         try {
             // readFrom is already called on the data store background thread
-            _root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.parseFrom(input)
+            UserPreferences.parseFrom(input)
         } catch (exception: InvalidProtocolBufferException) {
             throw CorruptionException("Cannot read proto.", exception)
         }
 
-    override suspend fun writeTo(t: _root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences, output: OutputStream) {
+    override suspend fun writeTo(t: UserPreferences, output: OutputStream) {
         // writeTo is already called on the data store background thread
         t.writeTo(output)
     }

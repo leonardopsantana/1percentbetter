@@ -32,13 +32,13 @@ import com.onepercentbetter.NiaFlavor
  * limitations under the License.
  */
 plugins {
-    alias(libs.plugins.nowinandroid.android.application)
-    alias(libs.plugins.nowinandroid.android.application.compose)
+    alias(libs.plugins.onepercentbetter.android.application)
+    alias(libs.plugins.onepercentbetter.android.application.compose)
 }
 
 android {
     defaultConfig {
-        applicationId = "com.google.samples.apps.niacatalog"
+        applicationId = "com.onepercentbetter.opbcatalog"
         versionCode = 1
         versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
@@ -52,7 +52,7 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
-    namespace = "com.google.samples.apps.niacatalog"
+    namespace = "com.onepercentbetter.opbcatalog"
 
     buildTypes {
         release {

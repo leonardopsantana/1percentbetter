@@ -17,7 +17,7 @@ import com.onepercentbetter.configureFlavors
 
 plugins {
     alias(libs.plugins.baselineprofile)
-    alias(libs.plugins.nowinandroid.android.test)
+    alias(libs.plugins.onepercentbetter.android.test)
 }
 
 android {

@@ -21,11 +21,11 @@ import androidx.datastore.core.DataMigration
 /**
  * Migrates saved ids from [Int] to [String] types
  */
-internal object IntToStringIdsMigration : DataMigration<_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences> {
+internal object IntToStringIdsMigration : DataMigration<UserPreferences> {
 
     override suspend fun cleanUp() = Unit
 
-    override suspend fun migrate(currentData: _root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences): _root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences =
+    override suspend fun migrate(currentData: UserPreferences): UserPreferences =
         currentData.copy {
             // Migrate topic ids
             deprecatedFollowedTopicIds.clear()
@@ -45,6 +45,6 @@ internal object IntToStringIdsMigration : DataMigration<_root_ide_package_.com.o
             hasDoneIntToStringIdMigration = true
         }
 
-    override suspend fun shouldMigrate(currentData: _root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences): Boolean =
+    override suspend fun shouldMigrate(currentData: UserPreferences): Boolean =
         !currentData.hasDoneIntToStringIdMigration
 }

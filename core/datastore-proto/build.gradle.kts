@@ -15,7 +15,7 @@
  */
 
 plugins {
-    alias(libs.plugins.nowinandroid.android.library)
+    alias(libs.plugins.onepercentbetter.android.library)
     alias(libs.plugins.protobuf)
 }
 

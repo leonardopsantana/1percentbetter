@@ -21,11 +21,11 @@ import androidx.datastore.core.DataMigration
 /**
  * Migrates from using lists to maps for user data.
  */
-internal object ListToMapMigration : DataMigration<_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences> {
+internal object ListToMapMigration : DataMigration<UserPreferences> {
 
     override suspend fun cleanUp() = Unit
 
-    override suspend fun migrate(currentData: _root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences): _root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences =
+    override suspend fun migrate(currentData: UserPreferences): UserPreferences =
         currentData.copy {
             // Migrate topic id lists
             followedTopicIds.clear()
@@ -52,6 +52,6 @@ internal object ListToMapMigration : DataMigration<_root_ide_package_.com.oneper
             hasDoneListToMapMigration = true
         }
 
-    override suspend fun shouldMigrate(currentData: _root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences): Boolean =
+    override suspend fun shouldMigrate(currentData: UserPreferences): Boolean =
         !currentData.hasDoneListToMapMigration
 }
