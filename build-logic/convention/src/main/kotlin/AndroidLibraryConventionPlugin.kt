@@ -16,12 +16,12 @@
 
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
-import com.google.samples.apps.nowinandroid.configureFlavors
-import com.google.samples.apps.nowinandroid.configureGradleManagedDevices
-import com.google.samples.apps.nowinandroid.configureKotlinAndroid
-import com.google.samples.apps.nowinandroid.configurePrintApksTask
-import com.google.samples.apps.nowinandroid.disableUnnecessaryAndroidTests
-import com.google.samples.apps.nowinandroid.libs
+import com.onepercentbetter.configureFlavors
+import com.onepercentbetter.configureGradleManagedDevices
+import com.onepercentbetter.configureKotlinAndroid
+import com.onepercentbetter.configurePrintApksTask
+import com.onepercentbetter.disableUnnecessaryAndroidTests
+import com.onepercentbetter.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -33,7 +33,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
         with(target) {
             apply(plugin = "com.android.library")
             apply(plugin = "org.jetbrains.kotlin.android")
-            apply(plugin = "nowinandroid.android.lint")
+            apply(plugin = "onepercentbetter.android.lint")
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)

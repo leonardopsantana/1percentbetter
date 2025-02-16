@@ -15,8 +15,8 @@
  */
 
 import com.android.build.gradle.LibraryExtension
-import com.google.samples.apps.nowinandroid.configureGradleManagedDevices
-import com.google.samples.apps.nowinandroid.libs
+import com.onepercentbetter.configureGradleManagedDevices
+import com.onepercentbetter.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -26,8 +26,8 @@ import org.gradle.kotlin.dsl.dependencies
 class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "nowinandroid.android.library")
-            apply(plugin = "nowinandroid.hilt")
+            apply(plugin = "onepercentbetter.android.library")
+            apply(plugin = "onepercentbetter.hilt")
             apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 
             extensions.configure<LibraryExtension> {

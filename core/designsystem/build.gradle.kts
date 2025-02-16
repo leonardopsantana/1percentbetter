@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 plugins {
-    alias(libs.plugins.nowinandroid.android.library)
-    alias(libs.plugins.nowinandroid.android.library.compose)
-    alias(libs.plugins.nowinandroid.android.library.jacoco)
+    alias(libs.plugins.onepercentbetter.android.library)
+    alias(libs.plugins.onepercentbetter.android.library.compose)
+    alias(libs.plugins.onepercentbetter.android.library.jacoco)
     alias(libs.plugins.roborazzi)
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.core.designsystem"
+    namespace = "com.onepercentbetter.core.designsystem"
 }
 
 dependencies {

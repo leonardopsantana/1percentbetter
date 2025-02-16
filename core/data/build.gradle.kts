@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 plugins {
-    alias(libs.plugins.nowinandroid.android.library)
-    alias(libs.plugins.nowinandroid.android.library.jacoco)
-    alias(libs.plugins.nowinandroid.hilt)
+    alias(libs.plugins.onepercentbetter.android.library)
+    alias(libs.plugins.onepercentbetter.android.library.jacoco)
+    alias(libs.plugins.onepercentbetter.hilt)
     id("kotlinx-serialization")
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.core.data"
+    namespace = "com.onepercentbetter.core.data"
     testOptions {
         unitTests {
             isIncludeAndroidResources = true

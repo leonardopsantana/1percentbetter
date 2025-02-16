@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import com.google.samples.apps.nowinandroid.configureFlavors
+import com.onepercentbetter.configureFlavors
 
 plugins {
     alias(libs.plugins.baselineprofile)
-    alias(libs.plugins.nowinandroid.android.test)
+    alias(libs.plugins.onepercentbetter.android.test)
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.benchmarks"
+    namespace = "com.onepercentbetterbenchmarks"
 
     defaultConfig {
         minSdk = 28

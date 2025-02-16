@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 plugins {
-    alias(libs.plugins.nowinandroid.android.library)
-    alias(libs.plugins.nowinandroid.android.library.compose)
-    alias(libs.plugins.nowinandroid.hilt)
+    alias(libs.plugins.onepercentbetter.android.library)
+    alias(libs.plugins.onepercentbetter.android.library.compose)
+    alias(libs.plugins.onepercentbetter.hilt)
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.core.screenshottesting"
+    namespace = "com.onepercentbetter.core.screenshottesting"
 }
 
 dependencies {

@@ -15,12 +15,12 @@
  */
 
 plugins {
-    alias(libs.plugins.nowinandroid.android.library)
+    alias(libs.plugins.onepercentbetter.android.library)
     alias(libs.plugins.protobuf)
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.core.datastore.proto"
+    namespace = "com.onepercentbetter.core.datastore.proto"
 }
 
 // Setup protobuf configuration, generating lite Java and Kotlin classes
