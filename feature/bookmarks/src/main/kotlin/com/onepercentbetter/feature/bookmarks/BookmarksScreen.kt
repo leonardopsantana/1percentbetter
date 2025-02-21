@@ -1,18 +1,4 @@
-/*
- * Copyright 2025 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.onepercentbetter.feature.bookmarks
 
@@ -60,12 +46,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.onepercentbetter.core.designsystem.component.NiaLoadingWheel
+import com.onepercentbetter.core.designsystem.component.OPBLoadingWheel
 import com.onepercentbetter.core.designsystem.component.scrollbar.DraggableScrollbar
 import com.onepercentbetter.core.designsystem.component.scrollbar.rememberDraggableScroller
 import com.onepercentbetter.core.designsystem.component.scrollbar.scrollbarState
 import com.onepercentbetter.core.designsystem.theme.LocalTintTheme
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.model.data.UserNewsResource
 import com.onepercentbetter.core.ui.NewsFeedUiState
 import com.onepercentbetter.core.ui.NewsFeedUiState.Loading
@@ -74,7 +60,6 @@ import com.onepercentbetter.core.ui.TrackScreenViewEvent
 import com.onepercentbetter.core.ui.TrackScrollJank
 import com.onepercentbetter.core.ui.UserNewsResourcePreviewParameterProvider
 import com.onepercentbetter.core.ui.newsFeed
-import com.onepercentbetter.feature.bookmarks.R
 
 @Composable
 internal fun BookmarksRoute(
@@ -151,7 +136,7 @@ internal fun BookmarksScreen(
 
 @Composable
 private fun LoadingState(modifier: Modifier = Modifier) {
-    NiaLoadingWheel(
+    OPBLoadingWheel(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentSize()
@@ -258,7 +243,7 @@ private fun EmptyState(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun LoadingStatePreview() {
-    NiaTheme {
+    OPBTheme {
         LoadingState()
     }
 }
@@ -269,7 +254,7 @@ private fun BookmarksGridPreview(
     @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
     userNewsResources: List<UserNewsResource>,
 ) {
-    NiaTheme {
+    OPBTheme {
         BookmarksGrid(
             feedState = Success(userNewsResources),
             removeFromBookmarks = {},
@@ -282,7 +267,7 @@ private fun BookmarksGridPreview(
 @Preview
 @Composable
 private fun EmptyStatePreview() {
-    NiaTheme {
+    OPBTheme {
         EmptyState()
     }
 }

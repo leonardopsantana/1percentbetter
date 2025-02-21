@@ -1,18 +1,4 @@
-/*
- * Copyright 2025 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.onepercentbetter.core.data.test.repository
 
@@ -22,8 +8,8 @@ import com.onepercentbetter.core.data.repository.NewsRepository
 import com.onepercentbetter.core.data.repository.NewsResourceQuery
 import com.onepercentbetter.core.model.data.NewsResource
 import com.onepercentbetter.core.network.Dispatcher
-import com.onepercentbetter.core.network.NiaDispatchers.IO
-import com.onepercentbetter.core.network.demo.DemoNiaNetworkDataSource
+import com.onepercentbetter.core.network.OPBDispatchers.IO
+import com.onepercentbetter.core.network.demo.DemoOPBNetworkDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -38,7 +24,7 @@ import javax.inject.Inject
  */
 class FakeNewsRepository @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
-    private val datasource: DemoNiaNetworkDataSource,
+    private val datasource: DemoOPBNetworkDataSource,
 ) : NewsRepository {
 
     override fun getNewsResources(

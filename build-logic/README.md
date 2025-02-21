@@ -27,12 +27,22 @@ If there is one-off logic for a module without shared code, it's preferable to d
 in the module's `build.gradle`, as opposed to creating a convention plugin with module-specific
 setup.
 
-Current list of convention plugins:
+Other benefits of convention plugins:
 
-- [`nowinandroid.android.application`](convention/src/main/kotlin/AndroidApplicationConventionPlugin.kt),
-  [`nowinandroid.android.library`](convention/src/main/kotlin/AndroidLibraryConventionPlugin.kt),
-  [`nowinandroid.android.test`](convention/src/main/kotlin/AndroidTestConventionPlugin.kt):
-  Configures common Android and Kotlin options.
-- [`nowinandroid.android.application.compose`](convention/src/main/kotlin/AndroidApplicationComposeConventionPlugin.kt),
-  [`nowinandroid.android.library.compose`](convention/src/main/kotlin/AndroidLibraryComposeConventionPlugin.kt):
-  Configures Jetpack Compose options
+Using convention plugins in an Android project speeds up your build time primarily due to better configuration caching, reduced build script complexity, and improved reusability. Here’s why:
+
+1. Configuration Caching & Avoiding Script Execution Overhead
+   When you use convention plugins, Gradle doesn’t need to repeatedly evaluate multiple build.gradle(.kts) files across modules.
+   The configuration phase becomes faster because all common settings are preconfigured in a single plugin instead of being repeated in each module.
+   Gradle can cache the plugin’s applied settings, reducing redundant work.
+2. Reduced Duplication & Simplified Gradle Files
+   Without convention plugins, each module might have its own redundant configurations, leading to longer build script processing.
+   By centralizing these configurations in a convention plugin, each module's build.gradle(.kts) stays lightweight, reducing the time required to parse and apply settings.
+3. Parallel Execution & Incremental Build Benefits
+   Convention plugins modularize the build logic, allowing Gradle to parallelize execution better.
+   Since the convention plugin is compiled ahead of time, its code executes faster than a raw build.gradle script (which is interpreted at runtime).
+4. Better Dependency & Task Caching
+   Convention plugins allow more consistent dependency versions across modules, reducing unnecessary dependency resolution steps.
+   Tasks using convention-based configurations can better leverage Gradle’s incremental build system because Gradle understands them as predefined, structured rules.
+5. Reduced Kotlin DSL Overhead
+   Using Kotlin DSL (.kts), convention plugins minimize script compilation overhead by moving logic into precompiled plugins, which execute faster than dynamically interpreted .kts scripts.

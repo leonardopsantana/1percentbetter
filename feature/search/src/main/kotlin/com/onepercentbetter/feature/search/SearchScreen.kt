@@ -1,18 +1,4 @@
-/*
- * Copyright 2025 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.onepercentbetter.feature.search
 
@@ -83,8 +69,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.onepercentbetter.core.designsystem.component.scrollbar.DraggableScrollbar
 import com.onepercentbetter.core.designsystem.component.scrollbar.rememberDraggableScroller
 import com.onepercentbetter.core.designsystem.component.scrollbar.scrollbarState
-import com.onepercentbetter.core.designsystem.icon.NiaIcons
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.icon.OPBIcons
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.model.data.FollowableTopic
 import com.onepercentbetter.core.model.data.UserNewsResource
 import com.onepercentbetter.core.ui.DevicePreviews
@@ -419,7 +405,7 @@ private fun RecentSearchesBody(
                     modifier = Modifier.padding(horizontal = 16.dp),
                 ) {
                     Icon(
-                        imageVector = NiaIcons.Close,
+                        imageVector = OPBIcons.Close,
                         contentDescription = stringResource(
                             id = searchR.string.feature_search_clear_recent_searches_content_desc,
                         ),
@@ -457,7 +443,7 @@ private fun SearchToolbar(
     ) {
         IconButton(onClick = { onBackClick() }) {
             Icon(
-                imageVector = NiaIcons.ArrowBack,
+                imageVector = OPBIcons.ArrowBack,
                 contentDescription = stringResource(
                     id = string.core_ui_back,
                 ),
@@ -493,7 +479,7 @@ private fun SearchTextField(
         ),
         leadingIcon = {
             Icon(
-                imageVector = NiaIcons.Search,
+                imageVector = OPBIcons.Search,
                 contentDescription = stringResource(
                     id = searchR.string.feature_search_title,
                 ),
@@ -508,7 +494,7 @@ private fun SearchTextField(
                     },
                 ) {
                     Icon(
-                        imageVector = NiaIcons.Close,
+                        imageVector = OPBIcons.Close,
                         contentDescription = stringResource(
                             id = searchR.string.feature_search_clear_search_text_content_desc,
                         ),
@@ -556,7 +542,7 @@ private fun SearchTextField(
 @Preview
 @Composable
 private fun SearchToolbarPreview() {
-    NiaTheme {
+    OPBTheme {
         SearchToolbar(
             searchQuery = "",
             onBackClick = {},
@@ -569,7 +555,7 @@ private fun SearchToolbarPreview() {
 @Preview
 @Composable
 private fun EmptySearchResultColumnPreview() {
-    NiaTheme {
+    OPBTheme {
         EmptySearchResultBody(
             onInterestsClick = {},
             searchQuery = "C++",
@@ -580,7 +566,7 @@ private fun EmptySearchResultColumnPreview() {
 @Preview
 @Composable
 private fun RecentSearchesBodyPreview() {
-    NiaTheme {
+    OPBTheme {
         RecentSearchesBody(
             onClearRecentSearches = {},
             onRecentSearchClicked = {},
@@ -592,7 +578,7 @@ private fun RecentSearchesBodyPreview() {
 @Preview
 @Composable
 private fun SearchNotReadyBodyPreview() {
-    NiaTheme {
+    OPBTheme {
         SearchNotReadyBody()
     }
 }
@@ -603,7 +589,7 @@ private fun SearchScreenPreview(
     @PreviewParameter(SearchUiStatePreviewParameterProvider::class)
     searchResultUiState: SearchResultUiState,
 ) {
-    NiaTheme {
+    OPBTheme {
         SearchScreen(searchResultUiState = searchResultUiState)
     }
 }

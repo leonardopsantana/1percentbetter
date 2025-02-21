@@ -1,18 +1,4 @@
-/*
- * Copyright 2025 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.onepercentbetter.sync.workers
 
@@ -30,9 +16,9 @@ import com.onepercentbetter.core.data.repository.NewsRepository
 import com.onepercentbetter.core.data.repository.SearchContentsRepository
 import com.onepercentbetter.core.data.repository.TopicsRepository
 import com.onepercentbetter.core.datastore.ChangeListVersions
-import com.onepercentbetter.core.datastore.NiaPreferencesDataSource
+import com.onepercentbetter.core.datastore.OPBPreferencesDataSource
 import com.onepercentbetter.core.network.Dispatcher
-import com.onepercentbetter.core.network.NiaDispatchers.IO
+import com.onepercentbetter.core.network.OPBDispatchers.IO
 import com.onepercentbetter.sync.initializers.SyncConstraints
 import com.onepercentbetter.sync.initializers.syncForegroundInfo
 import com.onepercentbetter.sync.status.SyncSubscriber
@@ -51,7 +37,7 @@ import kotlinx.coroutines.withContext
 internal class SyncWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
-    private val niaPreferences: NiaPreferencesDataSource,
+    private val opbPreferences: OPBPreferencesDataSource,
     private val topicRepository: TopicsRepository,
     private val newsRepository: NewsRepository,
     private val searchContentsRepository: SearchContentsRepository,
@@ -87,11 +73,11 @@ internal class SyncWorker @AssistedInject constructor(
     }
 
     override suspend fun getChangeListVersions(): ChangeListVersions =
-        niaPreferences.getChangeListVersions()
+        opbPreferences.getChangeListVersions()
 
     override suspend fun updateChangeListVersions(
         update: ChangeListVersions.() -> ChangeListVersions,
-    ) = niaPreferences.updateChangeListVersion(update)
+    ) = opbPreferences.updateChangeListVersion(update)
 
     companion object {
         /**

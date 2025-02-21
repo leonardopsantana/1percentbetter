@@ -1,18 +1,4 @@
-/*
- * Copyright 2025 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 @file:Suppress("ktlint:standard:max-line-length")
 
@@ -55,8 +41,8 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.onepercentbetter.core.designsystem.component.NiaTextButton
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.component.OPBTextButton
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.designsystem.theme.supportsDynamicTheming
 import com.onepercentbetter.core.model.data.DarkThemeConfig
 import com.onepercentbetter.core.model.data.DarkThemeConfig.DARK
@@ -140,7 +126,7 @@ fun SettingsDialog(
             TrackScreenViewEvent(screenName = "Settings")
         },
         confirmButton = {
-            NiaTextButton(
+            OPBTextButton(
                 onClick = onDismiss,
                 modifier = Modifier.padding(horizontal = 8.dp),
             ) {
@@ -259,28 +245,18 @@ private fun LinksPanel() {
         modifier = Modifier.fillMaxWidth(),
     ) {
         val uriHandler = LocalUriHandler.current
-        NiaTextButton(
+        OPBTextButton(
             onClick = { uriHandler.openUri(PRIVACY_POLICY_URL) },
         ) {
             Text(text = stringResource(string.feature_settings_privacy_policy))
         }
         val context = LocalContext.current
-        NiaTextButton(
+        OPBTextButton(
             onClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
         ) {
             Text(text = stringResource(string.feature_settings_licenses))
-        }
-        NiaTextButton(
-            onClick = { uriHandler.openUri(BRAND_GUIDELINES_URL) },
-        ) {
-            Text(text = stringResource(string.feature_settings_brand_guidelines))
-        }
-        NiaTextButton(
-            onClick = { uriHandler.openUri(FEEDBACK_URL) },
-        ) {
-            Text(text = stringResource(string.feature_settings_feedback))
         }
     }
 }
@@ -288,7 +264,7 @@ private fun LinksPanel() {
 @Preview
 @Composable
 private fun PreviewSettingsDialog() {
-    NiaTheme {
+    OPBTheme {
         SettingsDialog(
             onDismiss = {},
             settingsUiState = Success(
@@ -308,7 +284,7 @@ private fun PreviewSettingsDialog() {
 @Preview
 @Composable
 private fun PreviewSettingsDialogLoading() {
-    NiaTheme {
+    OPBTheme {
         SettingsDialog(
             onDismiss = {},
             settingsUiState = Loading,
@@ -320,5 +296,3 @@ private fun PreviewSettingsDialogLoading() {
 }
 
 private const val PRIVACY_POLICY_URL = "https://policies.google.com/privacy"
-private const val BRAND_GUIDELINES_URL = "https://developer.android.com/distribute/marketing-tools/brand-guidelines"
-private const val FEEDBACK_URL = "https://goo.gle/nia-app-feedback"

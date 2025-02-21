@@ -1,38 +1,27 @@
-![Now in Android](docs/images/nia-splash.jpg "Now in Android")
+![One percent better ](docs/images/opb-splash.jpg "One percent better ")
 
 <a href="https://play.google.com/store/apps/details?id=com.google.samples.apps.nowinandroid"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="70"></a>
 
-Now in Android App
+One percent better  App
 ==================
+** Educational purposes only! Forked from nowinandroid community app to be consistent with all google recommendations of a Modern Android Development and gave it my personal productivity app**
 
-**Learn how this app was designed and built in the [design case study](https://goo.gle/nia-figma), [architecture learning journey](docs/ArchitectureLearningJourney.md) and [modularization learning journey](docs/ModularizationLearningJourney.md).**
+Always **work in progress** and updated with the news on android world 🚧.
 
-This is the repository for the [Now in Android](https://developer.android.com/series/now-in-android)
-app. It is a **work in progress** 🚧.
-
-**Now in Android** is a fully functional Android app built entirely with Kotlin and Jetpack Compose. It
+**OPB** is a fully functional Android app built entirely with Kotlin and Jetpack Compose. It
 follows Android design and development best practices and is intended to be a useful reference
-for developers. As a running app, it's intended to help developers keep up-to-date with the world
-of Android development by providing regular news updates.
+for myself(!).
 
 The app is currently in development. The `prodRelease` variant is [available on the Play Store](https://play.google.com/store/apps/details?id=com.google.samples.apps.nowinandroid).
 
 # Features
 
-**Now in Android** displays content from the
-[Now in Android](https://developer.android.com/series/now-in-android) series. Users can browse for
-links to recent videos, articles and other content. Users can also follow topics they are interested
-in, and be notified when new content is published which matches interests they are following.
+**OPB** helps to create a productivity routine for body, mind and soul!
 
 ## Screenshots
 
 ![Screenshot showing For You screen, Interests screen and Topic detail screen](docs/images/screenshots.png "Screenshot showing For You screen, Interests screen and Topic detail screen")
 
-# Development Environment
-
-**Now in Android** uses the Gradle build system and can be imported directly into Android Studio (make sure you are using the latest stable version available [here](https://developer.android.com/studio)). 
-
-Change the run configuration to `app`.
 
 ![image](https://user-images.githubusercontent.com/873212/210559920-ef4a40c5-c8e0-478b-bb00-4879a8cf184a.png)
 
@@ -40,21 +29,17 @@ The `demoDebug` and `demoRelease` build variants can be built and run (the `prod
 
 ![image](https://user-images.githubusercontent.com/873212/210560507-44045dc5-b6d5-41ca-9746-f0f7acf22f8e.png)
 
-Once you're up and running, you can refer to the learning journeys below to get a better
-understanding of which libraries and tools are being used, the reasoning behind the approaches to
-UI, testing, architecture and more, and how all of these different pieces of the project fit
-together to create a complete app.
 
 # Architecture
 
-The **Now in Android** app follows the
+The **OPB** app follows the
 [official architecture guidance](https://developer.android.com/topic/architecture) 
 and is described in detail in the
 [architecture learning journey](docs/ArchitectureLearningJourney.md).
 
 # Modularization
 
-The **Now in Android** app has been fully modularized and you can find the detailed guidance and
+The **One percent better ** app has been fully modularized and you can find the detailed guidance and
 description of the modularization strategy used in
 [modularization learning journey](docs/ModularizationLearningJourney.md).
 
@@ -65,8 +50,8 @@ The app contains the usual `debug` and `release` build variants.
 In addition, the `benchmark` variant of `app` is used to test startup performance and generate a
 baseline profile (see below for more information).
 
-`app-nia-catalog` is a standalone app that displays the list of components that are stylized for
-**Now in Android**.
+`app-opb-catalog` is a standalone app that displays the list of components that are stylized for
+**One percent better **.
 
 The app also uses
 [product flavors](https://developer.android.com/studio/build/build-variants#product-flavors) to
@@ -82,13 +67,13 @@ For normal development use the `demoDebug` variant. For UI performance testing u
 
 # Testing
 
-To facilitate testing of components, **Now in Android** uses dependency injection with
+To facilitate testing of components, **One percent better ** uses dependency injection with
 [Hilt](https://developer.android.com/training/dependency-injection/hilt-android).
 
 Most data layer components are defined as interfaces.
 Then, concrete implementations (with various dependencies) are bound to provide those interfaces to
 other components in the app.
-In tests, **Now in Android** notably does _not_ use any mocking libraries.
+In tests, **One percent better ** notably does _not_ use any mocking libraries.
 Instead, the production implementations can be replaced with test doubles using Hilt's testing APIs
 (or via manual constructor injection for `ViewModel` tests).
 
@@ -124,11 +109,11 @@ tests against _all_ build variants which is both unnecessary and will result in 
 A screenshot test takes a screenshot of a screen or a UI component within the app, and compares it 
 with a previously recorded screenshot which is known to be rendered correctly. 
 
-For example, Now in Android has [screenshot tests](https://github.com/android/nowinandroid/blob/main/app/src/testDemo/kotlin/com/google/samples/apps/nowinandroid/ui/NiaAppScreenSizesScreenshotTests.kt)
+For example, One percent better has OPBAppScreenSizesScreenshotTests.kt
 to verify that the navigation is displayed correctly on different screen sizes 
 ([known correct screenshots](https://github.com/android/nowinandroid/tree/main/app/src/testDemo/screenshots)). 
 
-Now In Android uses [Roborazzi](https://github.com/takahirom/roborazzi) to run screenshot tests
+One percent better  uses [Roborazzi](https://github.com/takahirom/roborazzi) to run screenshot tests
 of certain screens and UI components. When working with screenshot tests the following gradle tasks are useful:
 
 - `verifyRoborazziDemoDebug` run all screenshot tests, verifying the screenshots against the known
@@ -151,8 +136,7 @@ For more information about screenshot testing
 [check out this talk](https://www.droidcon.com/2023/11/15/easy-screenshot-testing-with-compose/).
 
 # UI
-The app was designed using [Material 3 guidelines](https://m3.material.io/). Learn more about the design process and 
-obtain the design files in the [Now in Android Material 3 Case Study](https://goo.gle/nia-figma) (design assets [also available as a PDF](docs/Now-In-Android-Design-File.pdf)).
+The app was designed using [Material 3 guidelines](https://m3.material.io/). 
 
 The Screens and UI elements are built entirely using [Jetpack Compose](https://developer.android.com/jetpack/compose). 
 
@@ -203,5 +187,5 @@ For more information on Compose compiler metrics, see [this blog post](https://m
 
 # License
 
-**Now in Android** is distributed under the terms of the Apache License (Version 2.0). See the
+**One percent better ** is distributed under the terms of the Apache License (Version 2.0). See the
 [license](LICENSE) for more information.

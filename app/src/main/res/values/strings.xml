@@ -15,6 +15,6 @@
      limitations under the License.
 -->
 <resources>
-    <string name="app_name">Now in Android</string>
+    <string name="app_name">1% better</string>
     <string name="not_connected">⚠️ You aren’t connected to the internet</string>
 </resources>

@@ -1,18 +1,4 @@
-/*
- * Copyright 2025 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.onepercentbetter.feature.interests
 
@@ -26,14 +12,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.onepercentbetter.core.designsystem.component.NiaBackground
-import com.onepercentbetter.core.designsystem.component.NiaLoadingWheel
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.component.OPBBackground
+import com.onepercentbetter.core.designsystem.component.OPBLoadingWheel
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.model.data.FollowableTopic
 import com.onepercentbetter.core.ui.DevicePreviews
 import com.onepercentbetter.core.ui.FollowableTopicPreviewParameterProvider
 import com.onepercentbetter.core.ui.TrackScreenViewEvent
-import com.onepercentbetter.feature.interests.R
 import com.onepercentbetter.feature.interests.InterestsUiState.Empty
 import com.onepercentbetter.feature.interests.InterestsUiState.Interests
 import com.onepercentbetter.feature.interests.InterestsUiState.Loading
@@ -73,7 +58,7 @@ internal fun InterestsScreen(
     ) {
         when (uiState) {
             Loading ->
-                NiaLoadingWheel(
+                OPBLoadingWheel(
                     modifier = modifier,
                     contentDesc = stringResource(id = R.string.feature_interests_loading),
                 )
@@ -105,8 +90,8 @@ fun InterestsScreenPopulated(
     @PreviewParameter(FollowableTopicPreviewParameterProvider::class)
     followableTopics: List<FollowableTopic>,
 ) {
-    NiaTheme {
-        NiaBackground {
+    OPBTheme {
+        OPBBackground {
             InterestsScreen(
                 uiState = Interests(
                     selectedTopicId = null,
@@ -122,8 +107,8 @@ fun InterestsScreenPopulated(
 @DevicePreviews
 @Composable
 fun InterestsScreenLoading() {
-    NiaTheme {
-        NiaBackground {
+    OPBTheme {
+        OPBBackground {
             InterestsScreen(
                 uiState = Loading,
                 followTopic = { _, _ -> },
@@ -136,8 +121,8 @@ fun InterestsScreenLoading() {
 @DevicePreviews
 @Composable
 fun InterestsScreenEmpty() {
-    NiaTheme {
-        NiaBackground {
+    OPBTheme {
+        OPBBackground {
             InterestsScreen(
                 uiState = Empty,
                 followTopic = { _, _ -> },

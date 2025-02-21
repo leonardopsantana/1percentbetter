@@ -1,18 +1,4 @@
-/*
- * Copyright 2025 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.onepercentbetter.lint.designsystem
 
@@ -30,7 +16,7 @@ import org.jetbrains.uast.UQualifiedReferenceExpression
 
 /**
  * A detector that checks for incorrect usages of Compose Material APIs over equivalents in
- * the Now in Android design system module.
+ * the One percent better design system module.
  */
 class DesignSystemDetector : Detector(), Detector.UastScanner {
 
@@ -60,7 +46,7 @@ class DesignSystemDetector : Detector(), Detector.UastScanner {
             id = "DesignSystem",
             briefDescription = "Design system",
             explanation = "This check highlights calls in code that use Compose Material " +
-                "composables instead of equivalents from the Now in Android design system " +
+                "composables instead of equivalents from the One percent better design system " +
                 "module.",
             category = Category.CUSTOM_LINT_CHECKS,
             priority = 7,
@@ -75,29 +61,29 @@ class DesignSystemDetector : Detector(), Detector.UastScanner {
         // Android module, so we can't use composable function references (eg. ::Button.name)
         // instead of hardcoded names.
         val METHOD_NAMES = mapOf(
-            "MaterialTheme" to "NiaTheme",
-            "Button" to "NiaButton",
-            "OutlinedButton" to "NiaOutlinedButton",
-            "TextButton" to "NiaTextButton",
-            "FilterChip" to "NiaFilterChip",
-            "ElevatedFilterChip" to "NiaFilterChip",
-            "NavigationBar" to "NiaNavigationBar",
-            "NavigationBarItem" to "NiaNavigationBarItem",
-            "NavigationRail" to "NiaNavigationRail",
-            "NavigationRailItem" to "NiaNavigationRailItem",
-            "TabRow" to "NiaTabRow",
-            "Tab" to "NiaTab",
-            "IconToggleButton" to "NiaIconToggleButton",
-            "FilledIconToggleButton" to "NiaIconToggleButton",
-            "FilledTonalIconToggleButton" to "NiaIconToggleButton",
-            "OutlinedIconToggleButton" to "NiaIconToggleButton",
-            "CenterAlignedTopAppBar" to "NiaTopAppBar",
-            "SmallTopAppBar" to "NiaTopAppBar",
-            "MediumTopAppBar" to "NiaTopAppBar",
-            "LargeTopAppBar" to "NiaTopAppBar",
+            "MaterialTheme" to "OPBTheme",
+            "Button" to "OPBButton",
+            "OutlinedButton" to "OPBOutlinedButton",
+            "TextButton" to "OPBTextButton",
+            "FilterChip" to "OPBFilterChip",
+            "ElevatedFilterChip" to "OPBFilterChip",
+            "NavigationBar" to "OPBNavigationBar",
+            "NavigationBarItem" to "OPBNavigationBarItem",
+            "NavigationRail" to "OPBNavigationRail",
+            "NavigationRailItem" to "OPBNavigationRailItem",
+            "TabRow" to "OPBTabRow",
+            "Tab" to "OPBTab",
+            "IconToggleButton" to "OPBIconToggleButton",
+            "FilledIconToggleButton" to "OPBIconToggleButton",
+            "FilledTonalIconToggleButton" to "OPBIconToggleButton",
+            "OutlinedIconToggleButton" to "OPBIconToggleButton",
+            "CenterAlignedTopAppBar" to "OPBTopAppBar",
+            "SmallTopAppBar" to "OPBTopAppBar",
+            "MediumTopAppBar" to "OPBTopAppBar",
+            "LargeTopAppBar" to "OPBTopAppBar",
         )
         val RECEIVER_NAMES = mapOf(
-            "Icons" to "NiaIcons",
+            "Icons" to "OPBIcons",
         )
 
         fun reportIssue(

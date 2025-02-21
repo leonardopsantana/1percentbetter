@@ -1,18 +1,4 @@
-/*
- * Copyright 2025 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.onepercentbetter.ui
 
@@ -27,7 +13,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.espresso.Espresso
 import com.onepercentbetter.core.data.repository.TopicsRepository
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.model.data.Topic
 import com.onepercentbetterui.interests2pane.InterestsListDetailScreen
 import com.onepercentbetteruitesthiltmanifest.HiltComponentActivity
@@ -86,7 +72,7 @@ class InterestsListDetailScreenTest {
     fun expandedWidth_initialState_showsTwoPanesWithPlaceholder() {
         composeTestRule.apply {
             setContent {
-                NiaTheme {
+                OPBTheme {
                     InterestsListDetailScreen()
                 }
             }
@@ -101,7 +87,7 @@ class InterestsListDetailScreenTest {
     fun compactWidth_initialState_showsListPane() {
         composeTestRule.apply {
             setContent {
-                NiaTheme {
+                OPBTheme {
                     InterestsListDetailScreen()
                 }
             }
@@ -116,7 +102,7 @@ class InterestsListDetailScreenTest {
     fun expandedWidth_topicSelected_updatesDetailPane() {
         composeTestRule.apply {
             setContent {
-                NiaTheme {
+                OPBTheme {
                     InterestsListDetailScreen()
                 }
             }
@@ -135,7 +121,7 @@ class InterestsListDetailScreenTest {
     fun compactWidth_topicSelected_showsTopicDetailPane() {
         composeTestRule.apply {
             setContent {
-                NiaTheme {
+                OPBTheme {
                     InterestsListDetailScreen()
                 }
             }
@@ -155,7 +141,7 @@ class InterestsListDetailScreenTest {
         var unhandledBackPress = false
         composeTestRule.apply {
             setContent {
-                NiaTheme {
+                OPBTheme {
                     // Back press should not be handled by the two pane layout, and thus
                     // "fall through" to this BackHandler.
                     BackHandler {
@@ -180,7 +166,7 @@ class InterestsListDetailScreenTest {
     fun compactWidth_backPressFromTopicDetail_showsListPane() {
         composeTestRule.apply {
             setContent {
-                NiaTheme {
+                OPBTheme {
                     InterestsListDetailScreen()
                 }
             }

@@ -1,18 +1,4 @@
-/*
- * Copyright 2025 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.onepercentbetter.core.designsystem
 
@@ -21,9 +7,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onRoot
 import com.github.takahirom.roborazzi.captureRoboImage
-import com.onepercentbetter.core.designsystem.component.NiaLoadingWheel
-import com.onepercentbetter.core.designsystem.component.NiaOverlayLoadingWheel
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.component.OPBLoadingWheel
+import com.onepercentbetter.core.designsystem.component.OPBOverlayLoadingWheel
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.testing.util.DefaultRoborazziOptions
 import com.onepercentbetter.core.testing.util.captureMultiTheme
 import dagger.hilt.android.testing.HiltTestApplication
@@ -48,7 +34,7 @@ class LoadingWheelScreenshotTests {
     fun loadingWheel_multipleThemes() {
         composeTestRule.captureMultiTheme("LoadingWheel") {
             Surface {
-                NiaLoadingWheel(contentDesc = "test")
+                OPBLoadingWheel(contentDesc = "test")
             }
         }
     }
@@ -57,7 +43,7 @@ class LoadingWheelScreenshotTests {
     fun overlayLoadingWheel_multipleThemes() {
         composeTestRule.captureMultiTheme("LoadingWheel", "OverlayLoadingWheel") {
             Surface {
-                NiaOverlayLoadingWheel(contentDesc = "test")
+                OPBOverlayLoadingWheel(contentDesc = "test")
             }
         }
     }
@@ -66,8 +52,8 @@ class LoadingWheelScreenshotTests {
     fun loadingWheelAnimation() {
         composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
-            NiaTheme {
-                NiaLoadingWheel(contentDesc = "")
+            OPBTheme {
+                OPBLoadingWheel(contentDesc = "")
             }
         }
         // Try multiple frames of the animation; some arbitrary, some synchronized with duration.

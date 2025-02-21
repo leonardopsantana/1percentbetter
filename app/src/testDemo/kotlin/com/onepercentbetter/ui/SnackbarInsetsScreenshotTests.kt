@@ -1,18 +1,4 @@
-/*
- * Copyright 2025 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.onepercentbetter.ui
 
@@ -59,8 +45,6 @@ import androidx.compose.ui.unit.roundToIntRect
 import androidx.core.graphics.Insets
 import androidx.core.view.WindowInsetsCompat
 import androidx.window.core.layout.WindowSizeClass
-import com.onepercentbetter.ui.NiaApp
-import com.onepercentbetter.ui.rememberNiaAppState
 import com.github.takahirom.roborazzi.captureRoboImage
 
 import com.onepercentbetter.core.data.repository.TopicsRepository
@@ -68,7 +52,7 @@ import com.onepercentbetter.core.data.repository.UserNewsResourceRepository
 import com.onepercentbetter.core.data.test.repository.FakeUserDataRepository
 import com.onepercentbetter.core.data.util.NetworkMonitor
 import com.onepercentbetter.core.data.util.TimeZoneMonitor
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.testing.util.DefaultRoborazziOptions
 import com.onepercentbetter.uitesthiltmanifest.HiltComponentActivity
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -254,13 +238,13 @@ class SnackbarInsetsScreenshotTests {
                         ),
                     ) {
                         BoxWithConstraints(Modifier.testTag("root")) {
-                            NiaTheme {
-                                val appState = rememberNiaAppState(
+                            OPBTheme {
+                                val appState = rememberOPBAppState(
                                     networkMonitor = networkMonitor,
                                     userNewsResourceRepository = userNewsResourceRepository,
                                     timeZoneMonitor = timeZoneMonitor,
                                 )
-                                NiaApp(
+                                OPBApp(
                                     appState = appState,
                                     snackbarHostState = snackbarHostState,
                                     showSettingsDialog = false,
