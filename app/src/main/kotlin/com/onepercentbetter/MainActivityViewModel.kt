@@ -8,7 +8,6 @@ import com.onepercentbetter.MainActivityUiState.Loading
 import com.onepercentbetter.MainActivityUiState.Success
 import com.onepercentbetter.core.data.repository.UserDataRepository
 import com.onepercentbetter.core.model.data.DarkThemeConfig
-import com.onepercentbetter.core.model.data.ThemeBrand
 import com.onepercentbetter.core.model.data.UserData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -34,12 +33,6 @@ sealed interface MainActivityUiState {
     data object Loading : MainActivityUiState
 
     data class Success(val userData: UserData) : MainActivityUiState {
-        override val shouldDisableDynamicTheming = !userData.useDynamicColor
-
-        override val shouldUseAndroidTheme: Boolean = when (userData.themeBrand) {
-            ThemeBrand.DEFAULT -> false
-            ThemeBrand.ANDROID -> true
-        }
 
         override fun shouldUseDarkTheme(isSystemDarkTheme: Boolean) =
             when (userData.darkThemeConfig) {

@@ -5,7 +5,6 @@ package com.onepercentbetter.core.data.test.repository
 import com.onepercentbetter.core.data.repository.UserDataRepository
 import com.onepercentbetter.core.datastore.OPBPreferencesDataSource
 import com.onepercentbetter.core.model.data.DarkThemeConfig
-import com.onepercentbetter.core.model.data.ThemeBrand
 import com.onepercentbetter.core.model.data.UserData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

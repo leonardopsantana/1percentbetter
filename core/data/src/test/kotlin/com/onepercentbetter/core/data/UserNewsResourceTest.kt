@@ -5,7 +5,6 @@ package com.onepercentbetter.core.data
 import com.onepercentbetter.core.model.data.DarkThemeConfig.FOLLOW_SYSTEM
 import com.onepercentbetter.core.model.data.FollowableTopic
 import com.onepercentbetter.core.model.data.NewsResource
-import com.onepercentbetter.core.model.data.ThemeBrand.DEFAULT
 import com.onepercentbetter.core.model.data.Topic
 import com.onepercentbetter.core.model.data.UserData
 import com.onepercentbetter.core.model.data.UserNewsResource

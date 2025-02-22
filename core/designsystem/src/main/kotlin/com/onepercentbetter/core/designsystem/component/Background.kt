@@ -136,47 +136,7 @@ annotation class ThemePreviews
 @ThemePreviews
 @Composable
 fun BackgroundDefault() {
-    OPBTheme(disableDynamicTheming = true) {
+    OPBTheme {
         OPBBackground(Modifier.size(100.dp), content = {})
-    }
-}
-
-@ThemePreviews
-@Composable
-fun BackgroundDynamic() {
-    OPBTheme(disableDynamicTheming = false) {
-        OPBBackground(Modifier.size(100.dp), content = {})
-    }
-}
-
-@ThemePreviews
-@Composable
-fun BackgroundAndroid() {
-    OPBTheme(androidTheme = true) {
-        OPBBackground(Modifier.size(100.dp), content = {})
-    }
-}
-
-@ThemePreviews
-@Composable
-fun GradientBackgroundDefault() {
-    OPBTheme(disableDynamicTheming = true) {
-        OPBGradientBackground(Modifier.size(100.dp), content = {})
-    }
-}
-
-@ThemePreviews
-@Composable
-fun GradientBackgroundDynamic() {
-    OPBTheme(disableDynamicTheming = false) {
-        OPBGradientBackground(Modifier.size(100.dp), content = {})
-    }
-}
-
-@ThemePreviews
-@Composable
-fun GradientBackgroundAndroid() {
-    OPBTheme(androidTheme = true) {
-        OPBGradientBackground(Modifier.size(100.dp), content = {})
     }
 }

@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.core.data.repository.UserDataRepository
 import com.onepercentbetter.core.model.data.DarkThemeConfig
-import com.onepercentbetter.core.model.data.ThemeBrand
 import com.onepercentbetter.feature.settings.SettingsUiState.Loading
 import com.onepercentbetter.feature.settings.SettingsUiState.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,8 +26,6 @@ class SettingsViewModel @Inject constructor(
             .map { userData ->
                 Success(
                     settings = UserEditableSettings(
-                        brand = userData.themeBrand,
-                        useDynamicColor = userData.useDynamicColor,
                         darkThemeConfig = userData.darkThemeConfig,
                     ),
                 )
@@ -39,21 +36,9 @@ class SettingsViewModel @Inject constructor(
                 initialValue = Loading,
             )
 
-    fun updateThemeBrand(themeBrand: ThemeBrand) {
-        viewModelScope.launch {
-            userDataRepository.setThemeBrand(themeBrand)
-        }
-    }
-
     fun updateDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
         viewModelScope.launch {
             userDataRepository.setDarkThemeConfig(darkThemeConfig)
-        }
-    }
-
-    fun updateDynamicColorPreference(useDynamicColor: Boolean) {
-        viewModelScope.launch {
-            userDataRepository.setDynamicColorPreference(useDynamicColor)
         }
     }
 }
@@ -62,8 +47,6 @@ class SettingsViewModel @Inject constructor(
  * Represents the settings which the user can edit within the app.
  */
 data class UserEditableSettings(
-    val brand: ThemeBrand,
-    val useDynamicColor: Boolean,
     val darkThemeConfig: DarkThemeConfig,
 )
 

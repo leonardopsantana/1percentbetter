@@ -6,7 +6,6 @@ package com.onepercentbetter.core.testing.data
 
 import com.onepercentbetter.core.model.data.DarkThemeConfig
 import com.onepercentbetter.core.model.data.NewsResource
-import com.onepercentbetter.core.model.data.ThemeBrand
 import com.onepercentbetter.core.model.data.UserData
 import com.onepercentbetter.core.model.data.UserNewsResource
 import kotlinx.datetime.Instant

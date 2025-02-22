@@ -17,7 +17,6 @@
 syntax = "proto3";
 
 import "com/onepercentbetter/data/dark_theme_config.proto";
-import "com/onepercentbetter/data/theme_brand.proto";
 
 option java_package = "com.onepercentbetter.core.datastore";
 option java_multiple_files = true;
@@ -42,7 +41,6 @@ message UserPreferences {
     map<string, bool> bookmarked_news_resource_ids = 15;
     map<string, bool> viewed_news_resource_ids = 20;
 
-    ThemeBrandProto theme_brand = 16;
     DarkThemeConfigProto dark_theme_config = 17;
 
     bool should_hide_onboarding = 18;

@@ -6,7 +6,6 @@ import com.onepercentbetter.core.analytics.NoOpAnalyticsHelper
 import com.onepercentbetter.core.datastore.OPBPreferencesDataSource
 import com.onepercentbetter.core.datastore.test.InMemoryDataStore
 import com.onepercentbetter.core.model.data.DarkThemeConfig
-import com.onepercentbetter.core.model.data.ThemeBrand
 import com.onepercentbetter.core.model.data.UserData
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -34,7 +33,7 @@ class OfflineFirstUserDataRepositoryTest {
         opbPreferencesDataSource = OPBPreferencesDataSource(InMemoryDataStore(_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.getDefaultInstance()))
 
         subject = OfflineFirstUserDataRepository(
-            OPBPreferencesDataSource = opbPreferencesDataSource,
+            opbPreferencesDataSource = opbPreferencesDataSource,
             analyticsHelper,
         )
     }
@@ -167,46 +166,6 @@ class OfflineFirstUserDataRepositoryTest {
                     .first(),
                 subject.userData
                     .map { it.viewedNewsResources }
-                    .first(),
-            )
-        }
-
-    @Test
-    fun offlineFirstUserDataRepository_set_theme_brand_delegates_to_opb_preferences() =
-        testScope.runTest {
-            subject.setThemeBrand(ThemeBrand.ANDROID)
-
-            assertEquals(
-                ThemeBrand.ANDROID,
-                subject.userData
-                    .map { it.themeBrand }
-                    .first(),
-            )
-            assertEquals(
-                ThemeBrand.ANDROID,
-                opbPreferencesDataSource
-                    .userData
-                    .map { it.themeBrand }
-                    .first(),
-            )
-        }
-
-    @Test
-    fun offlineFirstUserDataRepository_set_dynamic_color_delegates_to_opb_preferences() =
-        testScope.runTest {
-            subject.setDynamicColorPreference(true)
-
-            assertEquals(
-                true,
-                subject.userData
-                    .map { it.useDynamicColor }
-                    .first(),
-            )
-            assertEquals(
-                true,
-                opbPreferencesDataSource
-                    .userData
-                    .map { it.useDynamicColor }
                     .first(),
             )
         }

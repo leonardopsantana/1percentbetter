@@ -7,8 +7,6 @@ import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import com.onepercentbetter.core.model.data.DarkThemeConfig.DARK
-import com.onepercentbetter.core.model.data.ThemeBrand.ANDROID
-import com.onepercentbetter.core.model.data.ThemeBrand.DEFAULT
 import com.onepercentbetter.feature.settings.SettingsDialog
 import com.onepercentbetter.feature.settings.SettingsUiState.Loading
 import com.onepercentbetter.feature.settings.SettingsUiState.Success

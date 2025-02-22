@@ -3,7 +3,6 @@
 package com.onepercentbetter.feature.settings
 
 import com.onepercentbetter.core.model.data.DarkThemeConfig.DARK
-import com.onepercentbetter.core.model.data.ThemeBrand.ANDROID
 import com.onepercentbetter.core.testing.repository.TestUserDataRepository
 import com.onepercentbetter.core.testing.util.MainDispatcherRule
 import com.onepercentbetter.feature.settings.SettingsUiState.Loading

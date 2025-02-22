@@ -1,14 +1,10 @@
-
-
 @file:Suppress("ktlint:standard:max-line-length")
 
 package com.onepercentbetter.feature.settings
 
 import android.content.Intent
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -43,14 +39,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.onepercentbetter.core.designsystem.component.OPBTextButton
 import com.onepercentbetter.core.designsystem.theme.OPBTheme
-import com.onepercentbetter.core.designsystem.theme.supportsDynamicTheming
 import com.onepercentbetter.core.model.data.DarkThemeConfig
 import com.onepercentbetter.core.model.data.DarkThemeConfig.DARK
 import com.onepercentbetter.core.model.data.DarkThemeConfig.FOLLOW_SYSTEM
 import com.onepercentbetter.core.model.data.DarkThemeConfig.LIGHT
-import com.onepercentbetter.core.model.data.ThemeBrand
-import com.onepercentbetter.core.model.data.ThemeBrand.ANDROID
-import com.onepercentbetter.core.model.data.ThemeBrand.DEFAULT
 import com.onepercentbetter.core.ui.TrackScreenViewEvent
 import com.onepercentbetter.feature.settings.R.string
 import com.onepercentbetter.feature.settings.SettingsUiState.Loading
@@ -62,22 +54,17 @@ fun SettingsDialog(
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
-    SettingsDialog(
+    SettingsContent(
         onDismiss = onDismiss,
         settingsUiState = settingsUiState,
-        onChangeThemeBrand = viewModel::updateThemeBrand,
-        onChangeDynamicColorPreference = viewModel::updateDynamicColorPreference,
         onChangeDarkThemeConfig = viewModel::updateDarkThemeConfig,
     )
 }
 
 @Composable
-fun SettingsDialog(
+fun SettingsContent(
     settingsUiState: SettingsUiState,
-    supportDynamicColor: Boolean = supportsDynamicTheming(),
     onDismiss: () -> Unit,
-    onChangeThemeBrand: (themeBrand: ThemeBrand) -> Unit,
-    onChangeDynamicColorPreference: (useDynamicColor: Boolean) -> Unit,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
 ) {
     val configuration = LocalConfiguration.current
@@ -113,9 +100,6 @@ fun SettingsDialog(
                     is Success -> {
                         SettingsPanel(
                             settings = settingsUiState.settings,
-                            supportDynamicColor = supportDynamicColor,
-                            onChangeThemeBrand = onChangeThemeBrand,
-                            onChangeDynamicColorPreference = onChangeDynamicColorPreference,
                             onChangeDarkThemeConfig = onChangeDarkThemeConfig,
                         )
                     }
@@ -140,43 +124,10 @@ fun SettingsDialog(
 
 // [ColumnScope] is used for using the [ColumnScope.AnimatedVisibility] extension overload composable.
 @Composable
-private fun ColumnScope.SettingsPanel(
+private fun SettingsPanel(
     settings: UserEditableSettings,
-    supportDynamicColor: Boolean,
-    onChangeThemeBrand: (themeBrand: ThemeBrand) -> Unit,
-    onChangeDynamicColorPreference: (useDynamicColor: Boolean) -> Unit,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
 ) {
-    SettingsDialogSectionTitle(text = stringResource(string.feature_settings_theme))
-    Column(Modifier.selectableGroup()) {
-        SettingsDialogThemeChooserRow(
-            text = stringResource(string.feature_settings_brand_default),
-            selected = settings.brand == DEFAULT,
-            onClick = { onChangeThemeBrand(DEFAULT) },
-        )
-        SettingsDialogThemeChooserRow(
-            text = stringResource(string.feature_settings_brand_android),
-            selected = settings.brand == ANDROID,
-            onClick = { onChangeThemeBrand(ANDROID) },
-        )
-    }
-    AnimatedVisibility(visible = settings.brand == DEFAULT && supportDynamicColor) {
-        Column {
-            SettingsDialogSectionTitle(text = stringResource(string.feature_settings_dynamic_color_preference))
-            Column(Modifier.selectableGroup()) {
-                SettingsDialogThemeChooserRow(
-                    text = stringResource(string.feature_settings_dynamic_color_yes),
-                    selected = settings.useDynamicColor,
-                    onClick = { onChangeDynamicColorPreference(true) },
-                )
-                SettingsDialogThemeChooserRow(
-                    text = stringResource(string.feature_settings_dynamic_color_no),
-                    selected = !settings.useDynamicColor,
-                    onClick = { onChangeDynamicColorPreference(false) },
-                )
-            }
-        }
-    }
     SettingsDialogSectionTitle(text = stringResource(string.feature_settings_dark_mode_preference))
     Column(Modifier.selectableGroup()) {
         SettingsDialogThemeChooserRow(
@@ -263,17 +214,13 @@ private fun LinksPanel() {
 @Composable
 private fun PreviewSettingsDialog() {
     OPBTheme {
-        SettingsDialog(
+        SettingsContent(
             onDismiss = {},
             settingsUiState = Success(
                 UserEditableSettings(
-                    brand = DEFAULT,
                     darkThemeConfig = FOLLOW_SYSTEM,
-                    useDynamicColor = false,
                 ),
             ),
-            onChangeThemeBrand = {},
-            onChangeDynamicColorPreference = {},
             onChangeDarkThemeConfig = {},
         )
     }
@@ -283,12 +230,10 @@ private fun PreviewSettingsDialog() {
 @Composable
 private fun PreviewSettingsDialogLoading() {
     OPBTheme {
-        SettingsDialog(
+        SettingsContent(
             onDismiss = {},
             settingsUiState = Loading,
-            onChangeThemeBrand = {},
-            onChangeDynamicColorPreference = {},
-            onChangeDarkThemeConfig = {},
+            onChangeDarkThemeConfig = {}
         )
     }
 }

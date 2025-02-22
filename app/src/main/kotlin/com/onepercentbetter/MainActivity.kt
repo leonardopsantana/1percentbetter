@@ -19,7 +19,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.metrics.performance.JankStats
 import androidx.tracing.trace
-import com.onepercentbetter.MainActivityUiState.Loading
 import com.onepercentbetter.core.analytics.AnalyticsHelper
 import com.onepercentbetter.core.analytics.LocalAnalyticsHelper
 import com.onepercentbetter.core.data.repository.UserNewsResourceRepository
@@ -69,9 +68,7 @@ class MainActivity : ComponentActivity() {
         // This allows us to react to dark/light mode changes.
         var themeSettings by mutableStateOf(
             ThemeSettings(
-                darkTheme = resources.configuration.isSystemInDarkTheme,
-                androidTheme = Loading.shouldUseAndroidTheme,
-                disableDynamicTheming = Loading.shouldDisableDynamicTheming,
+                darkTheme = resources.configuration.isSystemInDarkTheme
             ),
         )
 
@@ -83,9 +80,7 @@ class MainActivity : ComponentActivity() {
                     viewModel.uiState,
                 ) { systemDark, uiState ->
                     ThemeSettings(
-                        darkTheme = uiState.shouldUseDarkTheme(systemDark),
-                        androidTheme = uiState.shouldUseAndroidTheme,
-                        disableDynamicTheming = uiState.shouldDisableDynamicTheming,
+                        darkTheme = uiState.shouldUseDarkTheme(systemDark)
                     )
                 }
                     .onEach { themeSettings = it }
@@ -132,9 +127,7 @@ class MainActivity : ComponentActivity() {
                 LocalTimeZone provides currentTimeZone,
             ) {
                 OPBTheme(
-                    darkTheme = themeSettings.darkTheme,
-                    androidTheme = themeSettings.androidTheme,
-                    disableDynamicTheming = themeSettings.disableDynamicTheming,
+                    darkTheme = themeSettings.darkTheme
                 ) {
                     OPBApp(appState)
                 }
@@ -170,7 +163,5 @@ private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)
  * This wrapping class allows us to combine all the changes and prevent unnecessary recompositions.
  */
 data class ThemeSettings(
-    val darkTheme: Boolean,
-    val androidTheme: Boolean,
-    val disableDynamicTheming: Boolean,
+    val darkTheme: Boolean
 )

@@ -7,7 +7,6 @@ package com.onepercentbetter.core.ui
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.onepercentbetter.core.model.data.DarkThemeConfig
 import com.onepercentbetter.core.model.data.NewsResource
-import com.onepercentbetter.core.model.data.ThemeBrand
 import com.onepercentbetter.core.model.data.Topic
 import com.onepercentbetter.core.model.data.UserData
 import com.onepercentbetter.core.model.data.UserNewsResource
@@ -32,10 +31,8 @@ object PreviewParameterData {
         bookmarkedNewsResources = setOf("1", "3"),
         viewedNewsResources = setOf("1", "2", "4"),
         followedTopics = emptySet(),
-        themeBrand = ThemeBrand.ANDROID,
         darkThemeConfig = DarkThemeConfig.DARK,
         shouldHideOnboarding = true,
-        useDynamicColor = false,
     )
 
     val topics = listOf(

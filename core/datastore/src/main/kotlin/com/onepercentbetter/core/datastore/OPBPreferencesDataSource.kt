@@ -5,7 +5,6 @@ package com.onepercentbetter.core.datastore
 import android.util.Log
 import androidx.datastore.core.DataStore
 import com.onepercentbetter.core.model.data.DarkThemeConfig
-import com.onepercentbetter.core.model.data.ThemeBrand
 import com.onepercentbetter.core.model.data.UserData
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -21,14 +20,6 @@ class OPBPreferencesDataSource @Inject constructor(
                 bookmarkedNewsResources = it.bookmarkedNewsResourceIdsMap.keys,
                 viewedNewsResources = it.viewedNewsResourceIdsMap.keys,
                 followedTopics = it.followedTopicIdsMap.keys,
-                themeBrand = when (it.themeBrand) {
-                    null,
-                    ThemeBrandProto.THEME_BRAND_UNSPECIFIED,
-                    ThemeBrandProto.UNRECOGNIZED,
-                    ThemeBrandProto.THEME_BRAND_DEFAULT,
-                    -> ThemeBrand.DEFAULT
-                    ThemeBrandProto.THEME_BRAND_ANDROID -> ThemeBrand.ANDROID
-                },
                 darkThemeConfig = when (it.darkThemeConfig) {
                     null,
                     DarkThemeConfigProto.DARK_THEME_CONFIG_UNSPECIFIED,
@@ -40,7 +31,6 @@ class OPBPreferencesDataSource @Inject constructor(
                         DarkThemeConfig.LIGHT
                     DarkThemeConfigProto.DARK_THEME_CONFIG_DARK -> DarkThemeConfig.DARK
                 },
-                useDynamicColor = it.useDynamicColor,
                 shouldHideOnboarding = it.shouldHideOnboarding,
             )
         }
@@ -73,17 +63,6 @@ class OPBPreferencesDataSource @Inject constructor(
             }
         } catch (ioException: IOException) {
             Log.e("OPBPreferences", "Failed to update user preferences", ioException)
-        }
-    }
-
-    suspend fun setThemeBrand(themeBrand: ThemeBrand) {
-        userPreferences.updateData {
-            it.copy {
-                this.themeBrand = when (themeBrand) {
-                    ThemeBrand.DEFAULT -> ThemeBrandProto.THEME_BRAND_DEFAULT
-                    ThemeBrand.ANDROID -> ThemeBrandProto.THEME_BRAND_ANDROID
-                }
-            }
         }
     }
 
