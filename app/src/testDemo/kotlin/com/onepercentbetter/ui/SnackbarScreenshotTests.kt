@@ -90,8 +90,6 @@ class SnackbarScreenshotTests {
 
         // Configure user data
         runBlocking {
-            userDataRepository.setShouldHideOnboarding(true)
-
             userDataRepository.setFollowedTopicIds(
                 setOf(topicsRepository.getTopics().first().first().id),
             )

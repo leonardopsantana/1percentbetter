@@ -41,11 +41,19 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
+import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -77,10 +85,6 @@ import com.onepercentbetter.core.ui.TrackScrollJank
 import com.onepercentbetter.core.ui.UserNewsResourcePreviewParameterProvider
 import com.onepercentbetter.core.ui.launchCustomChromeTab
 import com.onepercentbetter.core.ui.newsFeed
-import com.onepercentbetter.feature.routine.OnboardingUiState.LoadFailed
-import com.onepercentbetter.feature.routine.OnboardingUiState.Loading
-import com.onepercentbetter.feature.routine.OnboardingUiState.NotShown
-import com.onepercentbetter.feature.routine.OnboardingUiState.Shown
 
 @Composable
 internal fun RoutineScreen(
@@ -88,14 +92,12 @@ internal fun RoutineScreen(
     modifier: Modifier = Modifier,
     viewModel: RoutineViewModel = hiltViewModel(),
 ) {
-    val onboardingUiState by viewModel.onboardingUiState.collectAsStateWithLifecycle()
     val feedState by viewModel.feedState.collectAsStateWithLifecycle()
     val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
     val deepLinkedUserNewsResource by viewModel.deepLinkedNewsResource.collectAsStateWithLifecycle()
 
     RoutineScreen(
         isSyncing = isSyncing,
-        onboardingUiState = onboardingUiState,
         feedState = feedState,
         deepLinkedUserNewsResource = deepLinkedUserNewsResource,
         onDeepLinkOpened = viewModel::onDeepLinkOpened,
@@ -109,7 +111,6 @@ internal fun RoutineScreen(
 @Composable
 internal fun RoutineScreen(
     isSyncing: Boolean,
-    onboardingUiState: OnboardingUiState,
     feedState: NewsFeedUiState,
     deepLinkedUserNewsResource: UserNewsResource?,
     onTopicClick: (String) -> Unit,
@@ -118,13 +119,12 @@ internal fun RoutineScreen(
     onNewsResourceViewed: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val isOnboardingLoading = onboardingUiState is Loading
     val isFeedLoading = feedState is NewsFeedUiState.Loading
 
     // This code should be called when the UI is ready for use and relates to Time To Full Display.
-    ReportDrawnWhen { !isSyncing && !isOnboardingLoading && !isFeedLoading }
+    ReportDrawnWhen { !isSyncing && !isFeedLoading }
 
-    val itemsAvailable = feedItemsSize(feedState, onboardingUiState)
+    val itemsAvailable = feedItemsSize(feedState)
 
     val state = rememberLazyStaggeredGridState()
     val scrollbarState = state.scrollbarState(
@@ -132,10 +132,12 @@ internal fun RoutineScreen(
     )
     TrackScrollJank(scrollableState = state, stateName = "routine:feed")
 
-    Box(
+    Column(
         modifier = modifier
             .fillMaxSize(),
     ) {
+        DaysRoutine(state)
+
         LazyVerticalStaggeredGrid(
             columns = StaggeredGridCells.Adaptive(300.dp),
             contentPadding = PaddingValues(16.dp),
@@ -163,7 +165,7 @@ internal fun RoutineScreen(
             }
         }
         AnimatedVisibility(
-            visible = isSyncing || isFeedLoading || isOnboardingLoading,
+            visible = isSyncing || isFeedLoading,
             enter = slideInVertically(
                 initialOffsetY = { fullHeight -> -fullHeight },
             ) + fadeIn(),
@@ -189,7 +191,7 @@ internal fun RoutineScreen(
                 .fillMaxHeight()
                 .windowInsetsPadding(WindowInsets.systemBars)
                 .padding(horizontal = 2.dp)
-                .align(Alignment.CenterEnd),
+                .align(Alignment.CenterHorizontally),
             state = scrollbarState,
             orientation = Orientation.Vertical,
             onThumbMoved = state.rememberDraggableScroller(
@@ -203,6 +205,66 @@ internal fun RoutineScreen(
         deepLinkedUserNewsResource,
         onDeepLinkOpened,
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun DaysRoutine(state: LazyStaggeredGridState) {
+    val carouselUncontainedState = rememberCarouselState(
+        initialItem = 30,
+    ) {
+        30
+    }
+    HorizontalUncontainedCarousel(
+        state = carouselUncontainedState,
+        itemWidth = 80.dp,
+        itemSpacing = 1.dp,
+    ) { index ->
+        Card(
+            onClick = { },
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+            // Use custom label for accessibility services to communicate button's action to user.
+            // Pass null for action to only override the label and not the actual action.
+
+//            modifier = modifier
+//                .semantics {
+//                    onClick(label = clickActionLabel, action = null)
+//                }
+//                .testTag("newsResourceCard:${userNewsResource.id}"),
+        ) {
+            Box(
+                modifier = Modifier.padding(16.dp),
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text("S", style = MaterialTheme.typography.titleSmall)
+                    val title = if (index == 29) "Hoje" else index.toString()
+                    Text(title, style = MaterialTheme.typography.headlineSmall)
+                }
+            }
+        }
+
+//        val pokemonEntity = state.pokemonMutableList[index]
+//        LoadPokemonImage(
+//            pokemonEntity = pokemonEntity,
+//            modifier = Modifier
+//                .maskClip(
+//                    MaterialTheme.shapes.extraLarge,
+//                ),
+//        )
+        //Paging
+//        LaunchedEffect(key1 = true) {
+//            if (!state.nextPage.isNullOrEmpty() && state.pokemonMutableList.size - 1 == index) {
+//                pokemonListViewModel.requestToFetchPokemon(
+//                    state.nextPage,
+//                )
+//            }
+//        }
+//        if (state.isLoading) StartDefaultLoader()
+    }
 }
 
 @Composable
@@ -245,21 +307,12 @@ private fun DeepLinkEffect(
 
 private fun feedItemsSize(
     feedState: NewsFeedUiState,
-    onboardingUiState: OnboardingUiState,
 ): Int {
     val feedSize = when (feedState) {
         NewsFeedUiState.Loading -> 0
-        is NewsFeedUiState.Success -> feedState.feed.size
+        is Success -> feedState.feed.size
     }
-    val onboardingSize = when (onboardingUiState) {
-        Loading,
-        LoadFailed,
-        NotShown,
-        -> 0
-
-        is Shown -> 1
-    }
-    return feedSize + onboardingSize
+    return feedSize
 }
 
 @DevicePreviews
@@ -271,7 +324,6 @@ fun RoutineScreenPopulatedFeed(
     OPBTheme {
         RoutineScreen(
             isSyncing = false,
-            onboardingUiState = NotShown,
             feedState = Success(
                 feed = userNewsResources,
             ),
@@ -293,7 +345,6 @@ fun RoutineScreenOfflinePopulatedFeed(
     OPBTheme {
         RoutineScreen(
             isSyncing = false,
-            onboardingUiState = NotShown,
             feedState = Success(
                 feed = userNewsResources,
             ),
@@ -315,10 +366,6 @@ fun RoutineScreenTopicSelection(
     OPBTheme {
         RoutineScreen(
             isSyncing = false,
-            onboardingUiState = Shown(
-                topics = userNewsResources.flatMap { news -> news.followableTopics }
-                    .distinctBy { it.topic.id },
-            ),
             feedState = Success(
                 feed = userNewsResources,
             ),
@@ -337,7 +384,6 @@ fun RoutineScreenLoading() {
     OPBTheme {
         RoutineScreen(
             isSyncing = false,
-            onboardingUiState = Loading,
             feedState = NewsFeedUiState.Loading,
             deepLinkedUserNewsResource = null,
             onNewsResourcesCheckedChanged = { _, _ -> },
@@ -357,7 +403,6 @@ fun RoutineScreenPopulatedAndLoading(
     OPBTheme {
         RoutineScreen(
             isSyncing = true,
-            onboardingUiState = Loading,
             feedState = Success(
                 feed = userNewsResources,
             ),

@@ -7,24 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.onepercentbetter.core.data.repository.UserDataRepository
-import com.onepercentbetter.core.domain.GetFollowableTopicsUseCase
-import com.onepercentbetter.core.domain.TopicSortField
 import com.onepercentbetter.core.model.data.FollowableTopic
-import com.onepercentbetter.feature.interests.InterestsUiState.Loading
 import com.onepercentbetter.feature.interests.navigation.InterestsRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class InterestsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    val userDataRepository: UserDataRepository,
-    getFollowableTopics: GetFollowableTopicsUseCase,
+    val userDataRepository: UserDataRepository
 ) : ViewModel() {
 
     // Key used to save and retrieve the currently selected topic id from saved state.
@@ -36,15 +28,15 @@ class InterestsViewModel @Inject constructor(
         initialValue = interestsRoute.initialTopicId,
     )
 
-    val uiState: StateFlow<InterestsUiState> = combine(
-        selectedTopicId,
-        getFollowableTopics(sortBy = TopicSortField.NAME),
-        InterestsUiState::Interests,
-    ).stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = Loading,
-    )
+//    val uiState: StateFlow<InterestsUiState> = combine(
+//        selectedTopicId,
+//        getFollowableTopics(sortBy = TopicSortField.NAME),
+//        InterestsUiState::Interests,
+//    ).stateIn(
+//        scope = viewModelScope,
+//        started = SharingStarted.WhileSubscribed(5_000),
+//        initialValue = Loading,
+//    )
 
     fun followTopic(followedTopicId: String, followed: Boolean) {
         viewModelScope.launch {

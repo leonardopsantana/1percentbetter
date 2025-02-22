@@ -42,10 +42,7 @@ message UserPreferences {
     map<string, bool> viewed_news_resource_ids = 20;
 
     DarkThemeConfigProto dark_theme_config = 17;
-
-    bool should_hide_onboarding = 18;
-
-    bool use_dynamic_color = 19;
+    bool use_dynamic_color = 18;
 
     // NEXT AVAILABLE ID: 21
 }

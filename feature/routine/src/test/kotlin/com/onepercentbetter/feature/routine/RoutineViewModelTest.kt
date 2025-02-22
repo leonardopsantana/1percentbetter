@@ -6,12 +6,9 @@ import androidx.lifecycle.SavedStateHandle
 import com.onepercentbetter.core.analytics.AnalyticsEvent
 import com.onepercentbetter.core.analytics.AnalyticsEvent.Param
 import com.onepercentbetter.core.data.repository.CompositeUserNewsResourceRepository
-import com.onepercentbetter.core.domain.GetFollowableTopicsUseCase
-import com.onepercentbetter.core.model.data.FollowableTopic
 import com.onepercentbetter.core.model.data.NewsResource
 import com.onepercentbetter.core.model.data.Topic
 import com.onepercentbetter.core.model.data.UserNewsResource
-import com.onepercentbetter.core.model.data.mapToUserNewsResources
 import com.onepercentbetter.core.notifications.DEEP_LINK_NEWS_RESOURCE_ID_KEY
 import com.onepercentbetter.core.testing.repository.TestNewsRepository
 import com.onepercentbetter.core.testing.repository.TestTopicsRepository
@@ -53,11 +50,6 @@ class RoutineViewModelTest {
         userDataRepository = userDataRepository,
     )
 
-    private val getFollowableTopicsUseCase = GetFollowableTopicsUseCase(
-        topicsRepository = topicsRepository,
-        userDataRepository = userDataRepository,
-    )
-
     private val savedStateHandle = SavedStateHandle()
     private lateinit var viewModel: RoutineViewModel
 
@@ -68,31 +60,21 @@ class RoutineViewModelTest {
             savedStateHandle = savedStateHandle,
             analyticsHelper = analyticsHelper,
             userDataRepository = userDataRepository,
-            userNewsResourceRepository = userNewsResourceRepository,
-            getFollowableTopics = getFollowableTopicsUseCase,
+            userNewsResourceRepository = userNewsResourceRepository
         )
     }
 
     @Test
     fun stateIsInitiallyLoading() = runTest {
-        assertEquals(
-            OnboardingUiState.Loading,
-            viewModel.onboardingUiState.value,
-        )
         assertEquals(NewsFeedUiState.Loading, viewModel.feedState.value)
     }
 
     @Test
     fun stateIsLoadingWhenFollowedTopicsAreLoading() = runTest {
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.onboardingUiState.collect() }
         backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.feedState.collect() }
 
         topicsRepository.sendTopics(sampleTopics)
 
-        assertEquals(
-            OnboardingUiState.Loading,
-            viewModel.onboardingUiState.value,
-        )
         assertEquals(NewsFeedUiState.Loading, viewModel.feedState.value)
     }
 
@@ -109,181 +91,13 @@ class RoutineViewModelTest {
     }
 
     @Test
-    fun onboardingStateIsLoadingWhenTopicsAreLoading() = runTest {
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.onboardingUiState.collect() }
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.feedState.collect() }
-
-        userDataRepository.setFollowedTopicIds(emptySet())
-
-        assertEquals(
-            OnboardingUiState.Loading,
-            viewModel.onboardingUiState.value,
-        )
-        assertEquals(NewsFeedUiState.Success(emptyList()), viewModel.feedState.value)
-    }
-
-    @Test
-    fun onboardingIsShownWhenNewsResourcesAreLoading() = runTest {
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.onboardingUiState.collect() }
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.feedState.collect() }
-
-        topicsRepository.sendTopics(sampleTopics)
-        userDataRepository.setFollowedTopicIds(emptySet())
-
-        assertEquals(
-            OnboardingUiState.Shown(
-                topics = listOf(
-                    FollowableTopic(
-                        topic = Topic(
-                            id = "0",
-                            name = "Headlines",
-                            shortDescription = "",
-                            longDescription = "long description",
-                            url = "URL",
-                            imageUrl = "image URL",
-                        ),
-                        isFollowed = false,
-                    ),
-                    FollowableTopic(
-                        topic = Topic(
-                            id = "1",
-                            name = "UI",
-                            shortDescription = "",
-                            longDescription = "long description",
-                            url = "URL",
-                            imageUrl = "image URL",
-                        ),
-                        isFollowed = false,
-                    ),
-                    FollowableTopic(
-                        topic = Topic(
-                            id = "2",
-                            name = "Tools",
-                            shortDescription = "",
-                            longDescription = "long description",
-                            url = "URL",
-                            imageUrl = "image URL",
-                        ),
-                        isFollowed = false,
-                    ),
-                ),
-            ),
-            viewModel.onboardingUiState.value,
-        )
-        assertEquals(
-            NewsFeedUiState.Success(
-                feed = emptyList(),
-            ),
-            viewModel.feedState.value,
-        )
-    }
-
-    @Test
-    fun onboardingIsShownAfterLoadingEmptyFollowedTopics() = runTest {
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.onboardingUiState.collect() }
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.feedState.collect() }
-
-        topicsRepository.sendTopics(sampleTopics)
-        userDataRepository.setFollowedTopicIds(emptySet())
-        newsRepository.sendNewsResources(sampleNewsResources)
-
-        assertEquals(
-            OnboardingUiState.Shown(
-                topics = listOf(
-                    FollowableTopic(
-                        topic = Topic(
-                            id = "0",
-                            name = "Headlines",
-                            shortDescription = "",
-                            longDescription = "long description",
-                            url = "URL",
-                            imageUrl = "image URL",
-                        ),
-                        isFollowed = false,
-                    ),
-                    FollowableTopic(
-                        topic = Topic(
-                            id = "1",
-                            name = "UI",
-                            shortDescription = "",
-                            longDescription = "long description",
-                            url = "URL",
-                            imageUrl = "image URL",
-                        ),
-                        isFollowed = false,
-                    ),
-                    FollowableTopic(
-                        topic = Topic(
-                            id = "2",
-                            name = "Tools",
-                            shortDescription = "",
-                            longDescription = "long description",
-                            url = "URL",
-                            imageUrl = "image URL",
-                        ),
-                        isFollowed = false,
-                    ),
-                ),
-            ),
-            viewModel.onboardingUiState.value,
-        )
-        assertEquals(
-            NewsFeedUiState.Success(
-                feed = emptyList(),
-            ),
-            viewModel.feedState.value,
-        )
-    }
-
-    @Test
-    fun onboardingIsNotShownAfterUserDismissesOnboarding() = runTest {
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.onboardingUiState.collect() }
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.feedState.collect() }
-
-        topicsRepository.sendTopics(sampleTopics)
-
-        val followedTopicIds = setOf("0", "1")
-        val userData = emptyUserData.copy(followedTopics = followedTopicIds)
-        userDataRepository.setUserData(userData)
-        viewModel.dismissOnboarding()
-
-        assertEquals(
-            OnboardingUiState.NotShown,
-            viewModel.onboardingUiState.value,
-        )
-        assertEquals(NewsFeedUiState.Loading, viewModel.feedState.value)
-
-        newsRepository.sendNewsResources(sampleNewsResources)
-
-        assertEquals(
-            OnboardingUiState.NotShown,
-            viewModel.onboardingUiState.value,
-        )
-        assertEquals(
-            NewsFeedUiState.Success(
-                feed = sampleNewsResources.mapToUserNewsResources(userData),
-            ),
-            viewModel.feedState.value,
-        )
-    }
-
-    @Test
     fun topicSelectionUpdatesAfterSelectingTopic() = runTest {
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.onboardingUiState.collect() }
         backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.feedState.collect() }
 
         topicsRepository.sendTopics(sampleTopics)
         userDataRepository.setFollowedTopicIds(emptySet())
         newsRepository.sendNewsResources(sampleNewsResources)
 
-        assertEquals(
-            OnboardingUiState.Shown(
-                topics = sampleTopics.map {
-                    FollowableTopic(it, false)
-                },
-            ),
-            viewModel.onboardingUiState.value,
-        )
         assertEquals(
             NewsFeedUiState.Success(
                 feed = emptyList(),
@@ -293,15 +107,6 @@ class RoutineViewModelTest {
 
         val followedTopicId = sampleTopics[1].id
         viewModel.updateTopicSelection(followedTopicId, isChecked = true)
-
-        assertEquals(
-            OnboardingUiState.Shown(
-                topics = sampleTopics.map {
-                    FollowableTopic(it, it.id == followedTopicId)
-                },
-            ),
-            viewModel.onboardingUiState.value,
-        )
 
         val userData = emptyUserData.copy(followedTopics = setOf(followedTopicId))
 
@@ -318,7 +123,6 @@ class RoutineViewModelTest {
 
     @Test
     fun topicSelectionUpdatesAfterUnselectingTopic() = runTest {
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.onboardingUiState.collect() }
         backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.feedState.collect() }
 
         topicsRepository.sendTopics(sampleTopics)
@@ -329,46 +133,6 @@ class RoutineViewModelTest {
 
         advanceUntilIdle()
         assertEquals(
-            OnboardingUiState.Shown(
-                topics = listOf(
-                    FollowableTopic(
-                        topic = Topic(
-                            id = "0",
-                            name = "Headlines",
-                            shortDescription = "",
-                            longDescription = "long description",
-                            url = "URL",
-                            imageUrl = "image URL",
-                        ),
-                        isFollowed = false,
-                    ),
-                    FollowableTopic(
-                        topic = Topic(
-                            id = "1",
-                            name = "UI",
-                            shortDescription = "",
-                            longDescription = "long description",
-                            url = "URL",
-                            imageUrl = "image URL",
-                        ),
-                        isFollowed = false,
-                    ),
-                    FollowableTopic(
-                        topic = Topic(
-                            id = "2",
-                            name = "Tools",
-                            shortDescription = "",
-                            longDescription = "long description",
-                            url = "URL",
-                            imageUrl = "image URL",
-                        ),
-                        isFollowed = false,
-                    ),
-                ),
-            ),
-            viewModel.onboardingUiState.value,
-        )
-        assertEquals(
             NewsFeedUiState.Success(
                 feed = emptyList(),
             ),
@@ -378,13 +142,11 @@ class RoutineViewModelTest {
 
     @Test
     fun newsResourceSelectionUpdatesAfterLoadingFollowedTopics() = runTest {
-        backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.onboardingUiState.collect() }
         backgroundScope.launch(UnconfinedTestDispatcher()) { viewModel.feedState.collect() }
 
         val followedTopicIds = setOf("1")
         val userData = emptyUserData.copy(
-            followedTopics = followedTopicIds,
-            shouldHideOnboarding = true,
+            followedTopics = followedTopicIds
         )
 
         topicsRepository.sendTopics(sampleTopics)
@@ -401,10 +163,6 @@ class RoutineViewModelTest {
             bookmarkedNewsResources = setOf(bookmarkedNewsResourceId),
         )
 
-        assertEquals(
-            OnboardingUiState.NotShown,
-            viewModel.onboardingUiState.value,
-        )
         assertEquals(
             NewsFeedUiState.Success(
                 feed = listOf(

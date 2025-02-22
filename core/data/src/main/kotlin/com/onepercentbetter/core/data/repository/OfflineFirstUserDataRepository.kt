@@ -42,9 +42,4 @@ internal class OfflineFirstUserDataRepository @Inject constructor(
         opbPreferencesDataSource.setDarkThemeConfig(darkThemeConfig)
         analyticsHelper.logDarkThemeConfigChanged(darkThemeConfig.name)
     }
-
-    override suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
-        opbPreferencesDataSource.setShouldHideOnboarding(shouldHideOnboarding)
-        analyticsHelper.logOnboardingStateChanged(shouldHideOnboarding)
-    }
 }

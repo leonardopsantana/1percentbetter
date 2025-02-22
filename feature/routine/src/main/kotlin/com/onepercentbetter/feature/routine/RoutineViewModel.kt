@@ -28,17 +28,11 @@ import com.onepercentbetter.core.data.repository.NewsResourceQuery
 import com.onepercentbetter.core.data.repository.UserDataRepository
 import com.onepercentbetter.core.data.repository.UserNewsResourceRepository
 import com.onepercentbetter.core.data.util.SyncManager
-import com.onepercentbetter.core.domain.GetFollowableTopicsUseCase
 import com.onepercentbetter.core.notifications.DEEP_LINK_NEWS_RESOURCE_ID_KEY
 import com.onepercentbetter.core.ui.NewsFeedUiState
-import com.onepercentbetter.feature.routine.OnboardingUiState.Loading
-import com.onepercentbetter.feature.routine.OnboardingUiState.NotShown
-import com.onepercentbetter.feature.routine.OnboardingUiState.Shown
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -52,12 +46,8 @@ class RoutineViewModel @Inject constructor(
     syncManager: SyncManager,
     private val analyticsHelper: AnalyticsHelper,
     private val userDataRepository: UserDataRepository,
-    userNewsResourceRepository: UserNewsResourceRepository,
-    getFollowableTopics: GetFollowableTopicsUseCase,
+    userNewsResourceRepository: UserNewsResourceRepository
 ) : ViewModel() {
-
-    private val shouldShowOnboarding: Flow<Boolean> =
-        userDataRepository.userData.map { !it.shouldHideOnboarding }
 
     val deepLinkedNewsResource = savedStateHandle.getStateFlow<String?>(
         key = DEEP_LINK_NEWS_RESOURCE_ID_KEY,
@@ -97,23 +87,6 @@ class RoutineViewModel @Inject constructor(
                 initialValue = NewsFeedUiState.Loading,
             )
 
-    val onboardingUiState: StateFlow<OnboardingUiState> =
-        combine(
-            shouldShowOnboarding,
-            getFollowableTopics(),
-        ) { shouldShowOnboarding, topics ->
-            if (shouldShowOnboarding) {
-                Shown(topics = topics)
-            } else {
-                NotShown
-            }
-        }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = Loading,
-            )
-
     fun updateTopicSelection(topicId: String, isChecked: Boolean) {
         viewModelScope.launch {
             userDataRepository.setTopicIdFollowed(topicId, isChecked)
@@ -142,12 +115,6 @@ class RoutineViewModel @Inject constructor(
                 newsResourceId = newsResourceId,
                 viewed = true,
             )
-        }
-    }
-
-    fun dismissOnboarding() {
-        viewModelScope.launch {
-            userDataRepository.setShouldHideOnboarding(true)
         }
     }
 }

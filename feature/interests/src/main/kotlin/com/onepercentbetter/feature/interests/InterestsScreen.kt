@@ -5,13 +5,11 @@ package com.onepercentbetter.feature.interests
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.onepercentbetter.core.designsystem.component.OPBBackground
 import com.onepercentbetter.core.designsystem.component.OPBLoadingWheel
 import com.onepercentbetter.core.designsystem.theme.OPBTheme
@@ -30,18 +28,18 @@ fun InterestsRoute(
     highlightSelectedTopic: Boolean = false,
     viewModel: InterestsViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    InterestsScreen(
-        uiState = uiState,
-        followTopic = viewModel::followTopic,
-        onTopicClick = {
-            viewModel.onTopicClick(it)
-            onTopicClick(it)
-        },
-        highlightSelectedTopic = highlightSelectedTopic,
-        modifier = modifier,
-    )
+//    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+//
+//    InterestsScreen(
+//        uiState = uiState,
+//        followTopic = viewModel::followTopic,
+//        onTopicClick = {
+//            viewModel.onTopicClick(it)
+//            onTopicClick(it)
+//        },
+//        highlightSelectedTopic = highlightSelectedTopic,
+//        modifier = modifier,
+//    )
 }
 
 @Composable

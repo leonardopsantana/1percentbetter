@@ -117,7 +117,6 @@ class OfflineFirstNewsRepositoryTest {
     fun offlineFirstNewsRepository_sync_pulls_from_network() =
         testScope.runTest {
             // User has not onboarded
-            opbPreferencesDataSource.setShouldHideOnboarding(false)
             subject.syncWith(synchronizer)
 
             val newsResourcesFromNetwork = network.getNewsResources()
@@ -147,7 +146,6 @@ class OfflineFirstNewsRepositoryTest {
     fun offlineFirstNewsRepository_sync_deletes_items_marked_deleted_on_network() =
         testScope.runTest {
             // User has not onboarded
-            opbPreferencesDataSource.setShouldHideOnboarding(false)
 
             val newsResourcesFromNetwork = network.getNewsResources()
                 .map(NetworkNewsResource::asEntity)
@@ -193,9 +191,6 @@ class OfflineFirstNewsRepositoryTest {
     @Test
     fun offlineFirstNewsRepository_incremental_sync_pulls_from_network() =
         testScope.runTest {
-            // User has not onboarded
-            opbPreferencesDataSource.setShouldHideOnboarding(false)
-
             // Set news version to 7
             synchronizer.updateChangeListVersions {
                 copy(newsResourceVersion = 7)
@@ -298,9 +293,6 @@ class OfflineFirstNewsRepositoryTest {
     @Test
     fun offlineFirstNewsRepository_sends_notifications_for_newly_synced_news_that_is_followed() =
         testScope.runTest {
-            // User has onboarded
-            opbPreferencesDataSource.setShouldHideOnboarding(true)
-
             val networkNewsResources = network.getNewsResources()
 
             // Follow roughly half the topics
@@ -335,9 +327,6 @@ class OfflineFirstNewsRepositoryTest {
     @Test
     fun offlineFirstNewsRepository_does_not_send_notifications_for_existing_news_resources() =
         testScope.runTest {
-            // User has onboarded
-            opbPreferencesDataSource.setShouldHideOnboarding(true)
-
             val networkNewsResources = network.getNewsResources()
                 .map(NetworkNewsResource::asEntity)
 

@@ -16,38 +16,25 @@ import javax.inject.Inject
  * backend.
  */
 class FakeUserDataRepository @Inject constructor(
-    private val OPBPreferencesDataSource: OPBPreferencesDataSource,
+    private val opbPreferencesDataSource: OPBPreferencesDataSource,
 ) : UserDataRepository {
 
     override val userData: Flow<UserData> =
-        OPBPreferencesDataSource.userData
+        opbPreferencesDataSource.userData
 
     override suspend fun setFollowedTopicIds(followedTopicIds: Set<String>) =
-        OPBPreferencesDataSource.setFollowedTopicIds(followedTopicIds)
+        opbPreferencesDataSource.setFollowedTopicIds(followedTopicIds)
 
     override suspend fun setTopicIdFollowed(followedTopicId: String, followed: Boolean) =
-        OPBPreferencesDataSource.setTopicIdFollowed(followedTopicId, followed)
+        opbPreferencesDataSource.setTopicIdFollowed(followedTopicId, followed)
 
     override suspend fun setNewsResourceBookmarked(newsResourceId: String, bookmarked: Boolean) {
-        OPBPreferencesDataSource.setNewsResourceBookmarked(newsResourceId, bookmarked)
+        opbPreferencesDataSource.setNewsResourceBookmarked(newsResourceId, bookmarked)
     }
-
     override suspend fun setNewsResourceViewed(newsResourceId: String, viewed: Boolean) =
-        OPBPreferencesDataSource.setNewsResourceViewed(newsResourceId, viewed)
-
-    override suspend fun setThemeBrand(themeBrand: ThemeBrand) {
-        OPBPreferencesDataSource.setThemeBrand(themeBrand)
-    }
+        opbPreferencesDataSource.setNewsResourceViewed(newsResourceId, viewed)
 
     override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
-        OPBPreferencesDataSource.setDarkThemeConfig(darkThemeConfig)
-    }
-
-    override suspend fun setDynamicColorPreference(useDynamicColor: Boolean) {
-        OPBPreferencesDataSource.setDynamicColorPreference(useDynamicColor)
-    }
-
-    override suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
-        OPBPreferencesDataSource.setShouldHideOnboarding(shouldHideOnboarding)
+        opbPreferencesDataSource.setDarkThemeConfig(darkThemeConfig)
     }
 }

@@ -9,6 +9,5 @@ data class UserData(
     val bookmarkedNewsResources: Set<String>,
     val viewedNewsResources: Set<String>,
     val followedTopics: Set<String>,
-    val darkThemeConfig: DarkThemeConfig,
-    val shouldHideOnboarding: Boolean,
+    val darkThemeConfig: DarkThemeConfig
 )

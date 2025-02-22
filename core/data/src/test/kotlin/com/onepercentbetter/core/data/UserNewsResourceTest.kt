@@ -54,10 +54,7 @@ class UserNewsResourceTest {
             bookmarkedNewsResources = setOf("N1"),
             viewedNewsResources = setOf("N1"),
             followedTopics = setOf("T1"),
-            themeBrand = DEFAULT,
             darkThemeConfig = FOLLOW_SYSTEM,
-            useDynamicColor = false,
-            shouldHideOnboarding = true,
         )
 
         val userNewsResource = UserNewsResource(newsResource1, userData)

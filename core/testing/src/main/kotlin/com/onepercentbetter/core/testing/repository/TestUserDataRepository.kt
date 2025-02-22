@@ -14,10 +14,7 @@ val emptyUserData = UserData(
     bookmarkedNewsResources = emptySet(),
     viewedNewsResources = emptySet(),
     followedTopics = emptySet(),
-    themeBrand = ThemeBrand.DEFAULT,
     darkThemeConfig = DarkThemeConfig.FOLLOW_SYSTEM,
-    useDynamicColor = false,
-    shouldHideOnboarding = false,
 )
 
 class TestUserDataRepository : UserDataRepository {
@@ -73,27 +70,9 @@ class TestUserDataRepository : UserDataRepository {
         }
     }
 
-    override suspend fun setThemeBrand(themeBrand: ThemeBrand) {
-        currentUserData.let { current ->
-            _userData.tryEmit(current.copy(themeBrand = themeBrand))
-        }
-    }
-
     override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
         currentUserData.let { current ->
             _userData.tryEmit(current.copy(darkThemeConfig = darkThemeConfig))
-        }
-    }
-
-    override suspend fun setDynamicColorPreference(useDynamicColor: Boolean) {
-        currentUserData.let { current ->
-            _userData.tryEmit(current.copy(useDynamicColor = useDynamicColor))
-        }
-    }
-
-    override suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
-        currentUserData.let { current ->
-            _userData.tryEmit(current.copy(shouldHideOnboarding = shouldHideOnboarding))
         }
     }
 

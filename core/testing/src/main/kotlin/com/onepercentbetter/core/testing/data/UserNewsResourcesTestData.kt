@@ -17,10 +17,7 @@ val userNewsResourcesTestData: List<UserNewsResource> = UserData(
     bookmarkedNewsResources = setOf("1", "4"),
     viewedNewsResources = setOf("1", "2", "4"),
     followedTopics = emptySet(),
-    themeBrand = ThemeBrand.ANDROID,
-    darkThemeConfig = DarkThemeConfig.DARK,
-    shouldHideOnboarding = true,
-    useDynamicColor = false,
+    darkThemeConfig = DarkThemeConfig.DARK
 ).let { userData ->
     listOf(
         UserNewsResource(

@@ -30,8 +30,7 @@ class OPBPreferencesDataSource @Inject constructor(
                     DarkThemeConfigProto.DARK_THEME_CONFIG_LIGHT ->
                         DarkThemeConfig.LIGHT
                     DarkThemeConfigProto.DARK_THEME_CONFIG_DARK -> DarkThemeConfig.DARK
-                },
-                shouldHideOnboarding = it.shouldHideOnboarding,
+                }
             )
         }
 
@@ -41,7 +40,6 @@ class OPBPreferencesDataSource @Inject constructor(
                 it.copy {
                     followedTopicIds.clear()
                     followedTopicIds.putAll(topicIds.associateWith { true })
-                    updateShouldHideOnboardingIfNecessary()
                 }
             }
         } catch (ioException: IOException) {
@@ -58,7 +56,6 @@ class OPBPreferencesDataSource @Inject constructor(
                     } else {
                         followedTopicIds.remove(topicId)
                     }
-                    updateShouldHideOnboardingIfNecessary()
                 }
             }
         } catch (ioException: IOException) {
@@ -149,17 +146,5 @@ class OPBPreferencesDataSource @Inject constructor(
         } catch (ioException: IOException) {
             Log.e("OPBPreferences", "Failed to update user preferences", ioException)
         }
-    }
-
-    suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
-        userPreferences.updateData {
-            it.copy { this.shouldHideOnboarding = shouldHideOnboarding }
-        }
-    }
-}
-
-private fun UserPreferencesKt.Dsl.updateShouldHideOnboardingIfNecessary() {
-    if (followedTopicIds.isEmpty() && followedAuthorIds.isEmpty()) {
-        shouldHideOnboarding = false
     }
 }

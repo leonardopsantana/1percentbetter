@@ -17,8 +17,6 @@ import com.onepercentbetter.core.testing.util.captureMultiDevice
 import com.onepercentbetter.core.ui.NewsFeedUiState
 import com.onepercentbetter.core.ui.NewsFeedUiState.Success
 import com.onepercentbetter.core.ui.UserNewsResourcePreviewParameterProvider
-import com.onepercentbetter.feature.routine.OnboardingUiState.NotShown
-import com.onepercentbetter.feature.routine.OnboardingUiState.Shown
 import dagger.hilt.android.testing.HiltTestApplication
 import org.hamcrest.Matchers
 import org.junit.Before
@@ -60,7 +58,6 @@ class RoutineScreenScreenshotTests {
             OPBTheme {
                 RoutineScreen(
                     isSyncing = false,
-                    onboardingUiState = NotShown,
                     feedState = Success(
                         feed = userNewsResources,
                     ),
@@ -80,7 +77,6 @@ class RoutineScreenScreenshotTests {
             OPBTheme {
                 RoutineScreen(
                     isSyncing = false,
-                    onboardingUiState = OnboardingUiState.Loading,
                     feedState = NewsFeedUiState.Loading,
                     onNewsResourcesCheckedChanged = { _, _ -> },
                     onNewsResourceViewed = {},
@@ -149,10 +145,6 @@ class RoutineScreenScreenshotTests {
             OPBBackground {
                 RoutineScreen(
                     isSyncing = false,
-                    onboardingUiState = Shown(
-                        topics = userNewsResources.flatMap { news -> news.followableTopics }
-                            .distinctBy { it.topic.id },
-                    ),
                     feedState = Success(
                         feed = userNewsResources,
                     ),
@@ -173,7 +165,6 @@ class RoutineScreenScreenshotTests {
                 OPBTheme {
                     RoutineScreen(
                         isSyncing = true,
-                        onboardingUiState = OnboardingUiState.Loading,
                         feedState = Success(
                             feed = userNewsResources,
                         ),

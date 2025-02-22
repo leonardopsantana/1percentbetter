@@ -4,7 +4,6 @@ package com.onepercentbetter.interests
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.testing.invoke
-import com.onepercentbetter.core.domain.GetFollowableTopicsUseCase
 import com.onepercentbetter.core.model.data.FollowableTopic
 import com.onepercentbetter.core.model.data.Topic
 import com.onepercentbetter.core.testing.repository.TestTopicsRepository
@@ -42,10 +41,6 @@ class InterestsViewModelTest {
 
     private val userDataRepository = TestUserDataRepository()
     private val topicsRepository = TestTopicsRepository()
-    private val getFollowableTopicsUseCase = GetFollowableTopicsUseCase(
-        topicsRepository = topicsRepository,
-        userDataRepository = userDataRepository,
-    )
     private lateinit var viewModel: InterestsViewModel
 
     @Before
@@ -54,8 +49,7 @@ class InterestsViewModelTest {
             savedStateHandle = SavedStateHandle(
                 route = InterestsRoute(initialTopicId = testInputTopics[0].topic.id),
             ),
-            userDataRepository = userDataRepository,
-            getFollowableTopics = getFollowableTopicsUseCase,
+            userDataRepository = userDataRepository
         )
     }
 

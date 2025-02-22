@@ -31,8 +31,7 @@ object PreviewParameterData {
         bookmarkedNewsResources = setOf("1", "3"),
         viewedNewsResources = setOf("1", "2", "4"),
         followedTopics = emptySet(),
-        darkThemeConfig = DarkThemeConfig.DARK,
-        shouldHideOnboarding = true,
+        darkThemeConfig = DarkThemeConfig.DARK
     )
 
     val topics = listOf(

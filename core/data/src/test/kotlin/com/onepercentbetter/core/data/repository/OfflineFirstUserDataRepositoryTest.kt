@@ -1,5 +1,3 @@
-
-
 package com.onepercentbetter.core.data.repository
 
 import com.onepercentbetter.core.analytics.NoOpAnalyticsHelper
@@ -15,8 +13,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 class OfflineFirstUserDataRepositoryTest {
 
@@ -30,7 +26,8 @@ class OfflineFirstUserDataRepositoryTest {
 
     @Before
     fun setup() {
-        opbPreferencesDataSource = OPBPreferencesDataSource(InMemoryDataStore(_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.getDefaultInstance()))
+        opbPreferencesDataSource =
+            OPBPreferencesDataSource(InMemoryDataStore(_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.getDefaultInstance()))
 
         subject = OfflineFirstUserDataRepository(
             opbPreferencesDataSource = opbPreferencesDataSource,
@@ -46,10 +43,7 @@ class OfflineFirstUserDataRepositoryTest {
                     bookmarkedNewsResources = emptySet(),
                     viewedNewsResources = emptySet(),
                     followedTopics = emptySet(),
-                    themeBrand = ThemeBrand.DEFAULT,
                     darkThemeConfig = DarkThemeConfig.FOLLOW_SYSTEM,
-                    useDynamicColor = false,
-                    shouldHideOnboarding = false,
                 ),
                 subject.userData.first(),
             )
@@ -188,16 +182,5 @@ class OfflineFirstUserDataRepositoryTest {
                     .map { it.darkThemeConfig }
                     .first(),
             )
-        }
-
-    @Test
-    fun whenUserCompletesOnboarding_thenRemovesAllInterests_shouldHideOnboardingIsFalse() =
-        testScope.runTest {
-            subject.setFollowedTopicIds(setOf("1"))
-            subject.setShouldHideOnboarding(true)
-            assertTrue(subject.userData.first().shouldHideOnboarding)
-
-            subject.setFollowedTopicIds(emptySet())
-            assertFalse(subject.userData.first().shouldHideOnboarding)
         }
 }

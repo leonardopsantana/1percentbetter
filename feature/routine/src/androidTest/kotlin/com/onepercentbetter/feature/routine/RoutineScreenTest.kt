@@ -19,9 +19,6 @@ import com.onepercentbetter.core.testing.data.followableTopicTestData
 import com.onepercentbetter.core.testing.data.userNewsResourcesTestData
 import com.onepercentbetter.core.ui.NewsFeedUiState.Loading
 import com.onepercentbetter.core.ui.NewsFeedUiState.Success
-import com.onepercentbetter.feature.routine.OnboardingUiState.Loading
-import com.onepercentbetter.feature.routine.OnboardingUiState.NotShown
-import com.onepercentbetter.feature.routine.OnboardingUiState.Shown
 import org.junit.Rule
 import org.junit.Test
 
@@ -45,12 +42,9 @@ class RoutineScreenTest {
             Box {
                 RoutineScreen(
                     isSyncing = false,
-                    onboardingUiState = Loading,
                     feedState = Loading,
                     deepLinkedUserNewsResource = null,
-                    onTopicCheckedChanged = { _, _ -> },
                     onTopicClick = {},
-                    saveFollowedTopics = {},
                     onNewsResourcesCheckedChanged = { _, _ -> },
                     onNewsResourceViewed = {},
                     onDeepLinkOpened = {},
@@ -71,12 +65,9 @@ class RoutineScreenTest {
             Box {
                 RoutineScreen(
                     isSyncing = true,
-                    onboardingUiState = NotShown,
                     feedState = Success(emptyList()),
                     deepLinkedUserNewsResource = null,
-                    onTopicCheckedChanged = { _, _ -> },
                     onTopicClick = {},
-                    saveFollowedTopics = {},
                     onNewsResourcesCheckedChanged = { _, _ -> },
                     onNewsResourceViewed = {},
                     onDeepLinkOpened = {},
@@ -99,16 +90,11 @@ class RoutineScreenTest {
             Box {
                 RoutineScreen(
                     isSyncing = false,
-                    onboardingUiState = Shown(
-                        topics = testData,
-                    ),
                     feedState = Success(
                         feed = emptyList(),
                     ),
                     deepLinkedUserNewsResource = null,
-                    onTopicCheckedChanged = { _, _ -> },
                     onTopicClick = {},
-                    saveFollowedTopics = {},
                     onNewsResourcesCheckedChanged = { _, _ -> },
                     onNewsResourceViewed = {},
                     onDeepLinkOpened = {},
@@ -142,20 +128,11 @@ class RoutineScreenTest {
             Box {
                 RoutineScreen(
                     isSyncing = false,
-                    onboardingUiState =
-                    Shown(
-                        // Follow one topic
-                        topics = followableTopicTestData.mapIndexed { index, testTopic ->
-                            testTopic.copy(isFollowed = index == 1)
-                        },
-                    ),
                     feedState = Success(
                         feed = emptyList(),
                     ),
                     deepLinkedUserNewsResource = null,
-                    onTopicCheckedChanged = { _, _ -> },
                     onTopicClick = {},
-                    saveFollowedTopics = {},
                     onNewsResourcesCheckedChanged = { _, _ -> },
                     onNewsResourceViewed = {},
                     onDeepLinkOpened = {},
@@ -189,13 +166,9 @@ class RoutineScreenTest {
             Box {
                 RoutineScreen(
                     isSyncing = false,
-                    onboardingUiState =
-                    Shown(topics = followableTopicTestData),
                     feedState = Loading,
                     deepLinkedUserNewsResource = null,
-                    onTopicCheckedChanged = { _, _ -> },
                     onTopicClick = {},
-                    saveFollowedTopics = {},
                     onNewsResourcesCheckedChanged = { _, _ -> },
                     onNewsResourceViewed = {},
                     onDeepLinkOpened = {},
@@ -216,12 +189,9 @@ class RoutineScreenTest {
             Box {
                 RoutineScreen(
                     isSyncing = false,
-                    onboardingUiState = NotShown,
                     feedState = Loading,
                     deepLinkedUserNewsResource = null,
-                    onTopicCheckedChanged = { _, _ -> },
                     onTopicClick = {},
-                    saveFollowedTopics = {},
                     onNewsResourcesCheckedChanged = { _, _ -> },
                     onNewsResourceViewed = {},
                     onDeepLinkOpened = {},
@@ -241,14 +211,11 @@ class RoutineScreenTest {
         composeTestRule.setContent {
             RoutineScreen(
                 isSyncing = false,
-                onboardingUiState = NotShown,
                 feedState = Success(
                     feed = userNewsResourcesTestData,
                 ),
                 deepLinkedUserNewsResource = null,
-                onTopicCheckedChanged = { _, _ -> },
                 onTopicClick = {},
-                saveFollowedTopics = {},
                 onNewsResourcesCheckedChanged = { _, _ -> },
                 onNewsResourceViewed = {},
                 onDeepLinkOpened = {},
