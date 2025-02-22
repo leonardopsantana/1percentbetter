@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2025 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.onepercentbetter.core.data.repository
 
@@ -39,7 +53,7 @@ class OfflineFirstNewsRepositoryTest {
 
     private lateinit var subject: OfflineFirstNewsRepository
 
-    private lateinit var OPBPreferencesDataSource: OPBPreferencesDataSource
+    private lateinit var opbPreferencesDataSource: OPBPreferencesDataSource
 
     private lateinit var newsResourceDao: TestNewsResourceDao
 
@@ -53,17 +67,17 @@ class OfflineFirstNewsRepositoryTest {
 
     @Before
     fun setup() {
-        OPBPreferencesDataSource = OPBPreferencesDataSource(InMemoryDataStore(_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.getDefaultInstance()))
+        opbPreferencesDataSource = OPBPreferencesDataSource(InMemoryDataStore(_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.getDefaultInstance()))
         newsResourceDao = TestNewsResourceDao()
         topicDao = TestTopicDao()
         network = TestOPBNetworkDataSource()
         notifier = TestNotifier()
         synchronizer = TestSynchronizer(
-            OPBPreferencesDataSource,
+            opbPreferencesDataSource,
         )
 
         subject = OfflineFirstNewsRepository(
-            OPBPreferencesDataSource = OPBPreferencesDataSource,
+            OPBPreferencesDataSource = opbPreferencesDataSource,
             newsResourceDao = newsResourceDao,
             topicDao = topicDao,
             network = network,
@@ -117,7 +131,7 @@ class OfflineFirstNewsRepositoryTest {
     fun offlineFirstNewsRepository_sync_pulls_from_network() =
         testScope.runTest {
             // User has not onboarded
-            OPBPreferencesDataSource.setShouldHideOnboarding(false)
+            opbPreferencesDataSource.setShouldHideOnboarding(false)
             subject.syncWith(synchronizer)
 
             val newsResourcesFromNetwork = network.getNewsResources()
@@ -147,7 +161,7 @@ class OfflineFirstNewsRepositoryTest {
     fun offlineFirstNewsRepository_sync_deletes_items_marked_deleted_on_network() =
         testScope.runTest {
             // User has not onboarded
-            OPBPreferencesDataSource.setShouldHideOnboarding(false)
+            opbPreferencesDataSource.setShouldHideOnboarding(false)
 
             val newsResourcesFromNetwork = network.getNewsResources()
                 .map(NetworkNewsResource::asEntity)
@@ -194,7 +208,7 @@ class OfflineFirstNewsRepositoryTest {
     fun offlineFirstNewsRepository_incremental_sync_pulls_from_network() =
         testScope.runTest {
             // User has not onboarded
-            OPBPreferencesDataSource.setShouldHideOnboarding(false)
+            opbPreferencesDataSource.setShouldHideOnboarding(false)
 
             // Set news version to 7
             synchronizer.updateChangeListVersions {
@@ -275,7 +289,7 @@ class OfflineFirstNewsRepositoryTest {
 
             assertEquals(
                 network.getNewsResources().map { it.id }.toSet(),
-                OPBPreferencesDataSource.userData.first().viewedNewsResources,
+                opbPreferencesDataSource.userData.first().viewedNewsResources,
             )
         }
 
@@ -291,7 +305,7 @@ class OfflineFirstNewsRepositoryTest {
 
             assertEquals(
                 emptySet(),
-                OPBPreferencesDataSource.userData.first().viewedNewsResources,
+                opbPreferencesDataSource.userData.first().viewedNewsResources,
             )
         }
 
@@ -299,7 +313,7 @@ class OfflineFirstNewsRepositoryTest {
     fun offlineFirstNewsRepository_sends_notifications_for_newly_synced_news_that_is_followed() =
         testScope.runTest {
             // User has onboarded
-            OPBPreferencesDataSource.setShouldHideOnboarding(true)
+            opbPreferencesDataSource.setShouldHideOnboarding(true)
 
             val networkNewsResources = network.getNewsResources()
 
@@ -315,7 +329,7 @@ class OfflineFirstNewsRepositoryTest {
                 .toSet()
 
             // Set followed topics
-            OPBPreferencesDataSource.setFollowedTopicIds(followedTopicIds)
+            opbPreferencesDataSource.setFollowedTopicIds(followedTopicIds)
 
             subject.syncWith(synchronizer)
 
@@ -336,7 +350,7 @@ class OfflineFirstNewsRepositoryTest {
     fun offlineFirstNewsRepository_does_not_send_notifications_for_existing_news_resources() =
         testScope.runTest {
             // User has onboarded
-            OPBPreferencesDataSource.setShouldHideOnboarding(true)
+            opbPreferencesDataSource.setShouldHideOnboarding(true)
 
             val networkNewsResources = network.getNewsResources()
                 .map(NetworkNewsResource::asEntity)
@@ -353,7 +367,7 @@ class OfflineFirstNewsRepositoryTest {
                 .toSet()
 
             // Follow all topics
-            OPBPreferencesDataSource.setFollowedTopicIds(followedTopicIds)
+            opbPreferencesDataSource.setFollowedTopicIds(followedTopicIds)
 
             subject.syncWith(synchronizer)
 
