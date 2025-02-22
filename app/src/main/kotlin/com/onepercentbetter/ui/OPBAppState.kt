@@ -25,8 +25,8 @@ import com.onepercentbetter.feature.interests.navigation.navigateToInterests
 import com.onepercentbetter.feature.routine.navigation.navigateRoutine
 import com.onepercentbetter.navigation.TopLevelDestination
 import com.onepercentbetter.navigation.TopLevelDestination.BOOKMARKS
-import com.onepercentbetter.navigation.TopLevelDestination.FOR_YOU
 import com.onepercentbetter.navigation.TopLevelDestination.INTERESTS
+import com.onepercentbetter.navigation.TopLevelDestination.ROUTINE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -113,7 +113,7 @@ class OPBAppState(
         userNewsResourceRepository.observeAllForFollowedTopics()
             .combine(userNewsResourceRepository.observeAllBookmarked()) { routineNewsResources, bookmarkedNewsResources ->
                 setOfNotNull(
-                    FOR_YOU.takeIf { routineNewsResources.any { !it.hasBeenViewed } },
+                    ROUTINE.takeIf { routineNewsResources.any { !it.hasBeenViewed } },
                     BOOKMARKS.takeIf { bookmarkedNewsResources.any { !it.hasBeenViewed } },
                 )
             }
@@ -154,7 +154,7 @@ class OPBAppState(
             }
 
             when (topLevelDestination) {
-                FOR_YOU -> navController.navigateRoutine(topLevelNavOptions)
+                ROUTINE -> navController.navigateRoutine(topLevelNavOptions)
                 BOOKMARKS -> navController.navigateToBookmarks(topLevelNavOptions)
                 INTERESTS -> navController.navigateToInterests(null, topLevelNavOptions)
             }

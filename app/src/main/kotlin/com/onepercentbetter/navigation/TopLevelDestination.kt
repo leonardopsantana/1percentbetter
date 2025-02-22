@@ -37,9 +37,9 @@ enum class TopLevelDestination(
     val route: KClass<*>,
     val baseRoute: KClass<*> = route,
 ) {
-    FOR_YOU(
-        selectedIcon = OPBIcons.Upcoming,
-        unselectedIcon = OPBIcons.UpcomingBorder,
+    ROUTINE(
+        selectedIcon = OPBIcons.Book,
+        unselectedIcon = OPBIcons.BookBorder,
         iconTextId = rouTine.string.feature_routine_title,
         titleTextId = R.string.app_name,
         route = RoutineRoute::class,

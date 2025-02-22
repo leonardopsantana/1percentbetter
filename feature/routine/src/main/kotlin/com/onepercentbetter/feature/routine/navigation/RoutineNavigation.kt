@@ -1,21 +1,3 @@
-/*
- * Copyright 2025 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-
-
 package com.onepercentbetter.feature.routine.navigation
 
 import androidx.navigation.NavController
@@ -23,16 +5,17 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import androidx.navigation.navDeepLink
-import com.onepercentbetter.core.notifications.DEEP_LINK_URI_PATTERN
 import com.onepercentbetter.feature.routine.RoutineScreen
 import kotlinx.serialization.Serializable
 
-@Serializable data object RoutineRoute // route to routine screen
+@Serializable
+data object RoutineRoute // route to routine screen
 
-@Serializable data object RoutineBaseRoute // route to base navigation graph
+@Serializable
+data object RoutineBaseRoute // route to base navigation graph
 
-fun NavController.navigateRoutine(navOptions: NavOptions) = navigate(route = RoutineRoute, navOptions)
+fun NavController.navigateRoutine(navOptions: NavOptions) =
+    navigate(route = RoutineRoute, navOptions)
 
 /**
  *  The Routine section of the app. It can also display information about topics.
@@ -46,20 +29,7 @@ fun NavGraphBuilder.routineSection(
     topicDestination: NavGraphBuilder.() -> Unit,
 ) {
     navigation<RoutineBaseRoute>(startDestination = RoutineRoute) {
-        composable<RoutineRoute>(
-            deepLinks = listOf(
-                navDeepLink {
-                    /**
-                     * This destination has a deep link that enables a specific news resource to be
-                     * opened from a notification (@see SystemTrayNotifier for more). The news resource
-                     * ID is sent in the URI rather than being modelled in the route type because it's
-                     * transient data (stored in SavedStateHandle) that is cleared after the user has
-                     * opened the news resource.
-                     */
-                    uriPattern = DEEP_LINK_URI_PATTERN
-                },
-            ),
-        ) {
+        composable<RoutineRoute> {
             RoutineScreen(onTopicClick)
         }
         topicDestination()

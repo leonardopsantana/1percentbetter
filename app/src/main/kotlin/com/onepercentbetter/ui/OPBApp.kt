@@ -68,7 +68,7 @@ fun OPBApp(
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),
 ) {
     val shouldShowGradientBackground =
-        appState.currentTopLevelDestination == TopLevelDestination.FOR_YOU
+        appState.currentTopLevelDestination == TopLevelDestination.ROUTINE
     var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
 
     OPBBackground(modifier = modifier) {

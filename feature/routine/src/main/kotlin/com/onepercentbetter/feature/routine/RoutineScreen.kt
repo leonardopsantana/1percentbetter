@@ -1,22 +1,5 @@
-/*
- * Copyright 2025 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.onepercentbetter.feature.routine
 
-import android.net.Uri
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.activity.compose.ReportDrawnWhen
@@ -25,6 +8,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,6 +23,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
@@ -59,11 +44,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -83,7 +68,7 @@ import com.onepercentbetter.core.ui.NewsFeedUiState.Success
 import com.onepercentbetter.core.ui.TrackScreenViewEvent
 import com.onepercentbetter.core.ui.TrackScrollJank
 import com.onepercentbetter.core.ui.UserNewsResourcePreviewParameterProvider
-import com.onepercentbetter.core.ui.launchCustomChromeTab
+import com.onepercentbetter.core.ui.conditional
 import com.onepercentbetter.core.ui.newsFeed
 
 @Composable
@@ -94,13 +79,10 @@ internal fun RoutineScreen(
 ) {
     val feedState by viewModel.feedState.collectAsStateWithLifecycle()
     val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
-    val deepLinkedUserNewsResource by viewModel.deepLinkedNewsResource.collectAsStateWithLifecycle()
 
     RoutineScreen(
         isSyncing = isSyncing,
         feedState = feedState,
-        deepLinkedUserNewsResource = deepLinkedUserNewsResource,
-        onDeepLinkOpened = viewModel::onDeepLinkOpened,
         onTopicClick = onTopicClick,
         onNewsResourcesCheckedChanged = viewModel::updateNewsResourceSaved,
         onNewsResourceViewed = { viewModel.setNewsResourceViewed(it, true) },
@@ -112,9 +94,7 @@ internal fun RoutineScreen(
 internal fun RoutineScreen(
     isSyncing: Boolean,
     feedState: NewsFeedUiState,
-    deepLinkedUserNewsResource: UserNewsResource?,
     onTopicClick: (String) -> Unit,
-    onDeepLinkOpened: (String) -> Unit,
     onNewsResourcesCheckedChanged: (String, Boolean) -> Unit,
     onNewsResourceViewed: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -201,44 +181,42 @@ internal fun RoutineScreen(
     }
     TrackScreenViewEvent(screenName = "Routine")
     NotificationPermissionEffect()
-    DeepLinkEffect(
-        deepLinkedUserNewsResource,
-        onDeepLinkOpened,
-    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DaysRoutine(state: LazyStaggeredGridState) {
-    val carouselUncontainedState = rememberCarouselState(
-        initialItem = 30,
-    ) {
-        30
-    }
     HorizontalUncontainedCarousel(
-        state = carouselUncontainedState,
-        itemWidth = 80.dp,
-        itemSpacing = 1.dp,
+        state = rememberCarouselState(initialItem = 30) { 30 },
+        itemWidth = 90.dp,
     ) { index ->
         Card(
-            onClick = { },
+            onClick = {
+                index
+            },
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             // Use custom label for accessibility services to communicate button's action to user.
             // Pass null for action to only override the label and not the actual action.
-
-//            modifier = modifier
-//                .semantics {
-//                    onClick(label = clickActionLabel, action = null)
-//                }
-//                .testTag("newsResourceCard:${userNewsResource.id}"),
+            modifier = Modifier
+                .semantics {
+                    onClick(label = index.toString(), action = null)
+                },
         ) {
+            val todayColor = MaterialTheme.colorScheme.primaryContainer
+
             Box(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier
+                    .conditional(index == 29) {
+                        background(todayColor)
+                    }
+                    .padding(16.dp),
             ) {
                 Column(
+                    modifier = Modifier
+                        .widthIn(50.dp),
                     verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Text("S", style = MaterialTheme.typography.titleSmall)
                     val title = if (index == 29) "Hoje" else index.toString()
@@ -246,24 +224,6 @@ private fun DaysRoutine(state: LazyStaggeredGridState) {
                 }
             }
         }
-
-//        val pokemonEntity = state.pokemonMutableList[index]
-//        LoadPokemonImage(
-//            pokemonEntity = pokemonEntity,
-//            modifier = Modifier
-//                .maskClip(
-//                    MaterialTheme.shapes.extraLarge,
-//                ),
-//        )
-        //Paging
-//        LaunchedEffect(key1 = true) {
-//            if (!state.nextPage.isNullOrEmpty() && state.pokemonMutableList.size - 1 == index) {
-//                pokemonListViewModel.requestToFetchPokemon(
-//                    state.nextPage,
-//                )
-//            }
-//        }
-//        if (state.isLoading) StartDefaultLoader()
     }
 }
 
@@ -282,26 +242,6 @@ private fun NotificationPermissionEffect() {
         if (status is Denied && !status.shouldShowRationale) {
             notificationsPermissionState.launchPermissionRequest()
         }
-    }
-}
-
-@Composable
-private fun DeepLinkEffect(
-    userNewsResource: UserNewsResource?,
-    onDeepLinkOpened: (String) -> Unit,
-) {
-    val context = LocalContext.current
-    val backgroundColor = MaterialTheme.colorScheme.background.toArgb()
-
-    LaunchedEffect(userNewsResource) {
-        if (userNewsResource == null) return@LaunchedEffect
-        if (!userNewsResource.hasBeenViewed) onDeepLinkOpened(userNewsResource.id)
-
-        launchCustomChromeTab(
-            context = context,
-            uri = Uri.parse(userNewsResource.url),
-            toolbarColor = backgroundColor,
-        )
     }
 }
 
@@ -327,11 +267,9 @@ fun RoutineScreenPopulatedFeed(
             feedState = Success(
                 feed = userNewsResources,
             ),
-            deepLinkedUserNewsResource = null,
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
             onTopicClick = {},
-            onDeepLinkOpened = {},
         )
     }
 }
@@ -348,11 +286,9 @@ fun RoutineScreenOfflinePopulatedFeed(
             feedState = Success(
                 feed = userNewsResources,
             ),
-            deepLinkedUserNewsResource = null,
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
             onTopicClick = {},
-            onDeepLinkOpened = {},
         )
     }
 }
@@ -369,11 +305,9 @@ fun RoutineScreenTopicSelection(
             feedState = Success(
                 feed = userNewsResources,
             ),
-            deepLinkedUserNewsResource = null,
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
             onTopicClick = {},
-            onDeepLinkOpened = {},
         )
     }
 }
@@ -385,11 +319,9 @@ fun RoutineScreenLoading() {
         RoutineScreen(
             isSyncing = false,
             feedState = NewsFeedUiState.Loading,
-            deepLinkedUserNewsResource = null,
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
             onTopicClick = {},
-            onDeepLinkOpened = {},
         )
     }
 }
@@ -406,11 +338,9 @@ fun RoutineScreenPopulatedAndLoading(
             feedState = Success(
                 feed = userNewsResources,
             ),
-            deepLinkedUserNewsResource = null,
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
             onTopicClick = {},
-            onDeepLinkOpened = {},
         )
     }
 }

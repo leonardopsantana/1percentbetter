@@ -2,13 +2,9 @@
 
 package com.onepercentbetter.core.ui
 
-import android.net.Uri
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import com.onepercentbetter.core.analytics.LocalAnalyticsHelper
 import com.onepercentbetter.core.model.data.UserNewsResource
 
@@ -29,9 +25,6 @@ fun LazyListScope.userNewsResourceCardItems(
     items = items,
     key = { it.id },
     itemContent = { userNewsResource ->
-        val resourceUrl = Uri.parse(userNewsResource.url)
-        val backgroundColor = MaterialTheme.colorScheme.background.toArgb()
-        val context = LocalContext.current
         val analyticsHelper = LocalAnalyticsHelper.current
 
         NewsResourceCardExpanded(
@@ -43,7 +36,6 @@ fun LazyListScope.userNewsResourceCardItems(
                 analyticsHelper.logNewsResourceOpened(
                     newsResourceId = userNewsResource.id,
                 )
-                launchCustomChromeTab(context, resourceUrl, backgroundColor)
                 onNewsResourceViewed(userNewsResource.id)
             },
             onTopicClick = onTopicClick,

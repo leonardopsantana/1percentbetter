@@ -11,13 +11,13 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.net.Uri
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.core.app.ActivityCompat.checkSelfPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.InboxStyle
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.net.toUri
 import com.onepercentbetter.core.model.data.NewsResource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -29,11 +29,6 @@ private const val NEWS_NOTIFICATION_REQUEST_CODE = 0
 private const val NEWS_NOTIFICATION_SUMMARY_ID = 1
 private const val NEWS_NOTIFICATION_CHANNEL_ID = ""
 private const val NEWS_NOTIFICATION_GROUP = "NEWS_NOTIFICATIONS"
-private const val DEEP_LINK_SCHEME_AND_HOST = "https://www.onepercentbetter.com"
-private const val DEEP_LINK_FOR_YOU_PATH = "routine"
-private const val DEEP_LINK_BASE_PATH = "$DEEP_LINK_SCHEME_AND_HOST/$DEEP_LINK_FOR_YOU_PATH"
-const val DEEP_LINK_NEWS_RESOURCE_ID_KEY = "linkedNewsResourceId"
-const val DEEP_LINK_URI_PATTERN = "$DEEP_LINK_BASE_PATH/{$DEEP_LINK_NEWS_RESOURCE_ID_KEY}"
 
 /**
  * Implementation of [Notifier] that displays notifications in the system tray.
@@ -141,7 +136,7 @@ private fun Context.newsPendingIntent(
     NEWS_NOTIFICATION_REQUEST_CODE,
     Intent().apply {
         action = Intent.ACTION_VIEW
-        data = newsResource.newsDeepLinkUri()
+        data = Uri.EMPTY //verificar
         component = ComponentName(
             packageName,
             TARGET_ACTIVITY_NAME,
@@ -149,5 +144,3 @@ private fun Context.newsPendingIntent(
     },
     PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
 )
-
-private fun NewsResource.newsDeepLinkUri() = "$DEEP_LINK_BASE_PATH/$id".toUri()
