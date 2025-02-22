@@ -17,10 +17,10 @@ import androidx.compose.ui.unit.dp
  */
 @VisibleForTesting
 val LightDefaultColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = Orange40,
     onPrimary = Color.White,
-    primaryContainer = Purple90,
-    onPrimaryContainer = Purple10,
+    primaryContainer = Orange90,
+    onPrimaryContainer = Orange10,
     secondary = Orange40,
     onSecondary = Color.White,
     secondaryContainer = Orange90,
@@ -33,15 +33,15 @@ val LightDefaultColorScheme = lightColorScheme(
     onError = Color.White,
     errorContainer = Red90,
     onErrorContainer = Red10,
-    background = DarkPurpleGray99,
-    onBackground = DarkPurpleGray10,
-    surface = DarkPurpleGray99,
-    onSurface = DarkPurpleGray10,
-    surfaceVariant = PurpleGray90,
-    onSurfaceVariant = PurpleGray30,
-    inverseSurface = DarkPurpleGray20,
-    inverseOnSurface = DarkPurpleGray95,
-    outline = PurpleGray50,
+    background = DarkOrangeGray99,
+    onBackground = DarkOrangeGray10,
+    surface = DarkOrangeGray99,
+    onSurface = DarkOrangeGray10,
+    surfaceVariant = OrangeGray90,
+    onSurfaceVariant = OrangeGray30,
+    inverseSurface = DarkOrangeGray20,
+    inverseOnSurface = DarkOrangeGray95,
+    outline = OrangeGray50,
 )
 
 /**
@@ -49,10 +49,10 @@ val LightDefaultColorScheme = lightColorScheme(
  */
 @VisibleForTesting
 val DarkDefaultColorScheme = darkColorScheme(
-    primary = Purple80,
-    onPrimary = Purple20,
-    primaryContainer = Purple30,
-    onPrimaryContainer = Purple90,
+    primary = Orange80,
+    onPrimary = Orange20,
+    primaryContainer = Orange30,
+    onPrimaryContainer = Orange90,
     secondary = Orange80,
     onSecondary = Orange20,
     secondaryContainer = Orange30,
@@ -65,25 +65,21 @@ val DarkDefaultColorScheme = darkColorScheme(
     onError = Red20,
     errorContainer = Red30,
     onErrorContainer = Red90,
-    background = DarkPurpleGray10,
-    onBackground = DarkPurpleGray90,
-    surface = DarkPurpleGray10,
-    onSurface = DarkPurpleGray90,
-    surfaceVariant = PurpleGray30,
-    onSurfaceVariant = PurpleGray80,
-    inverseSurface = DarkPurpleGray90,
-    inverseOnSurface = DarkPurpleGray10,
-    outline = PurpleGray60,
+    background = DarkOrangeGray10,
+    onBackground = DarkOrangeGray90,
+    surface = DarkOrangeGray10,
+    onSurface = DarkOrangeGray90,
+    surfaceVariant = OrangeGray30,
+    onSurfaceVariant = OrangeGray80,
+    inverseSurface = DarkOrangeGray90,
+    inverseOnSurface = DarkOrangeGray10,
+    outline = OrangeGray60,
 )
 
 /**
  * One percent better theme.
  *
  * @param darkTheme Whether the theme should use a dark color scheme (follows system by default).
- * @param androidTheme Whether the theme should use the Android theme color scheme instead of the
- *        default theme.
- * @param disableDynamicTheming If `true`, disables the use of dynamic theming, even when it is
- *        supported. This parameter has no effect if [androidTheme] is `true`.
  */
 @Composable
 fun OPBTheme(
