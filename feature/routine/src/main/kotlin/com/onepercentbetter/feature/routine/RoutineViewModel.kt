@@ -5,21 +5,26 @@ import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.core.data.repository.UserDataRepository
 import com.onepercentbetter.core.data.repository.UserNewsResourceRepository
 import com.onepercentbetter.core.data.util.SyncManager
-import com.onepercentbetter.core.ui.NewsFeedUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
 class RoutineViewModel @Inject constructor(
     syncManager: SyncManager,
     private val userDataRepository: UserDataRepository,
-    userNewsResourceRepository: UserNewsResourceRepository
+    userNewsResourceRepository: UserNewsResourceRepository,
 ) : ViewModel() {
+
+    private val daysOfWeek: List<LocalDate>
+        get() {
+            return (0..6).map { LocalDate.now().minusDays(it.toLong()) }.reversed()
+        }
 
     val isSyncing = syncManager.isSyncing
         .stateIn(
@@ -28,13 +33,15 @@ class RoutineViewModel @Inject constructor(
             initialValue = false,
         )
 
-    val feedState: StateFlow<NewsFeedUiState> =
+    val feedState: StateFlow<RoutineUiState> =
         userNewsResourceRepository.observeAllForFollowedTopics()
-            .map(NewsFeedUiState::Success)
+            .map { userNewsList ->
+                RoutineUiState.Success(userNewsList, daysOfWeek)
+            }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = NewsFeedUiState.Loading,
+                initialValue = RoutineUiState.Loading,
             )
 
     fun updateTopicSelection(topicId: String, isChecked: Boolean) {

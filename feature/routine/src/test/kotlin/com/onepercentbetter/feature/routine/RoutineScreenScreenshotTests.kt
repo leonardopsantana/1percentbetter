@@ -14,7 +14,6 @@ import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.testing.util.DefaultTestDevices
 import com.onepercentbetter.core.testing.util.captureForDevice
 import com.onepercentbetter.core.testing.util.captureMultiDevice
-import com.onepercentbetter.core.ui.NewsFeedUiState
 import com.onepercentbetter.core.ui.NewsFeedUiState.Success
 import com.onepercentbetter.core.ui.UserNewsResourcePreviewParameterProvider
 import dagger.hilt.android.testing.HiltTestApplication
@@ -77,7 +76,7 @@ class RoutineScreenScreenshotTests {
             OPBTheme {
                 RoutineScreen(
                     isSyncing = false,
-                    feedState = NewsFeedUiState.Loading,
+                    feedState = RoutineUiState.Loading,
                     onNewsResourcesCheckedChanged = { _, _ -> },
                     onNewsResourceViewed = {},
                     onTopicClick = {},

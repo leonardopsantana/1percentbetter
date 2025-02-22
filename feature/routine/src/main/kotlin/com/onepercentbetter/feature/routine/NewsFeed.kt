@@ -1,6 +1,22 @@
+/*
+ * Copyright 2025 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 
-package com.onepercentbetter.core.ui
+
+package com.onepercentbetter.feature.routine
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
@@ -17,15 +33,18 @@ import androidx.compose.ui.unit.dp
 import com.onepercentbetter.core.analytics.LocalAnalyticsHelper
 import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.model.data.UserNewsResource
-import com.onepercentbetter.core.ui.NewsFeedUiState.Loading
-import com.onepercentbetter.core.ui.NewsFeedUiState.Success
+import com.onepercentbetter.core.ui.NewsResourceCardExpanded
+import com.onepercentbetter.core.ui.UserNewsResourcePreviewParameterProvider
+import com.onepercentbetter.core.ui.logNewsResourceOpened
+import com.onepercentbetter.feature.routine.RoutineUiState.Loading
+import com.onepercentbetter.feature.routine.RoutineUiState.Success
 
 /**
  * An extension on [LazyListScope] defining a feed with news resources.
  * Depending on the [feedState], this might emit no items.
  */
 fun LazyStaggeredGridScope.newsFeed(
-    feedState: NewsFeedUiState,
+    feedState: RoutineUiState,
     onNewsResourcesCheckedChanged: (String, Boolean) -> Unit,
     onNewsResourceViewed: (String) -> Unit,
     onTopicClick: (String) -> Unit,
@@ -68,26 +87,6 @@ fun LazyStaggeredGridScope.newsFeed(
     }
 }
 
-/**
- * A sealed hierarchy describing the state of the feed of news resources.
- */
-sealed interface NewsFeedUiState {
-    /**
-     * The feed is still loading.
-     */
-    data object Loading : NewsFeedUiState
-
-    /**
-     * The feed is loaded with the given list of news resources.
-     */
-    data class Success(
-        /**
-         * The list of news resources contained in this feed.
-         */
-        val feed: List<UserNewsResource>,
-    ) : NewsFeedUiState
-}
-
 @Preview
 @Composable
 private fun NewsFeedLoadingPreview() {
@@ -113,7 +112,7 @@ private fun NewsFeedContentPreview(
     OPBTheme {
         LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Adaptive(300.dp)) {
             newsFeed(
-                feedState = Success(userNewsResources),
+                feedState = Success(userNewsResources, emptyList()),
                 onNewsResourcesCheckedChanged = { _, _ -> },
                 onNewsResourceViewed = {},
                 onTopicClick = {},

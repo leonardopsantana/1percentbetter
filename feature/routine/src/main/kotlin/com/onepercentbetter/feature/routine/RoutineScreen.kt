@@ -28,7 +28,7 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells.Adaptive
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -63,13 +63,13 @@ import com.onepercentbetter.core.designsystem.component.scrollbar.scrollbarState
 import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.model.data.UserNewsResource
 import com.onepercentbetter.core.ui.DevicePreviews
-import com.onepercentbetter.core.ui.NewsFeedUiState
-import com.onepercentbetter.core.ui.NewsFeedUiState.Success
 import com.onepercentbetter.core.ui.TrackScreenViewEvent
 import com.onepercentbetter.core.ui.TrackScrollJank
 import com.onepercentbetter.core.ui.UserNewsResourcePreviewParameterProvider
 import com.onepercentbetter.core.ui.conditional
-import com.onepercentbetter.core.ui.newsFeed
+import com.onepercentbetter.feature.routine.RoutineUiState.Loading
+import com.onepercentbetter.feature.routine.RoutineUiState.Success
+import java.time.LocalDate
 
 @Composable
 internal fun RoutineScreen(
@@ -93,13 +93,13 @@ internal fun RoutineScreen(
 @Composable
 internal fun RoutineScreen(
     isSyncing: Boolean,
-    feedState: NewsFeedUiState,
+    feedState: RoutineUiState,
     onTopicClick: (String) -> Unit,
     onNewsResourcesCheckedChanged: (String, Boolean) -> Unit,
     onNewsResourceViewed: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val isFeedLoading = feedState is NewsFeedUiState.Loading
+    val isFeedLoading = feedState is RoutineUiState.Loading
 
     // This code should be called when the UI is ready for use and relates to Time To Full Display.
     ReportDrawnWhen { !isSyncing && !isFeedLoading }
@@ -111,88 +111,126 @@ internal fun RoutineScreen(
         itemsAvailable = itemsAvailable,
     )
     TrackScrollJank(scrollableState = state, stateName = "routine:feed")
-
-    Column(
+    Box(
         modifier = modifier
             .fillMaxSize(),
     ) {
-        DaysRoutine(state)
 
-        LazyVerticalStaggeredGrid(
-            columns = StaggeredGridCells.Adaptive(300.dp),
-            contentPadding = PaddingValues(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalItemSpacing = 24.dp,
-            modifier = Modifier
-                .testTag("routine:feed"),
-            state = state,
-        ) {
-            newsFeed(
-                feedState = feedState,
-                onNewsResourcesCheckedChanged = onNewsResourcesCheckedChanged,
-                onNewsResourceViewed = onNewsResourceViewed,
-                onTopicClick = onTopicClick,
-            )
+        when (feedState) {
+            Loading -> {
+                RoutineLoading(isSyncing, isFeedLoading)
+            }
 
-            item(span = StaggeredGridItemSpan.FullLine, contentType = "bottomSpacing") {
-                Column {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    // Add space for the content to clear the "offline" snackbar.
-                    // TODO: Check that the Scaffold handles this correctly in OPBApp
-                    // if (isOffline) Spacer(modifier = Modifier.height(48.dp))
-                    Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
+            is Success -> {
+                Column(
+                    modifier = modifier
+                        .fillMaxSize(),
+                ) {
+                    DaysRoutine(feedState.daysOfWeek)
+                    RoutineLoaded(
+                        state,
+                        feedState,
+                        onNewsResourcesCheckedChanged,
+                        onNewsResourceViewed,
+                        onTopicClick,
+                    )
                 }
             }
         }
-        AnimatedVisibility(
-            visible = isSyncing || isFeedLoading,
-            enter = slideInVertically(
-                initialOffsetY = { fullHeight -> -fullHeight },
-            ) + fadeIn(),
-            exit = slideOutVertically(
-                targetOffsetY = { fullHeight -> -fullHeight },
-            ) + fadeOut(),
-        ) {
-            val loadingContentDescription = stringResource(id = R.string.feature_routine_loading)
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-            ) {
-                OPBOverlayLoadingWheel(
-                    modifier = Modifier
-                        .align(Alignment.Center),
-                    contentDesc = loadingContentDescription,
-                )
-            }
-        }
+
         state.DraggableScrollbar(
             modifier = Modifier
                 .fillMaxHeight()
                 .windowInsetsPadding(WindowInsets.systemBars)
                 .padding(horizontal = 2.dp)
-                .align(Alignment.CenterHorizontally),
+                .align(Alignment.CenterEnd),
             state = scrollbarState,
             orientation = Orientation.Vertical,
             onThumbMoved = state.rememberDraggableScroller(
                 itemsAvailable = itemsAvailable,
             ),
         )
+
+        TrackScreenViewEvent(screenName = "Routine")
+        NotificationPermissionEffect()
     }
-    TrackScreenViewEvent(screenName = "Routine")
-    NotificationPermissionEffect()
+}
+
+@Composable
+private fun RoutineLoaded(
+    state: LazyStaggeredGridState,
+    feedState: RoutineUiState,
+    onNewsResourcesCheckedChanged: (String, Boolean) -> Unit,
+    onNewsResourceViewed: (String) -> Unit,
+    onTopicClick: (String) -> Unit,
+) {
+    LazyVerticalStaggeredGrid(
+        columns = Adaptive(300.dp),
+        contentPadding = PaddingValues(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalItemSpacing = 24.dp,
+        modifier = Modifier
+            .testTag("routine:feed"),
+        state = state,
+    ) {
+        newsFeed(
+            feedState = feedState,
+            onNewsResourcesCheckedChanged = onNewsResourcesCheckedChanged,
+            onNewsResourceViewed = onNewsResourceViewed,
+            onTopicClick = onTopicClick,
+        )
+
+        item(span = StaggeredGridItemSpan.FullLine, contentType = "bottomSpacing") {
+            Column {
+                Spacer(modifier = Modifier.height(8.dp))
+                // Add space for the content to clear the "offline" snackbar.
+                // TODO: Check that the Scaffold handles this correctly in OPBApp
+                // if (isOffline) Spacer(modifier = Modifier.height(48.dp))
+                Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
+            }
+        }
+    }
+}
+
+@Composable
+private fun RoutineLoading(
+    isSyncing: Boolean,
+    isFeedLoading: Boolean,
+) {
+    AnimatedVisibility(
+        visible = isSyncing || isFeedLoading,
+        enter = slideInVertically(
+            initialOffsetY = { fullHeight -> -fullHeight },
+        ) + fadeIn(),
+        exit = slideOutVertically(
+            targetOffsetY = { fullHeight -> -fullHeight },
+        ) + fadeOut(),
+    ) {
+        val loadingContentDescription = stringResource(id = R.string.feature_routine_loading)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
+        ) {
+            OPBOverlayLoadingWheel(
+                modifier = Modifier
+                    .align(Alignment.Center),
+                contentDesc = loadingContentDescription,
+            )
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DaysRoutine(state: LazyStaggeredGridState) {
+private fun DaysRoutine(daysOfWeek: List<LocalDate>) {
     HorizontalUncontainedCarousel(
-        state = rememberCarouselState(initialItem = 30) { 30 },
+        state = rememberCarouselState(initialItem = daysOfWeek.size - 1) { daysOfWeek.size },
         itemWidth = 90.dp,
     ) { index ->
         Card(
             onClick = {
-                index
+                index.toString()
             },
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -206,7 +244,7 @@ private fun DaysRoutine(state: LazyStaggeredGridState) {
             val todayColor = MaterialTheme.colorScheme.primaryContainer
             Box(
                 modifier = Modifier
-                    .conditional(index == 29) {
+                    .conditional(index == daysOfWeek.size - 1) {
                         background(todayColor)
                     }
                     .padding(16.dp),
@@ -217,9 +255,8 @@ private fun DaysRoutine(state: LazyStaggeredGridState) {
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Text("S", style = MaterialTheme.typography.titleSmall)
-                    val title = if (index == 29) "Hoje" else index.toString()
-                    Text(title, style = MaterialTheme.typography.headlineSmall)
+                    Text(daysOfWeek[index].dayOfWeek.toString()[0].toString(), style = MaterialTheme.typography.titleSmall)
+                    Text(daysOfWeek[index].dayOfMonth.toString(), style = MaterialTheme.typography.headlineSmall)
                 }
             }
         }
@@ -245,10 +282,10 @@ private fun NotificationPermissionEffect() {
 }
 
 private fun feedItemsSize(
-    feedState: NewsFeedUiState,
+    feedState: RoutineUiState,
 ): Int {
     val feedSize = when (feedState) {
-        NewsFeedUiState.Loading -> 0
+        Loading -> 0
         is Success -> feedState.feed.size
     }
     return feedSize
@@ -265,6 +302,7 @@ fun RoutineScreenPopulatedFeed(
             isSyncing = false,
             feedState = Success(
                 feed = userNewsResources,
+                daysOfWeek = emptyList()
             ),
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
@@ -284,6 +322,7 @@ fun RoutineScreenOfflinePopulatedFeed(
             isSyncing = false,
             feedState = Success(
                 feed = userNewsResources,
+                daysOfWeek = emptyList()
             ),
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
@@ -303,6 +342,7 @@ fun RoutineScreenTopicSelection(
             isSyncing = false,
             feedState = Success(
                 feed = userNewsResources,
+                daysOfWeek = emptyList()
             ),
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
@@ -317,7 +357,7 @@ fun RoutineScreenLoading() {
     OPBTheme {
         RoutineScreen(
             isSyncing = false,
-            feedState = NewsFeedUiState.Loading,
+            feedState = RoutineUiState.Loading,
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
             onTopicClick = {},
@@ -336,6 +376,7 @@ fun RoutineScreenPopulatedAndLoading(
             isSyncing = true,
             feedState = Success(
                 feed = userNewsResources,
+                daysOfWeek = emptyList()
             ),
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},

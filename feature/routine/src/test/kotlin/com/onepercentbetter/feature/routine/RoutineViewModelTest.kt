@@ -17,7 +17,6 @@ import com.onepercentbetter.core.testing.repository.emptyUserData
 import com.onepercentbetter.core.testing.util.MainDispatcherRule
 import com.onepercentbetter.core.testing.util.TestAnalyticsHelper
 import com.onepercentbetter.core.testing.util.TestSyncManager
-import com.onepercentbetter.core.ui.NewsFeedUiState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -66,7 +65,7 @@ class RoutineViewModelTest {
 
     @Test
     fun stateIsInitiallyLoading() = runTest {
-        assertEquals(NewsFeedUiState.Loading, viewModel.feedState.value)
+        assertEquals(RoutineUiState.Loading, viewModel.feedState.value)
     }
 
     @Test
@@ -75,7 +74,7 @@ class RoutineViewModelTest {
 
         topicsRepository.sendTopics(sampleTopics)
 
-        assertEquals(NewsFeedUiState.Loading, viewModel.feedState.value)
+        assertEquals(RoutineUiState.Loading, viewModel.feedState.value)
     }
 
     @Test
@@ -99,7 +98,7 @@ class RoutineViewModelTest {
         newsRepository.sendNewsResources(sampleNewsResources)
 
         assertEquals(
-            NewsFeedUiState.Success(
+            RoutineUiState.Success(
                 feed = emptyList(),
             ),
             viewModel.feedState.value,
@@ -111,7 +110,7 @@ class RoutineViewModelTest {
         val userData = emptyUserData.copy(followedTopics = setOf(followedTopicId))
 
         assertEquals(
-            NewsFeedUiState.Success(
+            RoutineUiState.Success(
                 feed = listOf(
                     UserNewsResource(sampleNewsResources[1], userData),
                     UserNewsResource(sampleNewsResources[2], userData),
@@ -133,7 +132,7 @@ class RoutineViewModelTest {
 
         advanceUntilIdle()
         assertEquals(
-            NewsFeedUiState.Success(
+            RoutineUiState.Success(
                 feed = emptyList(),
             ),
             viewModel.feedState.value,
@@ -164,7 +163,7 @@ class RoutineViewModelTest {
         )
 
         assertEquals(
-            NewsFeedUiState.Success(
+            RoutineUiState.Success(
                 feed = listOf(
                     UserNewsResource(newsResource = sampleNewsResources[1], userDataExpected),
                     UserNewsResource(newsResource = sampleNewsResources[2], userDataExpected),

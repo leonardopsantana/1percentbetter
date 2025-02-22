@@ -9,15 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.core.data.repository.UserDataRepository
 import com.onepercentbetter.core.data.repository.UserNewsResourceRepository
-import com.onepercentbetter.core.model.data.UserNewsResource
-import com.onepercentbetter.core.ui.NewsFeedUiState
-import com.onepercentbetter.core.ui.NewsFeedUiState.Loading
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,15 +22,15 @@ class BookmarksViewModel @Inject constructor(
     var shouldDisplayUndoBookmark by mutableStateOf(false)
     private var lastRemovedBookmarkId: String? = null
 
-    val feedUiState: StateFlow<NewsFeedUiState> =
-        userNewsResourceRepository.observeAllBookmarked()
-            .map<List<UserNewsResource>, NewsFeedUiState>(NewsFeedUiState::Success)
-            .onStart { emit(Loading) }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = Loading,
-            )
+//    val feedUiState: StateFlow<NewsFeedUiState> =
+//        userNewsResourceRepository.observeAllBookmarked()
+//            .map<List<UserNewsResource>, NewsFeedUiState>(NewsFeedUiState::Success)
+//            .onStart { emit(Loading) }
+//            .stateIn(
+//                scope = viewModelScope,
+//                started = SharingStarted.WhileSubscribed(5_000),
+//                initialValue = Loading,
+//            )
 
     fun removeFromSavedResources(newsResourceId: String) {
         viewModelScope.launch {
