@@ -204,7 +204,6 @@ private fun DaysRoutine(state: LazyStaggeredGridState) {
                 },
         ) {
             val todayColor = MaterialTheme.colorScheme.primaryContainer
-
             Box(
                 modifier = Modifier
                     .conditional(index == 29) {
