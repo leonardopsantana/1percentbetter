@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.onepercentbetter.feature.bookmarks.navigation.bookmarksScreen
-import com.onepercentbetter.feature.foryou.navigation.ForYouBaseRoute
-import com.onepercentbetter.feature.foryou.navigation.forYouSection
+import com.onepercentbetter.feature.routine.navigation.RoutineBaseRoute
+import com.onepercentbetter.feature.routine.navigation.routineSection
 import com.onepercentbetter.feature.interests.navigation.navigateToInterests
 import com.onepercentbetter.feature.topic.navigation.navigateToTopic
 import com.onepercentbetter.feature.topic.navigation.topicScreen
@@ -30,10 +30,10 @@ fun OPBNavHost(
     val navController = appState.navController
     NavHost(
         navController = navController,
-        startDestination = ForYouBaseRoute,
+        startDestination = RoutineBaseRoute,
         modifier = modifier,
     ) {
-        forYouSection(
+        routineSection(
             onTopicClick = navController::navigateToTopic,
         ) {
             topicScreen(

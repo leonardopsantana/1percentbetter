@@ -1,5 +1,3 @@
-
-
 @file:OptIn(ExperimentalRoborazziApi::class)
 
 package com.onepercentbetter.core.testing.util
@@ -160,9 +158,7 @@ fun <A : ComponentActivity> AndroidComposeTestRule<ActivityScenarioRule<A>, A>.c
             LocalInspectionMode provides true,
         ) {
             OPBTheme(
-                androidTheme = androidTheme,
                 darkTheme = darkMode,
-                disableDynamicTheming = !dynamicTheming,
             ) {
                 // Keying is necessary in some cases (e.g. animations)
                 key(androidTheme, darkMode, dynamicTheming) {

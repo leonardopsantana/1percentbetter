@@ -65,7 +65,7 @@ include(":core:screenshot-testing")
 include(":core:testing")
 include(":core:ui")
 
-include(":feature:foryou")
+include(":feature:routine")
 include(":feature:interests")
 include(":feature:bookmarks")
 include(":feature:topic")

@@ -14,10 +14,12 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.By
-import com.onepercentbetterforyou.forYouScrollFeedDownUp
-import com.onepercentbetterforyou.forYouSelectTopics
-import com.onepercentbetterforyou.forYouWaitForContent
-import com.onepercentbetterforyou.setAppTheme
+import com.onepercentbetter.PACKAGE_NAME
+import com.onepercentbetter.allowNotifications
+import com.onepercentbetter.routine.routineScrollFeedDownUp
+import com.onepercentbetter.routine.routineSelectTopics
+import com.onepercentbetter.routine.routineWaitForContent
+import com.onepercentbetter.routine.setAppTheme
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -58,10 +60,10 @@ class ScrollTopicListPowerMetricsBenchmark {
                 setAppTheme(isDark)
             },
         ) {
-            forYouWaitForContent()
-            forYouSelectTopics()
+            routineWaitForContent()
+            routineSelectTopics()
             repeat(3) {
-                forYouScrollFeedDownUp()
+                routineScrollFeedDownUp()
             }
         }
 }

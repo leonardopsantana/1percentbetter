@@ -15,7 +15,7 @@
         </g>
         <g class="node" transform="translate(4 400)">
             <ellipse cx="135.13" cy="-306" fill="none" stroke="#000" rx="68.95" ry="18"/>
-            <text x="135.13" y="-301.8" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:foryou</text>
+            <text x="135.13" y="-301.8" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:routine</text>
         </g>
         <g stroke="#000" class="edge">
             <path fill="none" d="M621.71 25.48C553.19 31.85 369.1 50.17 217.13 76c-5.5.93-11.19 1.99-16.88 3.12"/>

@@ -58,7 +58,7 @@ android {
 
 dependencies {
     implementation(projects.feature.interests)
-    implementation(projects.feature.foryou)
+    implementation(projects.feature.routine)
     implementation(projects.feature.bookmarks)
     implementation(projects.feature.topic)
     implementation(projects.feature.settings)

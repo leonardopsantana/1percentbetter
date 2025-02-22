@@ -19,6 +19,8 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.NoActivityResumedException
+import com.onepercentbetter.MainActivity
+import com.onepercentbetter.R
 import com.onepercentbetter.core.data.repository.NewsRepository
 import com.onepercentbetter.core.data.repository.TopicsRepository
 import com.onepercentbetter.core.model.data.Topic
@@ -32,8 +34,8 @@ import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
 import com.onepercentbetter.feature.bookmarks.R as BookmarksR
-import com.onepercentbetter.feature.foryou.R as FeatureForyouR
-import com.onepercentbetter.feature.search.R as FeatureSearchR
+import com.onepercentbetter.feature.interests.R as interestS
+import com.onepercentbetter.feature.routine.R as FeatureRouTine
 import com.onepercentbetter.feature.settings.R as SettingsR
 
 /**
@@ -67,9 +69,9 @@ class NavigationTest {
     lateinit var newsRepository: NewsRepository
 
     // The strings used for matching in these tests
-    private val navigateUp by composeTestRule.stringResource(FeatureForyouR.string.feature_foryou_navigate_up)
-    private val forYou by composeTestRule.stringResource(FeatureForyouR.string.feature_foryou_title)
-    private val interests by composeTestRule.stringResource(FeatureSearchR.string.feature_search_interests)
+    private val navigateUp by composeTestRule.stringResource(FeatureRouTine.string.feature_routine_navigate_up)
+    private val routine by composeTestRule.stringResource(FeatureRouTine.string.feature_routine_title)
+    private val interests by composeTestRule.stringResource(interestS.string.feature_interests_title)
     private val sampleTopic = "Headlines"
     private val appName by composeTestRule.stringResource(R.string.app_name)
     private val saved by composeTestRule.stringResource(BookmarksR.string.feature_bookmarks_title)
@@ -81,10 +83,10 @@ class NavigationTest {
     fun setup() = hiltRule.inject()
 
     @Test
-    fun firstScreen_isForYou() {
+    fun firstScreen_isRoutine() {
         composeTestRule.apply {
             // VERIFY for you is selected
-            onNodeWithText(forYou).assertIsSelected()
+            onNodeWithText(routine).assertIsSelected()
         }
     }
 
@@ -103,7 +105,7 @@ class NavigationTest {
             // WHEN the user navigates to the Interests destination
             onNodeWithText(interests).performClick()
             // AND the user navigates to the For You destination
-            onNodeWithText(forYou).performClick()
+            onNodeWithText(routine).performClick()
             // THEN the state of the For You destination is restored
             onNodeWithContentDescription(sampleTopic).assertIsOn()
         }
@@ -118,7 +120,7 @@ class NavigationTest {
             // GIVEN the user follows a topic
             onNodeWithText(sampleTopic).performClick()
             // WHEN the user taps the For You navigation bar item
-            onNodeWithText(forYou).performClick()
+            onNodeWithText(routine).performClick()
             // THEN the state of the For You destination is restored
             onNodeWithContentDescription(sampleTopic).assertIsOn()
         }
@@ -212,7 +214,7 @@ class NavigationTest {
             // GIVEN the user navigates to the Interests destination
             onNodeWithText(interests).performClick()
             // and then navigates to the For you destination
-            onNodeWithText(forYou).performClick()
+            onNodeWithText(routine).performClick()
             // WHEN the user uses the system button/gesture to go back
             Espresso.pressBack()
             // THEN the app quits
@@ -224,7 +226,7 @@ class NavigationTest {
      * to the "For you" destination, no matter which destinations you visited in between.
      */
     @Test
-    fun navigationBar_backFromAnyDestination_returnsToForYou() {
+    fun navigationBar_backFromAnyDestination_returnsToRoutine() {
         composeTestRule.apply {
             // GIVEN the user navigated to the Interests destination
             onNodeWithText(interests).performClick()
@@ -232,7 +234,7 @@ class NavigationTest {
             // WHEN the user uses the system button/gesture to go back,
             Espresso.pressBack()
             // THEN the app shows the For You destination
-            onNodeWithText(forYou).assertExists()
+            onNodeWithText(routine).assertExists()
         }
     }
 
@@ -249,7 +251,7 @@ class NavigationTest {
             onNodeWithText(topic.name).performClick()
 
             // Switch tab
-            onNodeWithText(forYou).performClick()
+            onNodeWithText(routine).performClick()
 
             // Come back to Interests
             onNodeWithText(interests).performClick()
@@ -260,7 +262,7 @@ class NavigationTest {
     }
 
     @Test
-    fun navigatingToTopicFromForYou_showsTopicDetails() {
+    fun navigatingToTopicFromForRoutine_showsTopicDetails() {
         composeTestRule.apply {
             // Get the first news resource
             val newsResource = runBlocking {
@@ -274,7 +276,7 @@ class NavigationTest {
             // Get the news feed and scroll to the news resource
             // Note: Possible flakiness. If the content of the news resource is long then the topic
             // tag might not be visible meaning it cannot be clicked
-            onNodeWithTag("forYou:feed")
+            onNodeWithTag("routine:feed")
                 .performScrollToNode(hasTestTag("newsResourceCard:${newsResource.id}"))
                 .fetchSemanticsNode()
                 .apply {

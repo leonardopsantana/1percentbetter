@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_routine_title">Routine</string>
+    <string name="feature_routine_done">Done</string>
+    <string name="feature_routine_loading">Loading routine…</string>
+    <string name="feature_routine_navigate_up">Navigate up</string>
+</resources>

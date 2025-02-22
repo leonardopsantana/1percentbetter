@@ -8,7 +8,11 @@ import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.StartupMode.COLD
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.onepercentbetterforyou.forYouWaitForContent
+import com.onepercentbetter.BaselineProfileMetrics
+import com.onepercentbetter.PACKAGE_NAME
+import com.onepercentbetter.allowNotifications
+import com.onepercentbetter.routine.routineWaitForContent
+import com.onepercentbetter.startActivityAndAllowNotifications
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -52,6 +56,6 @@ class StartupBenchmark {
     ) {
         startActivityAndAllowNotifications()
         // Waits until the content is ready to capture Time To Full Display
-        forYouWaitForContent()
+        routineWaitForContent()
     }
 }

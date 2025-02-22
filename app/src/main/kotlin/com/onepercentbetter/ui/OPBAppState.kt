@@ -21,8 +21,8 @@ import com.onepercentbetter.core.data.util.NetworkMonitor
 import com.onepercentbetter.core.data.util.TimeZoneMonitor
 import com.onepercentbetter.core.ui.TrackDisposableJank
 import com.onepercentbetter.feature.bookmarks.navigation.navigateToBookmarks
-import com.onepercentbetter.feature.foryou.navigation.navigateToForYou
 import com.onepercentbetter.feature.interests.navigation.navigateToInterests
+import com.onepercentbetter.feature.routine.navigation.navigateRoutine
 import com.onepercentbetter.navigation.TopLevelDestination
 import com.onepercentbetter.navigation.TopLevelDestination.BOOKMARKS
 import com.onepercentbetter.navigation.TopLevelDestination.FOR_YOU
@@ -111,9 +111,9 @@ class OPBAppState(
      */
     val topLevelDestinationsWithUnreadResources: StateFlow<Set<TopLevelDestination>> =
         userNewsResourceRepository.observeAllForFollowedTopics()
-            .combine(userNewsResourceRepository.observeAllBookmarked()) { forYouNewsResources, bookmarkedNewsResources ->
+            .combine(userNewsResourceRepository.observeAllBookmarked()) { routineNewsResources, bookmarkedNewsResources ->
                 setOfNotNull(
-                    FOR_YOU.takeIf { forYouNewsResources.any { !it.hasBeenViewed } },
+                    FOR_YOU.takeIf { routineNewsResources.any { !it.hasBeenViewed } },
                     BOOKMARKS.takeIf { bookmarkedNewsResources.any { !it.hasBeenViewed } },
                 )
             }
@@ -154,7 +154,7 @@ class OPBAppState(
             }
 
             when (topLevelDestination) {
-                FOR_YOU -> navController.navigateToForYou(topLevelNavOptions)
+                FOR_YOU -> navController.navigateRoutine(topLevelNavOptions)
                 BOOKMARKS -> navController.navigateToBookmarks(topLevelNavOptions)
                 INTERESTS -> navController.navigateToInterests(null, topLevelNavOptions)
             }

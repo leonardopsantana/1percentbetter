@@ -7,13 +7,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.onepercentbetter.R
 import com.onepercentbetter.core.designsystem.icon.OPBIcons
 import com.onepercentbetter.feature.bookmarks.navigation.BookmarksRoute
-import com.onepercentbetter.feature.foryou.navigation.ForYouBaseRoute
-import com.onepercentbetter.feature.foryou.navigation.ForYouRoute
 import com.onepercentbetter.feature.interests.navigation.InterestsRoute
+import com.onepercentbetter.feature.routine.navigation.RoutineBaseRoute
+import com.onepercentbetter.feature.routine.navigation.RoutineRoute
 import kotlin.reflect.KClass
 import com.onepercentbetter.feature.bookmarks.R as bookmarksR
-import com.onepercentbetter.feature.foryou.R as forYouR
 import com.onepercentbetter.feature.interests.R as interestS
+import com.onepercentbetter.feature.routine.R as rouTine
 
 /**
  * Type for the top level destinations in the application. Contains metadata about the destination
@@ -40,10 +40,10 @@ enum class TopLevelDestination(
     FOR_YOU(
         selectedIcon = OPBIcons.Upcoming,
         unselectedIcon = OPBIcons.UpcomingBorder,
-        iconTextId = forYouR.string.feature_foryou_title,
+        iconTextId = rouTine.string.feature_routine_title,
         titleTextId = R.string.app_name,
-        route = ForYouRoute::class,
-        baseRoute = ForYouBaseRoute::class,
+        route = RoutineRoute::class,
+        baseRoute = RoutineBaseRoute::class,
     ),
     BOOKMARKS(
         selectedIcon = OPBIcons.Bookmarks,

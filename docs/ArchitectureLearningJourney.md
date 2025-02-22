@@ -72,7 +72,7 @@ Here's what's happening in each step. The easiest way to find the associated cod
   <tr>
    <td>2
    </td>
-   <td>The <code>ForYouViewModel</code> calls <code>GetUserNewsResourcesUseCase</code> to obtain a stream of news resources with their bookmarked/saved state. No items will be emitted into this stream until both the user and news repositories emit an item. While waiting, the feed state is set to <code>Loading</code>.
+   <td>The <code>RoutineViewModel</code> calls <code>GetUserNewsResourcesUseCase</code> to obtain a stream of news resources with their bookmarked/saved state. No items will be emitted into this stream until both the user and news repositories emit an item. While waiting, the feed state is set to <code>Loading</code>.
    </td>
    <td>Search for usages of <code>NewsFeedUiState.Loading</code>
    </td>
@@ -152,9 +152,9 @@ Here's what's happening in each step. The easiest way to find the associated cod
   <tr>
    <td>12
    </td>
-   <td>When <code>ForYouViewModel</code> receives the saveable news resources it updates the feed state to <code>Success</code>.
+   <td>When <code>RoutineViewModel</code> receives the saveable news resources it updates the feed state to <code>Success</code>.
 
-  <code>ForYouScreen</code> then uses the saveable news resources in the state to render the screen.
+  <code>RoutineScreen</code> then uses the saveable news resources in the state to render the screen.
    </td>
    <td>Search for instances of <code>NewsFeedUiState.Success</code>
    </td>
@@ -293,7 +293,7 @@ The feed (a list) of news resources on the For You screen is modeled using `News
 *   `Loading` indicates that the data is loading
 *   `Success` indicates that the data was loaded successfully. The Success state contains the list of news resources.
 
-The `feedState` is passed to the `ForYouScreen` composable, which handles both of these states.
+The `feedState` is passed to the `RoutineScreen` composable, which handles both of these states.
 
 
 ### Transforming streams into UI state
