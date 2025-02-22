@@ -16,7 +16,7 @@
 
 package com.onepercentbetter.core.database.di
 
-import com.onepercentbetter.core.database.NiaDatabase
+import com.onepercentbetter.core.database.OpbDatabase
 import com.onepercentbetter.core.database.dao.NewsResourceDao
 import com.onepercentbetter.core.database.dao.NewsResourceFtsDao
 import com.onepercentbetter.core.database.dao.RecentSearchQueryDao
@@ -32,26 +32,26 @@ import dagger.hilt.components.SingletonComponent
 internal object DaosModule {
     @Provides
     fun providesTopicsDao(
-        database: NiaDatabase,
+        database: OpbDatabase,
     ): TopicDao = database.topicDao()
 
     @Provides
     fun providesNewsResourceDao(
-        database: NiaDatabase,
+        database: OpbDatabase,
     ): NewsResourceDao = database.newsResourceDao()
 
     @Provides
     fun providesTopicFtsDao(
-        database: NiaDatabase,
+        database: OpbDatabase,
     ): TopicFtsDao = database.topicFtsDao()
 
     @Provides
     fun providesNewsResourceFtsDao(
-        database: NiaDatabase,
+        database: OpbDatabase,
     ): NewsResourceFtsDao = database.newsResourceFtsDao()
 
     @Provides
     fun providesRecentSearchQueryDao(
-        database: NiaDatabase,
+        database: OpbDatabase,
     ): RecentSearchQueryDao = database.recentSearchQueryDao()
 }

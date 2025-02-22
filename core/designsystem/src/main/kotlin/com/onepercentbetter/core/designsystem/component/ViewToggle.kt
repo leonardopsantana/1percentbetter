@@ -31,11 +31,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.onepercentbetter.core.designsystem.icon.NiaIcons
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.icon.OPBIcons
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 
 /**
- * Now in Android view toggle button with included trailing icon as well as compact and expanded
+ * One percent better view toggle button with included trailing icon as well as compact and expanded
  * text label content slots.
  *
  * @param expanded Whether the view toggle is currently in expanded mode or compact mode.
@@ -47,7 +47,7 @@ import com.onepercentbetter.core.designsystem.theme.NiaTheme
  * @param expandedText The text label content to show in compact mode.
  */
 @Composable
-fun NiaViewToggleButton(
+fun OPBViewToggleButton(
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -62,13 +62,13 @@ fun NiaViewToggleButton(
         colors = ButtonDefaults.textButtonColors(
             contentColor = MaterialTheme.colorScheme.onBackground,
         ),
-        contentPadding = NiaViewToggleDefaults.ViewToggleButtonContentPadding,
+        contentPadding = OPBViewToggleDefaults.ViewToggleButtonContentPadding,
     ) {
-        NiaViewToggleButtonContent(
+        OPBViewToggleButtonContent(
             text = if (expanded) expandedText else compactText,
             trailingIcon = {
                 Icon(
-                    imageVector = if (expanded) NiaIcons.ViewDay else NiaIcons.ShortText,
+                    imageVector = if (expanded) OPBIcons.ViewDay else OPBIcons.ShortText,
                     contentDescription = null,
                 )
             },
@@ -77,14 +77,14 @@ fun NiaViewToggleButton(
 }
 
 /**
- * Internal Now in Android view toggle button content layout for arranging the text label and
+ * Internal One percent better view toggle button content layout for arranging the text label and
  * trailing icon.
  *
  * @param text The button text label content.
  * @param trailingIcon The button trailing icon content. Default is `null` for no trailing icon.
  */
 @Composable
-private fun NiaViewToggleButtonContent(
+private fun OPBViewToggleButtonContent(
     text: @Composable () -> Unit,
     trailingIcon: @Composable (() -> Unit)? = null,
 ) {
@@ -112,9 +112,9 @@ private fun NiaViewToggleButtonContent(
 @ThemePreviews
 @Composable
 fun ViewTogglePreviewExpanded() {
-    NiaTheme {
+    OPBTheme {
         Surface {
-            NiaViewToggleButton(
+            OPBViewToggleButton(
                 expanded = true,
                 onExpandedChange = { },
                 compactText = { Text(text = "Compact view") },
@@ -127,9 +127,9 @@ fun ViewTogglePreviewExpanded() {
 @Preview
 @Composable
 fun ViewTogglePreviewCompact() {
-    NiaTheme {
+    OPBTheme {
         Surface {
-            NiaViewToggleButton(
+            OPBViewToggleButton(
                 expanded = false,
                 onExpandedChange = { },
                 compactText = { Text(text = "Compact view") },
@@ -140,9 +140,9 @@ fun ViewTogglePreviewCompact() {
 }
 
 /**
- * Now in Android view toggle default values.
+ * One percent better view toggle default values.
  */
-object NiaViewToggleDefaults {
+object OPBViewToggleDefaults {
     // TODO: File bug
     // Various default button padding values aren't exposed via ButtonDefaults
     val ViewToggleButtonContentPadding =

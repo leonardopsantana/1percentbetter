@@ -18,7 +18,7 @@ package com.onepercentbetter.core.data.repository
 
 import androidx.annotation.VisibleForTesting
 import com.onepercentbetter.core.analytics.AnalyticsHelper
-import com.onepercentbetter.core.datastore.NiaPreferencesDataSource
+import com.onepercentbetter.core.datastore.OPBPreferencesDataSource
 import com.onepercentbetter.core.model.data.DarkThemeConfig
 import com.onepercentbetter.core.model.data.ThemeBrand
 import com.onepercentbetter.core.model.data.UserData
@@ -26,24 +26,24 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 internal class OfflineFirstUserDataRepository @Inject constructor(
-    private val niaPreferencesDataSource: NiaPreferencesDataSource,
+    private val OPBPreferencesDataSource: OPBPreferencesDataSource,
     private val analyticsHelper: AnalyticsHelper,
 ) : UserDataRepository {
 
     override val userData: Flow<UserData> =
-        niaPreferencesDataSource.userData
+        OPBPreferencesDataSource.userData
 
     @VisibleForTesting
     override suspend fun setFollowedTopicIds(followedTopicIds: Set<String>) =
-        niaPreferencesDataSource.setFollowedTopicIds(followedTopicIds)
+        OPBPreferencesDataSource.setFollowedTopicIds(followedTopicIds)
 
     override suspend fun setTopicIdFollowed(followedTopicId: String, followed: Boolean) {
-        niaPreferencesDataSource.setTopicIdFollowed(followedTopicId, followed)
+        OPBPreferencesDataSource.setTopicIdFollowed(followedTopicId, followed)
         analyticsHelper.logTopicFollowToggled(followedTopicId, followed)
     }
 
     override suspend fun setNewsResourceBookmarked(newsResourceId: String, bookmarked: Boolean) {
-        niaPreferencesDataSource.setNewsResourceBookmarked(newsResourceId, bookmarked)
+        OPBPreferencesDataSource.setNewsResourceBookmarked(newsResourceId, bookmarked)
         analyticsHelper.logNewsResourceBookmarkToggled(
             newsResourceId = newsResourceId,
             isBookmarked = bookmarked,
@@ -51,25 +51,25 @@ internal class OfflineFirstUserDataRepository @Inject constructor(
     }
 
     override suspend fun setNewsResourceViewed(newsResourceId: String, viewed: Boolean) =
-        niaPreferencesDataSource.setNewsResourceViewed(newsResourceId, viewed)
+        OPBPreferencesDataSource.setNewsResourceViewed(newsResourceId, viewed)
 
     override suspend fun setThemeBrand(themeBrand: ThemeBrand) {
-        niaPreferencesDataSource.setThemeBrand(themeBrand)
+        OPBPreferencesDataSource.setThemeBrand(themeBrand)
         analyticsHelper.logThemeChanged(themeBrand.name)
     }
 
     override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
-        niaPreferencesDataSource.setDarkThemeConfig(darkThemeConfig)
+        OPBPreferencesDataSource.setDarkThemeConfig(darkThemeConfig)
         analyticsHelper.logDarkThemeConfigChanged(darkThemeConfig.name)
     }
 
     override suspend fun setDynamicColorPreference(useDynamicColor: Boolean) {
-        niaPreferencesDataSource.setDynamicColorPreference(useDynamicColor)
+        OPBPreferencesDataSource.setDynamicColorPreference(useDynamicColor)
         analyticsHelper.logDynamicColorPreferenceChanged(useDynamicColor)
     }
 
     override suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
-        niaPreferencesDataSource.setShouldHideOnboarding(shouldHideOnboarding)
+        OPBPreferencesDataSource.setShouldHideOnboarding(shouldHideOnboarding)
         analyticsHelper.logOnboardingStateChanged(shouldHideOnboarding)
     }
 }

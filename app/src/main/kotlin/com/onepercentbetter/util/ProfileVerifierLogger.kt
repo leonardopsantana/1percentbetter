@@ -18,7 +18,6 @@ package com.onepercentbetter.util
 
 import android.util.Log
 import androidx.profileinstaller.ProfileVerifier
-
 import com.onepercentbetter.core.network.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.guava.await

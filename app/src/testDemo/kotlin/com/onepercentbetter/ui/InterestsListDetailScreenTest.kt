@@ -27,7 +27,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.espresso.Espresso
 import com.onepercentbetter.core.data.repository.TopicsRepository
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.model.data.Topic
 import com.onepercentbetterui.interests2pane.InterestsListDetailScreen
 import com.onepercentbetteruitesthiltmanifest.HiltComponentActivity
@@ -86,7 +86,7 @@ class InterestsListDetailScreenTest {
     fun expandedWidth_initialState_showsTwoPanesWithPlaceholder() {
         composeTestRule.apply {
             setContent {
-                NiaTheme {
+                OPBTheme {
                     InterestsListDetailScreen()
                 }
             }
@@ -101,7 +101,7 @@ class InterestsListDetailScreenTest {
     fun compactWidth_initialState_showsListPane() {
         composeTestRule.apply {
             setContent {
-                NiaTheme {
+                OPBTheme {
                     InterestsListDetailScreen()
                 }
             }
@@ -116,7 +116,7 @@ class InterestsListDetailScreenTest {
     fun expandedWidth_topicSelected_updatesDetailPane() {
         composeTestRule.apply {
             setContent {
-                NiaTheme {
+                OPBTheme {
                     InterestsListDetailScreen()
                 }
             }
@@ -135,7 +135,7 @@ class InterestsListDetailScreenTest {
     fun compactWidth_topicSelected_showsTopicDetailPane() {
         composeTestRule.apply {
             setContent {
-                NiaTheme {
+                OPBTheme {
                     InterestsListDetailScreen()
                 }
             }
@@ -155,7 +155,7 @@ class InterestsListDetailScreenTest {
         var unhandledBackPress = false
         composeTestRule.apply {
             setContent {
-                NiaTheme {
+                OPBTheme {
                     // Back press should not be handled by the two pane layout, and thus
                     // "fall through" to this BackHandler.
                     BackHandler {
@@ -180,7 +180,7 @@ class InterestsListDetailScreenTest {
     fun compactWidth_backPressFromTopicDetail_showsListPane() {
         composeTestRule.apply {
             setContent {
-                NiaTheme {
+                OPBTheme {
                     InterestsListDetailScreen()
                 }
             }

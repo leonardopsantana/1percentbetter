@@ -17,7 +17,7 @@
 package com.onepercentbetter.core.network.di
 
 import com.onepercentbetter.core.network.Dispatcher
-import com.onepercentbetter.core.network.NiaDispatchers.Default
+import com.onepercentbetter.core.network.OPBDispatchers.Default
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -27,9 +27,9 @@ import com.onepercentbetter.core.database.model.PopulatedNewsResource
 import com.onepercentbetter.core.database.model.TopicEntity
 import com.onepercentbetter.core.database.model.asExternalModel
 import com.onepercentbetter.core.datastore.ChangeListVersions
-import com.onepercentbetter.core.datastore.NiaPreferencesDataSource
+import com.onepercentbetter.core.datastore.OPBPreferencesDataSource
 import com.onepercentbetter.core.model.data.NewsResource
-import com.onepercentbetter.core.network.NiaNetworkDataSource
+import com.onepercentbetter.core.network.OPBNetworkDataSource
 import com.onepercentbetter.core.network.model.NetworkNewsResource
 import com.onepercentbetter.core.notifications.Notifier
 import kotlinx.coroutines.flow.Flow
@@ -46,10 +46,10 @@ private const val SYNC_BATCH_SIZE = 40
  * Reads are exclusively from local storage to support offline access.
  */
 internal class OfflineFirstNewsRepository @Inject constructor(
-    private val niaPreferencesDataSource: NiaPreferencesDataSource,
+    private val OPBPreferencesDataSource: OPBPreferencesDataSource,
     private val newsResourceDao: NewsResourceDao,
     private val topicDao: TopicDao,
-    private val network: NiaNetworkDataSource,
+    private val network: OPBNetworkDataSource,
     private val notifier: Notifier,
 ) : NewsRepository {
 
@@ -76,7 +76,7 @@ internal class OfflineFirstNewsRepository @Inject constructor(
             },
             modelDeleter = newsResourceDao::deleteNewsResources,
             modelUpdater = { changedIds ->
-                val userData = niaPreferencesDataSource.userData.first()
+                val userData = OPBPreferencesDataSource.userData.first()
                 val hasOnboarded = userData.shouldHideOnboarding
                 val followedTopicIds = userData.followedTopics
 
@@ -96,7 +96,7 @@ internal class OfflineFirstNewsRepository @Inject constructor(
                 if (isFirstSync) {
                     // When we first retrieve news, mark everything viewed, so that we aren't
                     // overwhelmed with all historical news.
-                    niaPreferencesDataSource.setNewsResourcesViewed(changedIds, true)
+                    OPBPreferencesDataSource.setNewsResourcesViewed(changedIds, true)
                 }
 
                 // Obtain the news resources which have changed from the network and upsert them locally

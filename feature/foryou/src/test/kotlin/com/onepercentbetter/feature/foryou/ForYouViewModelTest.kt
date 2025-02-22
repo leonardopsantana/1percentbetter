@@ -35,6 +35,8 @@ import com.onepercentbetter.core.testing.util.MainDispatcherRule
 import com.onepercentbetter.core.testing.util.TestAnalyticsHelper
 import com.onepercentbetter.core.testing.util.TestSyncManager
 import com.onepercentbetter.core.ui.NewsFeedUiState
+import com.onepercentbetter.feature.foryou.ForYouViewModel
+import com.onepercentbetter.feature.foryou.OnboardingUiState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -42,8 +44,6 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Instant
-import com.onepercentbetter.feature.foryou.ForYouViewModel
-import com.onepercentbetter.feature.foryou.OnboardingUiState
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -521,7 +521,7 @@ private val sampleNewsResources = listOf(
     NewsResource(
         id = "1",
         title = "Thanks for helping us reach 1M YouTube Subscribers",
-        content = "Thank you everyone for following the Now in Android series and everything the " +
+        content = "Thank you everyone for following the One percent better series and everything the " +
             "Android Developers YouTube channel has to offer. During the Android Developer " +
             "Summit, our YouTube channel reached 1 million subscribers! Here’s a small video to " +
             "thank you all.",

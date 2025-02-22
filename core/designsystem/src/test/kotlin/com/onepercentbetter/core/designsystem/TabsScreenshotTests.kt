@@ -27,9 +27,9 @@ import androidx.compose.ui.test.FontScale
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onRoot
 import com.github.takahirom.roborazzi.captureRoboImage
-import com.onepercentbetter.core.designsystem.component.NiaTab
-import com.onepercentbetter.core.designsystem.component.NiaTabRow
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.component.OPBTab
+import com.onepercentbetter.core.designsystem.component.OPBTabRow
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.testing.util.DefaultRoborazziOptions
 import com.onepercentbetter.core.testing.util.captureMultiTheme
 import dagger.hilt.android.testing.HiltTestApplication
@@ -53,7 +53,7 @@ class TabsScreenshotTests {
     @Test
     fun tabs_multipleThemes() {
         composeTestRule.captureMultiTheme("Tabs") {
-            NiaTabsExample()
+            OPBTabsExample()
         }
     }
 
@@ -66,8 +66,8 @@ class TabsScreenshotTests {
                 DeviceConfigurationOverride(
                     DeviceConfigurationOverride.FontScale(2f),
                 ) {
-                    NiaTheme {
-                        NiaTabsExample("Looooong item")
+                    OPBTheme {
+                        OPBTabsExample("Looooong item")
                     }
                 }
             }
@@ -80,12 +80,12 @@ class TabsScreenshotTests {
     }
 
     @Composable
-    private fun NiaTabsExample(label: String = "Topics") {
+    private fun OPBTabsExample(label: String = "Topics") {
         Surface {
             val titles = listOf(label, "People")
-            NiaTabRow(selectedTabIndex = 0) {
+            OPBTabRow(selectedTabIndex = 0) {
                 titles.forEachIndexed { index, title ->
-                    NiaTab(
+                    OPBTab(
                         selected = index == 0,
                         onClick = { },
                         text = { Text(text = title) },

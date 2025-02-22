@@ -60,7 +60,7 @@ class InterestsScreenTest {
     }
 
     @Test
-    fun niaLoadingWheel_inTopics_whenScreenIsLoading_showLoading() {
+    fun opbLoadingWheel_inTopics_whenScreenIsLoading_showLoading() {
         composeTestRule.setContent {
             InterestsScreen(uiState = InterestsUiState.Loading)
         }

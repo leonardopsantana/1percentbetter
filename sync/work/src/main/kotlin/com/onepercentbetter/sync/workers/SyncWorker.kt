@@ -30,9 +30,9 @@ import com.onepercentbetter.core.data.repository.NewsRepository
 import com.onepercentbetter.core.data.repository.SearchContentsRepository
 import com.onepercentbetter.core.data.repository.TopicsRepository
 import com.onepercentbetter.core.datastore.ChangeListVersions
-import com.onepercentbetter.core.datastore.NiaPreferencesDataSource
+import com.onepercentbetter.core.datastore.OPBPreferencesDataSource
 import com.onepercentbetter.core.network.Dispatcher
-import com.onepercentbetter.core.network.NiaDispatchers.IO
+import com.onepercentbetter.core.network.OPBDispatchers.IO
 import com.onepercentbetter.sync.initializers.SyncConstraints
 import com.onepercentbetter.sync.initializers.syncForegroundInfo
 import com.onepercentbetter.sync.status.SyncSubscriber
@@ -51,7 +51,7 @@ import kotlinx.coroutines.withContext
 internal class SyncWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
-    private val niaPreferences: NiaPreferencesDataSource,
+    private val opbPreferences: OPBPreferencesDataSource,
     private val topicRepository: TopicsRepository,
     private val newsRepository: NewsRepository,
     private val searchContentsRepository: SearchContentsRepository,
@@ -87,11 +87,11 @@ internal class SyncWorker @AssistedInject constructor(
     }
 
     override suspend fun getChangeListVersions(): ChangeListVersions =
-        niaPreferences.getChangeListVersions()
+        opbPreferences.getChangeListVersions()
 
     override suspend fun updateChangeListVersions(
         update: ChangeListVersions.() -> ChangeListVersions,
-    ) = niaPreferences.updateChangeListVersion(update)
+    ) = opbPreferences.updateChangeListVersion(update)
 
     companion object {
         /**

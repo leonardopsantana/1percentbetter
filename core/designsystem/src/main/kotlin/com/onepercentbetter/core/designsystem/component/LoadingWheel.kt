@@ -47,11 +47,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import kotlinx.coroutines.launch
 
 @Composable
-fun NiaLoadingWheel(
+fun OPBLoadingWheel(
     contentDesc: String,
     modifier: Modifier = Modifier,
 ) {
@@ -132,7 +132,7 @@ fun NiaLoadingWheel(
 }
 
 @Composable
-fun NiaOverlayLoadingWheel(
+fun OPBOverlayLoadingWheel(
     contentDesc: String,
     modifier: Modifier = Modifier,
 ) {
@@ -143,7 +143,7 @@ fun NiaOverlayLoadingWheel(
         modifier = modifier
             .size(60.dp),
     ) {
-        NiaLoadingWheel(
+        OPBLoadingWheel(
             contentDesc = contentDesc,
         )
     }
@@ -151,20 +151,20 @@ fun NiaOverlayLoadingWheel(
 
 @ThemePreviews
 @Composable
-fun NiaLoadingWheelPreview() {
-    NiaTheme {
+fun OPBLoadingWheelPreview() {
+    OPBTheme {
         Surface {
-            NiaLoadingWheel(contentDesc = "LoadingWheel")
+            OPBLoadingWheel(contentDesc = "LoadingWheel")
         }
     }
 }
 
 @ThemePreviews
 @Composable
-fun NiaOverlayLoadingWheelPreview() {
-    NiaTheme {
+fun OPBOverlayLoadingWheelPreview() {
+    OPBTheme {
         Surface {
-            NiaOverlayLoadingWheel(contentDesc = "LoadingWheel")
+            OPBOverlayLoadingWheel(contentDesc = "LoadingWheel")
         }
     }
 }

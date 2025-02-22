@@ -30,9 +30,9 @@ import androidx.compose.ui.test.then
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.github.takahirom.roborazzi.captureRoboImage
-import com.onepercentbetter.core.designsystem.component.NiaBackground
-import com.onepercentbetter.core.designsystem.component.NiaFilterChip
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.component.OPBBackground
+import com.onepercentbetter.core.designsystem.component.OPBFilterChip
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.testing.util.DefaultRoborazziOptions
 import com.onepercentbetter.core.testing.util.captureMultiTheme
 import dagger.hilt.android.testing.HiltTestApplication
@@ -57,7 +57,7 @@ class FilterChipScreenshotTests {
     fun filterChip_multipleThemes() {
         composeTestRule.captureMultiTheme("FilterChip") {
             Surface {
-                NiaFilterChip(selected = false, onSelectedChange = {}) {
+                OPBFilterChip(selected = false, onSelectedChange = {}) {
                     Text("Unselected chip")
                 }
             }
@@ -68,7 +68,7 @@ class FilterChipScreenshotTests {
     fun filterChip_multipleThemes_selected() {
         composeTestRule.captureMultiTheme("FilterChip", "FilterChipSelected") {
             Surface {
-                NiaFilterChip(selected = true, onSelectedChange = {}) {
+                OPBFilterChip(selected = true, onSelectedChange = {}) {
                     Text("Selected Chip")
                 }
             }
@@ -85,9 +85,9 @@ class FilterChipScreenshotTests {
                     DeviceConfigurationOverride.FontScale(2f) then
                         DeviceConfigurationOverride.ForcedSize(DpSize(80.dp, 40.dp)),
                 ) {
-                    NiaTheme {
-                        NiaBackground {
-                            NiaFilterChip(selected = true, onSelectedChange = {}) {
+                    OPBTheme {
+                        OPBBackground {
+                            OPBFilterChip(selected = true, onSelectedChange = {}) {
                                 Text("Chip")
                             }
                         }

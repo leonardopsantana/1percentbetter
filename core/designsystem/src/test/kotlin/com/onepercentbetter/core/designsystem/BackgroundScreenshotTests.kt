@@ -22,8 +22,8 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.unit.dp
-import com.onepercentbetter.core.designsystem.component.NiaBackground
-import com.onepercentbetter.core.designsystem.component.NiaGradientBackground
+import com.onepercentbetter.core.designsystem.component.OPBBackground
+import com.onepercentbetter.core.designsystem.component.OPBGradientBackground
 import com.onepercentbetter.core.testing.util.captureMultiTheme
 import dagger.hilt.android.testing.HiltTestApplication
 import org.junit.Rule
@@ -44,18 +44,18 @@ class BackgroundScreenshotTests {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun niaBackground_multipleThemes() {
+    fun opbBackground_multipleThemes() {
         composeTestRule.captureMultiTheme("Background") { description ->
-            NiaBackground(Modifier.size(100.dp)) {
+            OPBBackground(Modifier.size(100.dp)) {
                 Text("$description background")
             }
         }
     }
 
     @Test
-    fun niaGradientBackground_multipleThemes() {
+    fun opbGradientBackground_multipleThemes() {
         composeTestRule.captureMultiTheme("Background", "GradientBackground") { description ->
-            NiaGradientBackground(Modifier.size(100.dp)) {
+            OPBGradientBackground(Modifier.size(100.dp)) {
                 Text("$description background")
             }
         }

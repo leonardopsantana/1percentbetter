@@ -23,20 +23,18 @@ import com.google.android.apps.common.testing.accessibility.framework.Accessibil
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesElements
 import com.google.android.apps.common.testing.accessibility.framework.checks.TextContrastCheck
 import com.google.android.apps.common.testing.accessibility.framework.matcher.ElementMatchers.withText
-import com.onepercentbetter.core.designsystem.component.NiaBackground
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.component.OPBBackground
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.testing.util.DefaultTestDevices
 import com.onepercentbetter.core.testing.util.captureForDevice
 import com.onepercentbetter.core.testing.util.captureMultiDevice
 import com.onepercentbetter.core.ui.NewsFeedUiState
-import com.onepercentbetter.core.ui.NewsFeedUiState.Loading
 import com.onepercentbetter.core.ui.NewsFeedUiState.Success
 import com.onepercentbetter.core.ui.UserNewsResourcePreviewParameterProvider
 import com.onepercentbetter.feature.foryou.OnboardingUiState.Loading
 import com.onepercentbetter.feature.foryou.OnboardingUiState.NotShown
 import com.onepercentbetter.feature.foryou.OnboardingUiState.Shown
 import dagger.hilt.android.testing.HiltTestApplication
-import com.onepercentbetter.feature.foryou.ForYouScreen
 import org.hamcrest.Matchers
 import org.junit.Before
 import org.junit.Rule
@@ -74,7 +72,7 @@ class ForYouScreenScreenshotTests {
     @Test
     fun forYouScreenPopulatedFeed() {
         composeTestRule.captureMultiDevice("ForYouScreenPopulatedFeed") {
-            NiaTheme {
+            OPBTheme {
                 ForYouScreen(
                     isSyncing = false,
                     onboardingUiState = NotShown,
@@ -96,11 +94,11 @@ class ForYouScreenScreenshotTests {
     @Test
     fun forYouScreenLoading() {
         composeTestRule.captureMultiDevice("ForYouScreenLoading") {
-            NiaTheme {
+            OPBTheme {
                 ForYouScreen(
                     isSyncing = false,
                     onboardingUiState = Loading,
-                    feedState = Loading,
+                    feedState = NewsFeedUiState.Loading,
                     onTopicCheckedChanged = { _, _ -> },
                     saveFollowedTopics = {},
                     onNewsResourcesCheckedChanged = { _, _ -> },
@@ -166,8 +164,8 @@ class ForYouScreenScreenshotTests {
 
     @Composable
     private fun ForYouScreenTopicSelection() {
-        NiaTheme {
-            NiaBackground {
+        OPBTheme {
+            OPBBackground {
                 ForYouScreen(
                     isSyncing = false,
                     onboardingUiState = Shown(
@@ -191,9 +189,9 @@ class ForYouScreenScreenshotTests {
 
     @Composable
     private fun ForYouScreenPopulatedAndLoading() {
-        NiaTheme {
-            NiaBackground {
-                NiaTheme {
+        OPBTheme {
+            OPBBackground {
+                OPBTheme {
                     ForYouScreen(
                         isSyncing = true,
                         onboardingUiState = Loading,

@@ -30,10 +30,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 
 /**
- * Now in Android tab. Wraps Material 3 [Tab] and shifts text label down.
+ * One percent better tab. Wraps Material 3 [Tab] and shifts text label down.
  *
  * @param selected Whether this tab is selected or not.
  * @param onClick The callback to be invoked when this tab is selected.
@@ -43,7 +43,7 @@ import com.onepercentbetter.core.designsystem.theme.NiaTheme
  * @param text The text label content.
  */
 @Composable
-fun NiaTab(
+fun OPBTab(
     selected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -60,7 +60,7 @@ fun NiaTab(
             ProvideTextStyle(
                 value = style,
                 content = {
-                    Box(modifier = Modifier.padding(top = NiaTabDefaults.TabTopPadding)) {
+                    Box(modifier = Modifier.padding(top = OPBTabDefaults.TabTopPadding)) {
                         text()
                     }
                 },
@@ -70,15 +70,15 @@ fun NiaTab(
 }
 
 /**
- * Now in Android tab row. Wraps Material 3 [TabRow].
+ * One percent better tab row. Wraps Material 3 [TabRow].
  *
  * @param selectedTabIndex The index of the currently selected tab.
  * @param modifier Modifier to be applied to the tab row.
- * @param tabs The tabs inside this tab row. Typically this will be multiple [NiaTab]s. Each element
+ * @param tabs The tabs inside this tab row. Typically this will be multiple [OPBTab]s. Each element
  * inside this lambda will be measured and placed evenly across the row, each taking up equal space.
  */
 @Composable
-fun NiaTabRow(
+fun OPBTabRow(
     selectedTabIndex: Int,
     modifier: Modifier = Modifier,
     tabs: @Composable () -> Unit,
@@ -102,11 +102,11 @@ fun NiaTabRow(
 @ThemePreviews
 @Composable
 fun TabsPreview() {
-    NiaTheme {
+    OPBTheme {
         val titles = listOf("Topics", "People")
-        NiaTabRow(selectedTabIndex = 0) {
+        OPBTabRow(selectedTabIndex = 0) {
             titles.forEachIndexed { index, title ->
-                NiaTab(
+                OPBTab(
                     selected = index == 0,
                     onClick = { },
                     text = { Text(text = title) },
@@ -116,6 +116,6 @@ fun TabsPreview() {
     }
 }
 
-object NiaTabDefaults {
+object OPBTabDefaults {
     val TabTopPadding = 7.dp
 }

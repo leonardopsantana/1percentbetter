@@ -25,9 +25,9 @@ import androidx.compose.ui.text.style.LineHeightStyle.Trim
 import androidx.compose.ui.unit.sp
 
 /**
- * Now in Android typography.
+ * One percent better typography.
  */
-internal val NiaTypography = Typography(
+internal val OPBTypography = Typography(
     displayLarge = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 57.sp,

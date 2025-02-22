@@ -71,7 +71,7 @@ private fun Context.syncWorkNotification(): Notification {
         SYNC_NOTIFICATION_CHANNEL_ID,
     )
         .setSmallIcon(
-            com.onepercentbetter.core.notifications.R.drawable.core_notifications_ic_nia_notification,
+            com.onepercentbetter.core.notifications.R.drawable.core_notifications_ic_opb_notification,
         )
         .setContentTitle(getString(R.string.sync_work_notification_title))
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)

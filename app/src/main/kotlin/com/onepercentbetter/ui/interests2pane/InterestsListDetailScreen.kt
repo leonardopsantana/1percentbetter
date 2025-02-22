@@ -43,7 +43,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-
 import com.onepercentbetter.feature.interests.InterestsRoute
 import com.onepercentbetter.feature.interests.navigation.InterestsRoute
 import com.onepercentbetter.feature.topic.TopicDetailPlaceholder

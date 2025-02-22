@@ -29,6 +29,9 @@ import com.onepercentbetter.core.data.util.SyncManager
 import com.onepercentbetter.core.domain.GetFollowableTopicsUseCase
 import com.onepercentbetter.core.notifications.DEEP_LINK_NEWS_RESOURCE_ID_KEY
 import com.onepercentbetter.core.ui.NewsFeedUiState
+import com.onepercentbetter.feature.foryou.OnboardingUiState.Loading
+import com.onepercentbetter.feature.foryou.OnboardingUiState.NotShown
+import com.onepercentbetter.feature.foryou.OnboardingUiState.Shown
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -39,9 +42,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import com.onepercentbetter.feature.foryou.OnboardingUiState.Loading
-import com.onepercentbetter.feature.foryou.OnboardingUiState.NotShown
-import com.onepercentbetter.feature.foryou.OnboardingUiState.Shown
 import javax.inject.Inject
 
 @HiltViewModel

@@ -35,11 +35,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.testing.TestLifecycleOwner
 import com.onepercentbetter.core.testing.data.userNewsResourcesTestData
-import com.onepercentbetter.core.ui.NewsFeedUiState
 import com.onepercentbetter.core.ui.NewsFeedUiState.Loading
 import com.onepercentbetter.core.ui.NewsFeedUiState.Success
-import kotlinx.coroutines.test.runTest
 import com.onepercentbetter.feature.bookmarks.BookmarksScreen
+import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals

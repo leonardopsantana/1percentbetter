@@ -213,7 +213,7 @@ class NavigationTest {
             onNodeWithText(ok).performClick()
 
             // Check that the saved screen is still visible and selected.
-            onNode(hasText(saved) and hasTestTag("NiaNavItem")).assertIsSelected()
+            onNode(hasText(saved) and hasTestTag("OPBNavItem")).assertIsSelected()
         }
     }
 

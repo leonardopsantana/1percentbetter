@@ -17,7 +17,7 @@
 package com.onepercentbetter.core.model.data
 
 /**
- * External data layer representation of a NiA Topic
+ * External data layer representation of a OPB Topic
  */
 data class Topic(
     val id: String,

@@ -66,10 +66,10 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
-import com.onepercentbetter.core.designsystem.component.NiaIconToggleButton
-import com.onepercentbetter.core.designsystem.component.NiaTopicTag
-import com.onepercentbetter.core.designsystem.icon.NiaIcons
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.component.OPBIconToggleButton
+import com.onepercentbetter.core.designsystem.component.OPBTopicTag
+import com.onepercentbetter.core.designsystem.icon.OPBIcons
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.model.data.FollowableTopic
 import com.onepercentbetter.core.model.data.NewsResource
 import com.onepercentbetter.core.model.data.UserNewsResource
@@ -235,19 +235,19 @@ fun BookmarkButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    NiaIconToggleButton(
+    OPBIconToggleButton(
         checked = isBookmarked,
         onCheckedChange = { onClick() },
         modifier = modifier,
         icon = {
             Icon(
-                imageVector = NiaIcons.BookmarkBorder,
+                imageVector = OPBIcons.BookmarkBorder,
                 contentDescription = stringResource(R.string.core_ui_bookmark),
             )
         },
         checkedIcon = {
             Icon(
-                imageVector = NiaIcons.Bookmark,
+                imageVector = OPBIcons.Bookmark,
                 contentDescription = stringResource(R.string.core_ui_unbookmark),
             )
         },
@@ -314,7 +314,7 @@ fun NewsResourceTopics(
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         for (followableTopic in topics) {
-            NiaTopicTag(
+            OPBTopicTag(
                 followed = followableTopic.isFollowed,
                 onClick = { onTopicClick(followableTopic.topic.id) },
                 text = {
@@ -346,7 +346,7 @@ fun NewsResourceTopics(
 @Preview("Bookmark Button")
 @Composable
 private fun BookmarkButtonPreview() {
-    NiaTheme {
+    OPBTheme {
         Surface {
             BookmarkButton(isBookmarked = false, onClick = { })
         }
@@ -356,7 +356,7 @@ private fun BookmarkButtonPreview() {
 @Preview("Bookmark Button Bookmarked")
 @Composable
 private fun BookmarkButtonBookmarkedPreview() {
-    NiaTheme {
+    OPBTheme {
         Surface {
             BookmarkButton(isBookmarked = true, onClick = { })
         }
@@ -372,7 +372,7 @@ private fun ExpandedNewsResourcePreview(
     CompositionLocalProvider(
         LocalInspectionMode provides true,
     ) {
-        NiaTheme {
+        OPBTheme {
             Surface {
                 NewsResourceCardExpanded(
                     userNewsResource = userNewsResources[0],

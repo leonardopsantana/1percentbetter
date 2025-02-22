@@ -18,7 +18,6 @@ package com.onepercentbetter
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-
 import com.onepercentbetter.MainActivityUiState.Loading
 import com.onepercentbetter.MainActivityUiState.Success
 import com.onepercentbetter.core.data.repository.UserDataRepository

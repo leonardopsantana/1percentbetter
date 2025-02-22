@@ -181,7 +181,7 @@ val LightAndroidBackgroundTheme = BackgroundTheme(color = DarkGreenGray95)
 val DarkAndroidBackgroundTheme = BackgroundTheme(color = Color.Black)
 
 /**
- * Now in Android theme.
+ * One percent better theme.
  *
  * @param darkTheme Whether the theme should use a dark color scheme (follows system by default).
  * @param androidTheme Whether the theme should use the Android theme color scheme instead of the
@@ -190,7 +190,7 @@ val DarkAndroidBackgroundTheme = BackgroundTheme(color = Color.Black)
  *        supported. This parameter has no effect if [androidTheme] is `true`.
  */
 @Composable
-fun NiaTheme(
+fun OPBTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     androidTheme: Boolean = false,
     disableDynamicTheming: Boolean = true,
@@ -240,7 +240,7 @@ fun NiaTheme(
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
-            typography = NiaTypography,
+            typography = OPBTypography,
             content = content,
         )
     }

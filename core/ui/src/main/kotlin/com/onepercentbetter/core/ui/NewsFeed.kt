@@ -37,7 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.onepercentbetter.core.analytics.LocalAnalyticsHelper
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.model.data.UserNewsResource
 import com.onepercentbetter.core.ui.NewsFeedUiState.Loading
 import com.onepercentbetter.core.ui.NewsFeedUiState.Success
@@ -127,7 +127,7 @@ sealed interface NewsFeedUiState {
 @Preview
 @Composable
 private fun NewsFeedLoadingPreview() {
-    NiaTheme {
+    OPBTheme {
         LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Adaptive(300.dp)) {
             newsFeed(
                 feedState = Loading,
@@ -146,7 +146,7 @@ private fun NewsFeedContentPreview(
     @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
     userNewsResources: List<UserNewsResource>,
 ) {
-    NiaTheme {
+    OPBTheme {
         LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Adaptive(300.dp)) {
             newsFeed(
                 feedState = Success(userNewsResources),

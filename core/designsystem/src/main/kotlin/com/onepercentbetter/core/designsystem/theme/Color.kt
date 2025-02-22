@@ -19,7 +19,7 @@ package com.onepercentbetter.core.designsystem.theme
 import androidx.compose.ui.graphics.Color
 
 /**
- * Now in Android colors.
+ * One percent better colors.
  */
 internal val Blue10 = Color(0xFF001F28)
 internal val Blue20 = Color(0xFF003544)

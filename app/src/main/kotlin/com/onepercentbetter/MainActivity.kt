@@ -39,10 +39,10 @@ import com.onepercentbetter.core.analytics.LocalAnalyticsHelper
 import com.onepercentbetter.core.data.repository.UserNewsResourceRepository
 import com.onepercentbetter.core.data.util.NetworkMonitor
 import com.onepercentbetter.core.data.util.TimeZoneMonitor
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.ui.LocalTimeZone
-import com.onepercentbetter.ui.NiaApp
-import com.onepercentbetter.ui.rememberNiaAppState
+import com.onepercentbetter.ui.OPBApp
+import com.onepercentbetter.ui.rememberOPBAppState
 import com.onepercentbetter.util.isSystemInDarkTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
@@ -106,7 +106,7 @@ class MainActivity : ComponentActivity() {
                     .map { it.darkTheme }
                     .distinctUntilChanged()
                     .collect { darkTheme ->
-                        trace("niaEdgeToEdge") {
+                        trace("OPBEdgeToEdge") {
                             // Turn off the decor fitting system windows, which allows us to handle insets,
                             // including IME animations, and go edge-to-edge.
                             // This is the same parameters as the default enableEdgeToEdge call, but we manually
@@ -133,7 +133,7 @@ class MainActivity : ComponentActivity() {
         splashScreen.setKeepOnScreenCondition { viewModel.uiState.value.shouldKeepSplashScreen() }
 
         setContent {
-            val appState = rememberNiaAppState(
+            val appState = rememberOPBAppState(
                 networkMonitor = networkMonitor,
                 userNewsResourceRepository = userNewsResourceRepository,
                 timeZoneMonitor = timeZoneMonitor,
@@ -145,12 +145,12 @@ class MainActivity : ComponentActivity() {
                 LocalAnalyticsHelper provides analyticsHelper,
                 LocalTimeZone provides currentTimeZone,
             ) {
-                NiaTheme(
+                OPBTheme(
                     darkTheme = themeSettings.darkTheme,
                     androidTheme = themeSettings.androidTheme,
                     disableDynamicTheming = themeSettings.disableDynamicTheming,
                 ) {
-                    NiaApp(appState)
+                    OPBApp(appState)
                 }
             }
         }

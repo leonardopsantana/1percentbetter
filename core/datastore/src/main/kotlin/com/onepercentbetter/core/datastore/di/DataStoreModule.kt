@@ -24,7 +24,7 @@ import com.onepercentbetter.core.datastore.IntToStringIdsMigration
 import com.onepercentbetter.core.datastore.UserPreferences
 import com.onepercentbetter.core.datastore.UserPreferencesSerializer
 import com.onepercentbetter.core.network.Dispatcher
-import com.onepercentbetter.core.network.NiaDispatchers.IO
+import com.onepercentbetter.core.network.OPBDispatchers.IO
 import com.onepercentbetter.core.network.di.ApplicationScope
 import dagger.Module
 import dagger.Provides

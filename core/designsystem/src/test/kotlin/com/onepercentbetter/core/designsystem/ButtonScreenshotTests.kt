@@ -21,9 +21,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import com.onepercentbetter.core.designsystem.component.NiaButton
-import com.onepercentbetter.core.designsystem.component.NiaOutlinedButton
-import com.onepercentbetter.core.designsystem.icon.NiaIcons
+import com.onepercentbetter.core.designsystem.component.OPBButton
+import com.onepercentbetter.core.designsystem.component.OPBOutlinedButton
+import com.onepercentbetter.core.designsystem.icon.OPBIcons
 import com.onepercentbetter.core.testing.util.captureMultiTheme
 import dagger.hilt.android.testing.HiltTestApplication
 import org.junit.Rule
@@ -44,35 +44,35 @@ class ButtonScreenshotTests {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun niaButton_multipleThemes() {
+    fun opbButton_multipleThemes() {
         composeTestRule.captureMultiTheme("Button") { description ->
             Surface {
-                NiaButton(onClick = {}, text = { Text("$description Button") })
+                OPBButton(onClick = {}, text = { Text("$description Button") })
             }
         }
     }
 
     @Test
-    fun niaOutlineButton_multipleThemes() {
+    fun opbOutlineButton_multipleThemes() {
         composeTestRule.captureMultiTheme("Button", "OutlineButton") { description ->
             Surface {
-                NiaOutlinedButton(onClick = {}, text = { Text("$description OutlineButton") })
+                OPBOutlinedButton(onClick = {}, text = { Text("$description OutlineButton") })
             }
         }
     }
 
     @Test
-    fun niaButton_leadingIcon_multipleThemes() {
+    fun opbButton_leadingIcon_multipleThemes() {
         composeTestRule.captureMultiTheme(
             name = "Button",
             overrideFileName = "ButtonLeadingIcon",
             shouldCompareAndroidTheme = false,
         ) { description ->
             Surface {
-                NiaButton(
+                OPBButton(
                     onClick = {},
                     text = { Text("$description Icon Button") },
-                    leadingIcon = { Icon(imageVector = NiaIcons.Add, contentDescription = null) },
+                    leadingIcon = { Icon(imageVector = OPBIcons.Add, contentDescription = null) },
                 )
             }
         }

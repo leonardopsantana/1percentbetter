@@ -26,14 +26,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.onepercentbetter.core.designsystem.component.NiaBackground
-import com.onepercentbetter.core.designsystem.component.NiaLoadingWheel
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.component.OPBBackground
+import com.onepercentbetter.core.designsystem.component.OPBLoadingWheel
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.model.data.FollowableTopic
 import com.onepercentbetter.core.ui.DevicePreviews
 import com.onepercentbetter.core.ui.FollowableTopicPreviewParameterProvider
 import com.onepercentbetter.core.ui.TrackScreenViewEvent
-import com.onepercentbetter.feature.interests.R
 import com.onepercentbetter.feature.interests.InterestsUiState.Empty
 import com.onepercentbetter.feature.interests.InterestsUiState.Interests
 import com.onepercentbetter.feature.interests.InterestsUiState.Loading
@@ -73,7 +72,7 @@ internal fun InterestsScreen(
     ) {
         when (uiState) {
             Loading ->
-                NiaLoadingWheel(
+                OPBLoadingWheel(
                     modifier = modifier,
                     contentDesc = stringResource(id = R.string.feature_interests_loading),
                 )
@@ -105,8 +104,8 @@ fun InterestsScreenPopulated(
     @PreviewParameter(FollowableTopicPreviewParameterProvider::class)
     followableTopics: List<FollowableTopic>,
 ) {
-    NiaTheme {
-        NiaBackground {
+    OPBTheme {
+        OPBBackground {
             InterestsScreen(
                 uiState = Interests(
                     selectedTopicId = null,
@@ -122,8 +121,8 @@ fun InterestsScreenPopulated(
 @DevicePreviews
 @Composable
 fun InterestsScreenLoading() {
-    NiaTheme {
-        NiaBackground {
+    OPBTheme {
+        OPBBackground {
             InterestsScreen(
                 uiState = Loading,
                 followTopic = { _, _ -> },
@@ -136,8 +135,8 @@ fun InterestsScreenLoading() {
 @DevicePreviews
 @Composable
 fun InterestsScreenEmpty() {
-    NiaTheme {
-        NiaBackground {
+    OPBTheme {
+        OPBBackground {
             InterestsScreen(
                 uiState = Empty,
                 followTopic = { _, _ -> },

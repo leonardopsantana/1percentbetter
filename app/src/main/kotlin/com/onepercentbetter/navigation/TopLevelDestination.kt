@@ -18,15 +18,13 @@ package com.onepercentbetter.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
-
 import com.onepercentbetter.R
-import com.onepercentbetter.core.designsystem.icon.NiaIcons
+import com.onepercentbetter.core.designsystem.icon.OPBIcons
 import com.onepercentbetter.feature.bookmarks.navigation.BookmarksRoute
 import com.onepercentbetter.feature.foryou.navigation.ForYouBaseRoute
 import com.onepercentbetter.feature.foryou.navigation.ForYouRoute
 import com.onepercentbetter.feature.interests.navigation.InterestsRoute
 import kotlin.reflect.KClass
-
 import com.onepercentbetter.feature.bookmarks.R as bookmarksR
 import com.onepercentbetter.feature.foryou.R as forYouR
 import com.onepercentbetter.feature.search.R as searchR
@@ -54,23 +52,23 @@ enum class TopLevelDestination(
     val baseRoute: KClass<*> = route,
 ) {
     FOR_YOU(
-        selectedIcon = NiaIcons.Upcoming,
-        unselectedIcon = NiaIcons.UpcomingBorder,
+        selectedIcon = OPBIcons.Upcoming,
+        unselectedIcon = OPBIcons.UpcomingBorder,
         iconTextId = forYouR.string.feature_foryou_title,
         titleTextId = R.string.app_name,
         route = ForYouRoute::class,
         baseRoute = ForYouBaseRoute::class,
     ),
     BOOKMARKS(
-        selectedIcon = NiaIcons.Bookmarks,
-        unselectedIcon = NiaIcons.BookmarksBorder,
+        selectedIcon = OPBIcons.Bookmarks,
+        unselectedIcon = OPBIcons.BookmarksBorder,
         iconTextId = bookmarksR.string.feature_bookmarks_title,
         titleTextId = bookmarksR.string.feature_bookmarks_title,
         route = BookmarksRoute::class,
     ),
     INTERESTS(
-        selectedIcon = NiaIcons.Grid3x3,
-        unselectedIcon = NiaIcons.Grid3x3,
+        selectedIcon = OPBIcons.Grid3x3,
+        unselectedIcon = OPBIcons.Grid3x3,
         iconTextId = searchR.string.feature_search_interests,
         titleTextId = searchR.string.feature_search_interests,
         route = InterestsRoute::class,

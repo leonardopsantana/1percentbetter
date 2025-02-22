@@ -22,7 +22,7 @@ import com.onepercentbetter.core.data.model.topicCrossReferences
 import com.onepercentbetter.core.data.model.topicEntityShells
 import com.onepercentbetter.core.data.testdoubles.CollectionType
 import com.onepercentbetter.core.data.testdoubles.TestNewsResourceDao
-import com.onepercentbetter.core.data.testdoubles.TestNiaNetworkDataSource
+import com.onepercentbetter.core.data.testdoubles.TestOPBNetworkDataSource
 import com.onepercentbetter.core.data.testdoubles.TestTopicDao
 import com.onepercentbetter.core.data.testdoubles.filteredInterestsIds
 import com.onepercentbetter.core.data.testdoubles.nonPresentInterestsIds
@@ -31,8 +31,7 @@ import com.onepercentbetter.core.database.model.NewsResourceTopicCrossRef
 import com.onepercentbetter.core.database.model.PopulatedNewsResource
 import com.onepercentbetter.core.database.model.TopicEntity
 import com.onepercentbetter.core.database.model.asExternalModel
-import com.onepercentbetter.core.datastore.NiaPreferencesDataSource
-import com.onepercentbetter.core.datastore.UserPreferences
+import com.onepercentbetter.core.datastore.OPBPreferencesDataSource
 import com.onepercentbetter.core.datastore.test.InMemoryDataStore
 import com.onepercentbetter.core.model.data.NewsResource
 import com.onepercentbetter.core.model.data.Topic
@@ -54,13 +53,13 @@ class OfflineFirstNewsRepositoryTest {
 
     private lateinit var subject: OfflineFirstNewsRepository
 
-    private lateinit var niaPreferencesDataSource: NiaPreferencesDataSource
+    private lateinit var opbPreferencesDataSource: OPBPreferencesDataSource
 
     private lateinit var newsResourceDao: TestNewsResourceDao
 
     private lateinit var topicDao: TestTopicDao
 
-    private lateinit var network: TestNiaNetworkDataSource
+    private lateinit var network: TestOPBNetworkDataSource
 
     private lateinit var notifier: TestNotifier
 
@@ -68,17 +67,17 @@ class OfflineFirstNewsRepositoryTest {
 
     @Before
     fun setup() {
-        niaPreferencesDataSource = NiaPreferencesDataSource(InMemoryDataStore(_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.getDefaultInstance()))
+        opbPreferencesDataSource = OPBPreferencesDataSource(InMemoryDataStore(_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.getDefaultInstance()))
         newsResourceDao = TestNewsResourceDao()
         topicDao = TestTopicDao()
-        network = TestNiaNetworkDataSource()
+        network = TestOPBNetworkDataSource()
         notifier = TestNotifier()
         synchronizer = TestSynchronizer(
-            niaPreferencesDataSource,
+            opbPreferencesDataSource,
         )
 
         subject = OfflineFirstNewsRepository(
-            niaPreferencesDataSource = niaPreferencesDataSource,
+            OPBPreferencesDataSource = opbPreferencesDataSource,
             newsResourceDao = newsResourceDao,
             topicDao = topicDao,
             network = network,
@@ -132,7 +131,7 @@ class OfflineFirstNewsRepositoryTest {
     fun offlineFirstNewsRepository_sync_pulls_from_network() =
         testScope.runTest {
             // User has not onboarded
-            niaPreferencesDataSource.setShouldHideOnboarding(false)
+            opbPreferencesDataSource.setShouldHideOnboarding(false)
             subject.syncWith(synchronizer)
 
             val newsResourcesFromNetwork = network.getNewsResources()
@@ -162,7 +161,7 @@ class OfflineFirstNewsRepositoryTest {
     fun offlineFirstNewsRepository_sync_deletes_items_marked_deleted_on_network() =
         testScope.runTest {
             // User has not onboarded
-            niaPreferencesDataSource.setShouldHideOnboarding(false)
+            opbPreferencesDataSource.setShouldHideOnboarding(false)
 
             val newsResourcesFromNetwork = network.getNewsResources()
                 .map(NetworkNewsResource::asEntity)
@@ -209,7 +208,7 @@ class OfflineFirstNewsRepositoryTest {
     fun offlineFirstNewsRepository_incremental_sync_pulls_from_network() =
         testScope.runTest {
             // User has not onboarded
-            niaPreferencesDataSource.setShouldHideOnboarding(false)
+            opbPreferencesDataSource.setShouldHideOnboarding(false)
 
             // Set news version to 7
             synchronizer.updateChangeListVersions {
@@ -290,7 +289,7 @@ class OfflineFirstNewsRepositoryTest {
 
             assertEquals(
                 network.getNewsResources().map { it.id }.toSet(),
-                niaPreferencesDataSource.userData.first().viewedNewsResources,
+                opbPreferencesDataSource.userData.first().viewedNewsResources,
             )
         }
 
@@ -306,7 +305,7 @@ class OfflineFirstNewsRepositoryTest {
 
             assertEquals(
                 emptySet(),
-                niaPreferencesDataSource.userData.first().viewedNewsResources,
+                opbPreferencesDataSource.userData.first().viewedNewsResources,
             )
         }
 
@@ -314,7 +313,7 @@ class OfflineFirstNewsRepositoryTest {
     fun offlineFirstNewsRepository_sends_notifications_for_newly_synced_news_that_is_followed() =
         testScope.runTest {
             // User has onboarded
-            niaPreferencesDataSource.setShouldHideOnboarding(true)
+            opbPreferencesDataSource.setShouldHideOnboarding(true)
 
             val networkNewsResources = network.getNewsResources()
 
@@ -330,7 +329,7 @@ class OfflineFirstNewsRepositoryTest {
                 .toSet()
 
             // Set followed topics
-            niaPreferencesDataSource.setFollowedTopicIds(followedTopicIds)
+            opbPreferencesDataSource.setFollowedTopicIds(followedTopicIds)
 
             subject.syncWith(synchronizer)
 
@@ -351,7 +350,7 @@ class OfflineFirstNewsRepositoryTest {
     fun offlineFirstNewsRepository_does_not_send_notifications_for_existing_news_resources() =
         testScope.runTest {
             // User has onboarded
-            niaPreferencesDataSource.setShouldHideOnboarding(true)
+            opbPreferencesDataSource.setShouldHideOnboarding(true)
 
             val networkNewsResources = network.getNewsResources()
                 .map(NetworkNewsResource::asEntity)
@@ -368,7 +367,7 @@ class OfflineFirstNewsRepositoryTest {
                 .toSet()
 
             // Follow all topics
-            niaPreferencesDataSource.setFollowedTopicIds(followedTopicIds)
+            opbPreferencesDataSource.setFollowedTopicIds(followedTopicIds)
 
             subject.syncWith(synchronizer)
 

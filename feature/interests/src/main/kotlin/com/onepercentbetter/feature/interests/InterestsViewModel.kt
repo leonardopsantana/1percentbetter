@@ -24,14 +24,14 @@ import com.onepercentbetter.core.data.repository.UserDataRepository
 import com.onepercentbetter.core.domain.GetFollowableTopicsUseCase
 import com.onepercentbetter.core.domain.TopicSortField
 import com.onepercentbetter.core.model.data.FollowableTopic
+import com.onepercentbetter.feature.interests.InterestsUiState.Loading
+import com.onepercentbetter.feature.interests.navigation.InterestsRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import com.onepercentbetter.feature.interests.InterestsUiState.Loading
-import com.onepercentbetter.feature.interests.navigation.InterestsRoute
 import javax.inject.Inject
 
 @HiltViewModel

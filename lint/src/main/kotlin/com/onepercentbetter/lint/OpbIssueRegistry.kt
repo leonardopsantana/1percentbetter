@@ -34,7 +34,7 @@ class OpbIssueRegistry : IssueRegistry() {
     override val minApi: Int = 12
 
     override val vendor: Vendor = Vendor(
-        vendorName = "One Percent Better",
+        vendorName = "One percent better ",
         feedbackUrl = "https://github.com/leonardopsantana/1percentbetter/issues",
         contact = "https://github.com/leonardopsantana/1percentbetter",
     )

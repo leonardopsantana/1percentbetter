@@ -33,11 +33,11 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.onepercentbetter.core.designsystem.icon.NiaIcons
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.icon.OPBIcons
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 
 /**
- * Now in Android filled button with generic content slot. Wraps Material 3 [Button].
+ * One percent better filled button with generic content slot. Wraps Material 3 [Button].
  *
  * @param onClick Will be called when the user clicks the button.
  * @param modifier Modifier to be applied to the button.
@@ -48,7 +48,7 @@ import com.onepercentbetter.core.designsystem.theme.NiaTheme
  * @param content The button content.
  */
 @Composable
-fun NiaButton(
+fun OPBButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -68,7 +68,7 @@ fun NiaButton(
 }
 
 /**
- * Now in Android filled button with text and icon content slots.
+ * One percent better filled button with text and icon content slots.
  *
  * @param onClick Will be called when the user clicks the button.
  * @param modifier Modifier to be applied to the button.
@@ -78,14 +78,14 @@ fun NiaButton(
  * @param leadingIcon The button leading icon content. Pass `null` here for no leading icon.
  */
 @Composable
-fun NiaButton(
+fun OPBButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: @Composable () -> Unit,
     leadingIcon: @Composable (() -> Unit)? = null,
 ) {
-    NiaButton(
+    OPBButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
@@ -95,7 +95,7 @@ fun NiaButton(
             ButtonDefaults.ContentPadding
         },
     ) {
-        NiaButtonContent(
+        OPBButtonContent(
             text = text,
             leadingIcon = leadingIcon,
         )
@@ -103,7 +103,7 @@ fun NiaButton(
 }
 
 /**
- * Now in Android outlined button with generic content slot. Wraps Material 3 [OutlinedButton].
+ * One percent better outlined button with generic content slot. Wraps Material 3 [OutlinedButton].
  *
  * @param onClick Will be called when the user clicks the button.
  * @param modifier Modifier to be applied to the button.
@@ -114,7 +114,7 @@ fun NiaButton(
  * @param content The button content.
  */
 @Composable
-fun NiaOutlinedButton(
+fun OPBOutlinedButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -129,12 +129,12 @@ fun NiaOutlinedButton(
             contentColor = MaterialTheme.colorScheme.onBackground,
         ),
         border = BorderStroke(
-            width = NiaButtonDefaults.OutlinedButtonBorderWidth,
+            width = OPBButtonDefaults.OutlinedButtonBorderWidth,
             color = if (enabled) {
                 MaterialTheme.colorScheme.outline
             } else {
                 MaterialTheme.colorScheme.onSurface.copy(
-                    alpha = NiaButtonDefaults.DISABLED_OUTLINED_BUTTON_BORDER_ALPHA,
+                    alpha = OPBButtonDefaults.DISABLED_OUTLINED_BUTTON_BORDER_ALPHA,
                 )
             },
         ),
@@ -144,7 +144,7 @@ fun NiaOutlinedButton(
 }
 
 /**
- * Now in Android outlined button with text and icon content slots.
+ * One percent better outlined button with text and icon content slots.
  *
  * @param onClick Will be called when the user clicks the button.
  * @param modifier Modifier to be applied to the button.
@@ -154,14 +154,14 @@ fun NiaOutlinedButton(
  * @param leadingIcon The button leading icon content. Pass `null` here for no leading icon.
  */
 @Composable
-fun NiaOutlinedButton(
+fun OPBOutlinedButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: @Composable () -> Unit,
     leadingIcon: @Composable (() -> Unit)? = null,
 ) {
-    NiaOutlinedButton(
+    OPBOutlinedButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
@@ -171,7 +171,7 @@ fun NiaOutlinedButton(
             ButtonDefaults.ContentPadding
         },
     ) {
-        NiaButtonContent(
+        OPBButtonContent(
             text = text,
             leadingIcon = leadingIcon,
         )
@@ -179,7 +179,7 @@ fun NiaOutlinedButton(
 }
 
 /**
- * Now in Android text button with generic content slot. Wraps Material 3 [TextButton].
+ * One percent better text button with generic content slot. Wraps Material 3 [TextButton].
  *
  * @param onClick Will be called when the user clicks the button.
  * @param modifier Modifier to be applied to the button.
@@ -188,7 +188,7 @@ fun NiaOutlinedButton(
  * @param content The button content.
  */
 @Composable
-fun NiaTextButton(
+fun OPBTextButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -206,7 +206,7 @@ fun NiaTextButton(
 }
 
 /**
- * Now in Android text button with text and icon content slots.
+ * One percent better text button with text and icon content slots.
  *
  * @param onClick Will be called when the user clicks the button.
  * @param modifier Modifier to be applied to the button.
@@ -216,19 +216,19 @@ fun NiaTextButton(
  * @param leadingIcon The button leading icon content. Pass `null` here for no leading icon.
  */
 @Composable
-fun NiaTextButton(
+fun OPBTextButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: @Composable () -> Unit,
     leadingIcon: @Composable (() -> Unit)? = null,
 ) {
-    NiaTextButton(
+    OPBTextButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
     ) {
-        NiaButtonContent(
+        OPBButtonContent(
             text = text,
             leadingIcon = leadingIcon,
         )
@@ -236,13 +236,13 @@ fun NiaTextButton(
 }
 
 /**
- * Internal Now in Android button content layout for arranging the text label and leading icon.
+ * Internal One percent better button content layout for arranging the text label and leading icon.
  *
  * @param text The button text label content.
  * @param leadingIcon The button leading icon content. Default is `null` for no leading icon.Ï
  */
 @Composable
-private fun NiaButtonContent(
+private fun OPBButtonContent(
     text: @Composable () -> Unit,
     leadingIcon: @Composable (() -> Unit)? = null,
 ) {
@@ -267,42 +267,42 @@ private fun NiaButtonContent(
 
 @ThemePreviews
 @Composable
-fun NiaButtonPreview() {
-    NiaTheme {
-        NiaBackground(modifier = Modifier.size(150.dp, 50.dp)) {
-            NiaButton(onClick = {}, text = { Text("Test button") })
+fun OPBButtonPreview() {
+    OPBTheme {
+        OPBBackground(modifier = Modifier.size(150.dp, 50.dp)) {
+            OPBButton(onClick = {}, text = { Text("Test button") })
         }
     }
 }
 
 @ThemePreviews
 @Composable
-fun NiaOutlinedButtonPreview() {
-    NiaTheme {
-        NiaBackground(modifier = Modifier.size(150.dp, 50.dp)) {
-            NiaOutlinedButton(onClick = {}, text = { Text("Test button") })
+fun OPBOutlinedButtonPreview() {
+    OPBTheme {
+        OPBBackground(modifier = Modifier.size(150.dp, 50.dp)) {
+            OPBOutlinedButton(onClick = {}, text = { Text("Test button") })
         }
     }
 }
 
 @ThemePreviews
 @Composable
-fun NiaButtonLeadingIconPreview() {
-    NiaTheme {
-        NiaBackground(modifier = Modifier.size(150.dp, 50.dp)) {
-            NiaButton(
+fun OPBButtonLeadingIconPreview() {
+    OPBTheme {
+        OPBBackground(modifier = Modifier.size(150.dp, 50.dp)) {
+            OPBButton(
                 onClick = {},
                 text = { Text("Test button") },
-                leadingIcon = { Icon(imageVector = NiaIcons.Add, contentDescription = null) },
+                leadingIcon = { Icon(imageVector = OPBIcons.Add, contentDescription = null) },
             )
         }
     }
 }
 
 /**
- * Now in Android button default values.
+ * One percent better button default values.
  */
-object NiaButtonDefaults {
+object OPBButtonDefaults {
     // TODO: File bug
     // OutlinedButton border color doesn't respect disabled state by default
     const val DISABLED_OUTLINED_BUTTON_BORDER_ALPHA = 0.12f

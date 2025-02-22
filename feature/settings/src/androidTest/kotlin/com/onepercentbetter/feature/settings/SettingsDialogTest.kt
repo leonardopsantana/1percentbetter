@@ -23,9 +23,9 @@ import androidx.compose.ui.test.onNodeWithText
 import com.onepercentbetter.core.model.data.DarkThemeConfig.DARK
 import com.onepercentbetter.core.model.data.ThemeBrand.ANDROID
 import com.onepercentbetter.core.model.data.ThemeBrand.DEFAULT
+import com.onepercentbetter.feature.settings.SettingsDialog
 import com.onepercentbetter.feature.settings.SettingsUiState.Loading
 import com.onepercentbetter.feature.settings.SettingsUiState.Success
-import com.onepercentbetter.feature.settings.SettingsDialog
 import com.onepercentbetter.feature.settings.UserEditableSettings
 import org.junit.Rule
 import org.junit.Test

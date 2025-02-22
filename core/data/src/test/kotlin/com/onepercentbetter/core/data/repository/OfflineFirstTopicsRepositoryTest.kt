@@ -19,13 +19,12 @@ package com.onepercentbetter.core.data.repository
 import com.onepercentbetter.core.data.Synchronizer
 import com.onepercentbetter.core.data.model.asEntity
 import com.onepercentbetter.core.data.testdoubles.CollectionType
-import com.onepercentbetter.core.data.testdoubles.TestNiaNetworkDataSource
+import com.onepercentbetter.core.data.testdoubles.TestOPBNetworkDataSource
 import com.onepercentbetter.core.data.testdoubles.TestTopicDao
 import com.onepercentbetter.core.database.dao.TopicDao
 import com.onepercentbetter.core.database.model.TopicEntity
 import com.onepercentbetter.core.database.model.asExternalModel
-import com.onepercentbetter.core.datastore.NiaPreferencesDataSource
-import com.onepercentbetter.core.datastore.UserPreferences
+import com.onepercentbetter.core.datastore.OPBPreferencesDataSource
 import com.onepercentbetter.core.datastore.test.InMemoryDataStore
 import com.onepercentbetter.core.model.data.Topic
 import com.onepercentbetter.core.network.model.NetworkTopic
@@ -45,18 +44,18 @@ class OfflineFirstTopicsRepositoryTest {
 
     private lateinit var topicDao: TopicDao
 
-    private lateinit var network: TestNiaNetworkDataSource
+    private lateinit var network: TestOPBNetworkDataSource
 
-    private lateinit var niaPreferences: NiaPreferencesDataSource
+    private lateinit var opbPreferences: OPBPreferencesDataSource
 
     private lateinit var synchronizer: Synchronizer
 
     @Before
     fun setup() {
         topicDao = TestTopicDao()
-        network = TestNiaNetworkDataSource()
-        niaPreferences = NiaPreferencesDataSource(InMemoryDataStore(_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.getDefaultInstance()))
-        synchronizer = TestSynchronizer(niaPreferences)
+        network = TestOPBNetworkDataSource()
+        opbPreferences = OPBPreferencesDataSource(InMemoryDataStore(_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.getDefaultInstance()))
+        synchronizer = TestSynchronizer(opbPreferences)
 
         subject = OfflineFirstTopicsRepository(
             topicDao = topicDao,

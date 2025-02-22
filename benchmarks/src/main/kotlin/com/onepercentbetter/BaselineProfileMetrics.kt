@@ -45,9 +45,10 @@ class BaselineProfileMetrics {
          * Metrics relevant to startup and baseline profile effectiveness measurement.
          */
         @OptIn(ExperimentalMetricApi::class)
-        val allMetrics = listOf(StartupTimingMetric(),
+        val allMetrics = listOf(
+            StartupTimingMetric(),
             com.onepercentbetter.BaselineProfileMetrics.Companion.jitCompilationMetric,
-            com.onepercentbetter.BaselineProfileMetrics.Companion.classInitMetric
+            com.onepercentbetter.BaselineProfileMetrics.Companion.classInitMetric,
         )
     }
 }

@@ -24,7 +24,7 @@ import com.onepercentbetter.core.database.model.TopicEntity
 import com.onepercentbetter.core.database.model.asExternalModel
 import com.onepercentbetter.core.datastore.ChangeListVersions
 import com.onepercentbetter.core.model.data.Topic
-import com.onepercentbetter.core.network.NiaNetworkDataSource
+import com.onepercentbetter.core.network.OPBNetworkDataSource
 import com.onepercentbetter.core.network.model.NetworkTopic
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -36,7 +36,7 @@ import javax.inject.Inject
  */
 internal class OfflineFirstTopicsRepository @Inject constructor(
     private val topicDao: TopicDao,
-    private val network: NiaNetworkDataSource,
+    private val network: OPBNetworkDataSource,
 ) : TopicsRepository {
 
     override fun getTopics(): Flow<List<Topic>> =

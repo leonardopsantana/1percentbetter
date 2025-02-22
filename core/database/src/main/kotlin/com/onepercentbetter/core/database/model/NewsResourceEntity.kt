@@ -23,7 +23,7 @@ import com.onepercentbetter.core.model.data.NewsResource
 import kotlinx.datetime.Instant
 
 /**
- * Defines an NiA news resource.
+ * Defines an OPB news resource.
  */
 @Entity(
     tableName = "news_resources",
@@ -41,7 +41,7 @@ data class NewsResourceEntity(
     val type: String,
 )
 
-fun com.onepercentbetter.core.database.model.NewsResourceEntity.asExternalModel() = NewsResource(
+fun NewsResourceEntity.asExternalModel() = NewsResource(
     id = id,
     title = title,
     content = content,

@@ -86,15 +86,15 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus.Denied
 import com.google.accompanist.permissions.rememberPermissionState
 import com.onepercentbetter.core.designsystem.component.DynamicAsyncImage
-import com.onepercentbetter.core.designsystem.component.NiaButton
-import com.onepercentbetter.core.designsystem.component.NiaIconToggleButton
-import com.onepercentbetter.core.designsystem.component.NiaOverlayLoadingWheel
+import com.onepercentbetter.core.designsystem.component.OPBButton
+import com.onepercentbetter.core.designsystem.component.OPBIconToggleButton
+import com.onepercentbetter.core.designsystem.component.OPBOverlayLoadingWheel
 import com.onepercentbetter.core.designsystem.component.scrollbar.DecorativeScrollbar
 import com.onepercentbetter.core.designsystem.component.scrollbar.DraggableScrollbar
 import com.onepercentbetter.core.designsystem.component.scrollbar.rememberDraggableScroller
 import com.onepercentbetter.core.designsystem.component.scrollbar.scrollbarState
-import com.onepercentbetter.core.designsystem.icon.NiaIcons
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.icon.OPBIcons
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.model.data.UserNewsResource
 import com.onepercentbetter.core.ui.DevicePreviews
 import com.onepercentbetter.core.ui.NewsFeedUiState
@@ -104,7 +104,6 @@ import com.onepercentbetter.core.ui.TrackScrollJank
 import com.onepercentbetter.core.ui.UserNewsResourcePreviewParameterProvider
 import com.onepercentbetter.core.ui.launchCustomChromeTab
 import com.onepercentbetter.core.ui.newsFeed
-import com.onepercentbetter.feature.foryou.R
 import com.onepercentbetter.feature.foryou.OnboardingUiState.LoadFailed
 import com.onepercentbetter.feature.foryou.OnboardingUiState.Loading
 import com.onepercentbetter.feature.foryou.OnboardingUiState.NotShown
@@ -206,7 +205,7 @@ internal fun ForYouScreen(
                 Column {
                     Spacer(modifier = Modifier.height(8.dp))
                     // Add space for the content to clear the "offline" snackbar.
-                    // TODO: Check that the Scaffold handles this correctly in NiaApp
+                    // TODO: Check that the Scaffold handles this correctly in OPBApp
                     // if (isOffline) Spacer(modifier = Modifier.height(48.dp))
                     Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
                 }
@@ -227,7 +226,7 @@ internal fun ForYouScreen(
                     .fillMaxWidth()
                     .padding(top = 8.dp),
             ) {
-                NiaOverlayLoadingWheel(
+                OPBOverlayLoadingWheel(
                     modifier = Modifier
                         .align(Alignment.Center),
                     contentDesc = loadingContentDescription,
@@ -301,7 +300,7 @@ private fun LazyStaggeredGridScope.onboarding(
                         horizontalArrangement = Arrangement.Center,
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-                        NiaButton(
+                        OPBButton(
                             onClick = saveFollowedTopics,
                             enabled = onboardingUiState.isDismissable,
                             modifier = Modifier
@@ -413,18 +412,18 @@ private fun SingleTopicButton(
                     .weight(1f),
                 color = MaterialTheme.colorScheme.onSurface,
             )
-            NiaIconToggleButton(
+            OPBIconToggleButton(
                 checked = isSelected,
                 onCheckedChange = { checked -> onClick(topicId, checked) },
                 icon = {
                     Icon(
-                        imageVector = NiaIcons.Add,
+                        imageVector = OPBIcons.Add,
                         contentDescription = name,
                     )
                 },
                 checkedIcon = {
                     Icon(
-                        imageVector = NiaIcons.Check,
+                        imageVector = OPBIcons.Check,
                         contentDescription = name,
                     )
                 },
@@ -512,7 +511,7 @@ fun ForYouScreenPopulatedFeed(
     @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
     userNewsResources: List<UserNewsResource>,
 ) {
-    NiaTheme {
+    OPBTheme {
         ForYouScreen(
             isSyncing = false,
             onboardingUiState = NotShown,
@@ -536,7 +535,7 @@ fun ForYouScreenOfflinePopulatedFeed(
     @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
     userNewsResources: List<UserNewsResource>,
 ) {
-    NiaTheme {
+    OPBTheme {
         ForYouScreen(
             isSyncing = false,
             onboardingUiState = NotShown,
@@ -560,7 +559,7 @@ fun ForYouScreenTopicSelection(
     @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
     userNewsResources: List<UserNewsResource>,
 ) {
-    NiaTheme {
+    OPBTheme {
         ForYouScreen(
             isSyncing = false,
             onboardingUiState = Shown(
@@ -584,7 +583,7 @@ fun ForYouScreenTopicSelection(
 @DevicePreviews
 @Composable
 fun ForYouScreenLoading() {
-    NiaTheme {
+    OPBTheme {
         ForYouScreen(
             isSyncing = false,
             onboardingUiState = Loading,
@@ -606,7 +605,7 @@ fun ForYouScreenPopulatedAndLoading(
     @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
     userNewsResources: List<UserNewsResource>,
 ) {
-    NiaTheme {
+    OPBTheme {
         ForYouScreen(
             isSyncing = true,
             onboardingUiState = Loading,

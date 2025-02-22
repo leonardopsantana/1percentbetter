@@ -50,7 +50,7 @@ class TopicScreenTest {
     }
 
     @Test
-    fun niaLoadingWheel_whenScreenIsLoading_showLoading() {
+    fun opbLoadingWheel_whenScreenIsLoading_showLoading() {
         composeTestRule.setContent {
             TopicScreen(
                 topicUiState = TopicUiState.Loading,

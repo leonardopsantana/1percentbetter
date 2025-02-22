@@ -25,7 +25,7 @@ import com.onepercentbetter.core.database.model.asExternalModel
 import com.onepercentbetter.core.database.model.asFtsEntity
 import com.onepercentbetter.core.model.data.SearchResult
 import com.onepercentbetter.core.network.Dispatcher
-import com.onepercentbetter.core.network.NiaDispatchers.IO
+import com.onepercentbetter.core.network.OPBDispatchers.IO
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

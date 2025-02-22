@@ -33,12 +33,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.onepercentbetter.core.designsystem.icon.NiaIcons
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.icon.OPBIcons
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NiaTopAppBar(
+fun OPBTopAppBar(
     @StringRes titleRes: Int,
     navigationIcon: ImageVector,
     navigationIconContentDescription: String,
@@ -70,20 +70,20 @@ fun NiaTopAppBar(
             }
         },
         colors = colors,
-        modifier = modifier.testTag("niaTopAppBar"),
+        modifier = modifier.testTag("OPBTopAppBar"),
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview("Top App Bar")
 @Composable
-private fun NiaTopAppBarPreview() {
-    NiaTheme {
-        NiaTopAppBar(
+private fun OPBTopAppBarPreview() {
+    OPBTheme {
+        OPBTopAppBar(
             titleRes = android.R.string.untitled,
-            navigationIcon = NiaIcons.Search,
+            navigationIcon = OPBIcons.Search,
             navigationIconContentDescription = "Navigation icon",
-            actionIcon = NiaIcons.MoreVert,
+            actionIcon = OPBIcons.MoreVert,
             actionIconContentDescription = "Action icon",
         )
     }

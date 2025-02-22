@@ -32,16 +32,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.window.core.layout.WindowSizeClass
-import com.onepercentbetter.ui.NiaApp
-import com.onepercentbetter.ui.rememberNiaAppState
 import com.github.takahirom.roborazzi.captureRoboImage
-
 import com.onepercentbetter.core.data.repository.TopicsRepository
 import com.onepercentbetter.core.data.repository.UserNewsResourceRepository
 import com.onepercentbetter.core.data.test.repository.FakeUserDataRepository
 import com.onepercentbetter.core.data.util.NetworkMonitor
 import com.onepercentbetter.core.data.util.TimeZoneMonitor
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.testing.util.DefaultRoborazziOptions
 import com.onepercentbetter.uitesthiltmanifest.HiltComponentActivity
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -203,13 +200,13 @@ class SnackbarScreenshotTests {
                     DeviceConfigurationOverride.ForcedSize(DpSize(width, height)),
                 ) {
                     BoxWithConstraints {
-                        NiaTheme {
-                            val appState = rememberNiaAppState(
+                        OPBTheme {
+                            val appState = rememberOPBAppState(
                                 networkMonitor = networkMonitor,
                                 userNewsResourceRepository = userNewsResourceRepository,
                                 timeZoneMonitor = timeZoneMonitor,
                             )
-                            NiaApp(
+                            OPBApp(
                                 appState = appState,
                                 snackbarHostState = snackbarHostState,
                                 showSettingsDialog = false,

@@ -25,8 +25,8 @@ import androidx.compose.ui.test.FontScale
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onRoot
 import com.github.takahirom.roborazzi.captureRoboImage
-import com.onepercentbetter.core.designsystem.component.NiaTopicTag
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.component.OPBTopicTag
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.testing.util.DefaultRoborazziOptions
 import com.onepercentbetter.core.testing.util.captureMultiTheme
 import dagger.hilt.android.testing.HiltTestApplication
@@ -50,7 +50,7 @@ class TagScreenshotTests {
     @Test
     fun Tag_multipleThemes() {
         composeTestRule.captureMultiTheme("Tag") {
-            NiaTopicTag(followed = true, onClick = {}) {
+            OPBTopicTag(followed = true, onClick = {}) {
                 Text("TOPIC")
             }
         }
@@ -65,8 +65,8 @@ class TagScreenshotTests {
                 DeviceConfigurationOverride(
                     DeviceConfigurationOverride.Companion.FontScale(2f),
                 ) {
-                    NiaTheme {
-                        NiaTopicTag(followed = true, onClick = {}) {
+                    OPBTheme {
+                        OPBTopicTag(followed = true, onClick = {}) {
                             Text("LOOOOONG TOPIC")
                         }
                     }

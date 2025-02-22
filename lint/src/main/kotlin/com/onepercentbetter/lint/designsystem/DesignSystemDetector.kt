@@ -30,7 +30,7 @@ import org.jetbrains.uast.UQualifiedReferenceExpression
 
 /**
  * A detector that checks for incorrect usages of Compose Material APIs over equivalents in
- * the Now in Android design system module.
+ * the One percent better design system module.
  */
 class DesignSystemDetector : Detector(), Detector.UastScanner {
 
@@ -60,7 +60,7 @@ class DesignSystemDetector : Detector(), Detector.UastScanner {
             id = "DesignSystem",
             briefDescription = "Design system",
             explanation = "This check highlights calls in code that use Compose Material " +
-                "composables instead of equivalents from the Now in Android design system " +
+                "composables instead of equivalents from the One percent better design system " +
                 "module.",
             category = Category.CUSTOM_LINT_CHECKS,
             priority = 7,
@@ -75,29 +75,29 @@ class DesignSystemDetector : Detector(), Detector.UastScanner {
         // Android module, so we can't use composable function references (eg. ::Button.name)
         // instead of hardcoded names.
         val METHOD_NAMES = mapOf(
-            "MaterialTheme" to "NiaTheme",
-            "Button" to "NiaButton",
-            "OutlinedButton" to "NiaOutlinedButton",
-            "TextButton" to "NiaTextButton",
-            "FilterChip" to "NiaFilterChip",
-            "ElevatedFilterChip" to "NiaFilterChip",
-            "NavigationBar" to "NiaNavigationBar",
-            "NavigationBarItem" to "NiaNavigationBarItem",
-            "NavigationRail" to "NiaNavigationRail",
-            "NavigationRailItem" to "NiaNavigationRailItem",
-            "TabRow" to "NiaTabRow",
-            "Tab" to "NiaTab",
-            "IconToggleButton" to "NiaIconToggleButton",
-            "FilledIconToggleButton" to "NiaIconToggleButton",
-            "FilledTonalIconToggleButton" to "NiaIconToggleButton",
-            "OutlinedIconToggleButton" to "NiaIconToggleButton",
-            "CenterAlignedTopAppBar" to "NiaTopAppBar",
-            "SmallTopAppBar" to "NiaTopAppBar",
-            "MediumTopAppBar" to "NiaTopAppBar",
-            "LargeTopAppBar" to "NiaTopAppBar",
+            "MaterialTheme" to "OPBTheme",
+            "Button" to "OPBButton",
+            "OutlinedButton" to "OPBOutlinedButton",
+            "TextButton" to "OPBTextButton",
+            "FilterChip" to "OPBFilterChip",
+            "ElevatedFilterChip" to "OPBFilterChip",
+            "NavigationBar" to "OPBNavigationBar",
+            "NavigationBarItem" to "OPBNavigationBarItem",
+            "NavigationRail" to "OPBNavigationRail",
+            "NavigationRailItem" to "OPBNavigationRailItem",
+            "TabRow" to "OPBTabRow",
+            "Tab" to "OPBTab",
+            "IconToggleButton" to "OPBIconToggleButton",
+            "FilledIconToggleButton" to "OPBIconToggleButton",
+            "FilledTonalIconToggleButton" to "OPBIconToggleButton",
+            "OutlinedIconToggleButton" to "OPBIconToggleButton",
+            "CenterAlignedTopAppBar" to "OPBTopAppBar",
+            "SmallTopAppBar" to "OPBTopAppBar",
+            "MediumTopAppBar" to "OPBTopAppBar",
+            "LargeTopAppBar" to "OPBTopAppBar",
         )
         val RECEIVER_NAMES = mapOf(
-            "Icons" to "NiaIcons",
+            "Icons" to "OPBIcons",
         )
 
         fun reportIssue(

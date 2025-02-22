@@ -26,9 +26,9 @@ import androidx.compose.ui.test.FontScale
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onRoot
 import com.github.takahirom.roborazzi.captureRoboImage
-import com.onepercentbetter.core.designsystem.component.NiaTopAppBar
-import com.onepercentbetter.core.designsystem.icon.NiaIcons
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.component.OPBTopAppBar
+import com.onepercentbetter.core.designsystem.icon.OPBIcons
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.testing.util.DefaultRoborazziOptions
 import com.onepercentbetter.core.testing.util.captureMultiTheme
 import dagger.hilt.android.testing.HiltTestApplication
@@ -53,7 +53,7 @@ class TopAppBarScreenshotTests {
     @Test
     fun topAppBar_multipleThemes() {
         composeTestRule.captureMultiTheme("TopAppBar") {
-            NiaTopAppBarExample()
+            OPBTopAppBarExample()
         }
     }
 
@@ -66,8 +66,8 @@ class TopAppBarScreenshotTests {
                 DeviceConfigurationOverride(
                     DeviceConfigurationOverride.FontScale(2f),
                 ) {
-                    NiaTheme {
-                        NiaTopAppBarExample()
+                    OPBTheme {
+                        OPBTopAppBarExample()
                     }
                 }
             }
@@ -80,12 +80,12 @@ class TopAppBarScreenshotTests {
     }
 
     @Composable
-    private fun NiaTopAppBarExample() {
-        NiaTopAppBar(
+    private fun OPBTopAppBarExample() {
+        OPBTopAppBar(
             titleRes = android.R.string.untitled,
-            navigationIcon = NiaIcons.Search,
+            navigationIcon = OPBIcons.Search,
             navigationIconContentDescription = "Navigation icon",
-            actionIcon = NiaIcons.MoreVert,
+            actionIcon = OPBIcons.MoreVert,
             actionIconContentDescription = "Action icon",
         )
     }

@@ -32,7 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 
 @Composable
 fun TopicDetailPlaceholder(modifier: Modifier = Modifier) {
@@ -65,7 +65,7 @@ fun TopicDetailPlaceholder(modifier: Modifier = Modifier) {
 @Preview(widthDp = 200, heightDp = 300)
 @Composable
 fun TopicDetailPlaceholderPreview() {
-    NiaTheme {
+    OPBTheme {
         TopicDetailPlaceholder()
     }
 }

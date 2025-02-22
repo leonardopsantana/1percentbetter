@@ -17,8 +17,7 @@
 package com.onepercentbetter.core.data.repository
 
 import com.onepercentbetter.core.analytics.NoOpAnalyticsHelper
-import com.onepercentbetter.core.datastore.NiaPreferencesDataSource
-import com.onepercentbetter.core.datastore.UserPreferences
+import com.onepercentbetter.core.datastore.OPBPreferencesDataSource
 import com.onepercentbetter.core.datastore.test.InMemoryDataStore
 import com.onepercentbetter.core.model.data.DarkThemeConfig
 import com.onepercentbetter.core.model.data.ThemeBrand
@@ -40,16 +39,16 @@ class OfflineFirstUserDataRepositoryTest {
 
     private lateinit var subject: OfflineFirstUserDataRepository
 
-    private lateinit var niaPreferencesDataSource: NiaPreferencesDataSource
+    private lateinit var opbPreferencesDataSource: OPBPreferencesDataSource
 
     private val analyticsHelper = NoOpAnalyticsHelper()
 
     @Before
     fun setup() {
-        niaPreferencesDataSource = NiaPreferencesDataSource(InMemoryDataStore(_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.getDefaultInstance()))
+        opbPreferencesDataSource = OPBPreferencesDataSource(InMemoryDataStore(_root_ide_package_.com.onepercentbetter.core.datastore.UserPreferences.getDefaultInstance()))
 
         subject = OfflineFirstUserDataRepository(
-            niaPreferencesDataSource = niaPreferencesDataSource,
+            OPBPreferencesDataSource = opbPreferencesDataSource,
             analyticsHelper,
         )
     }
@@ -72,7 +71,7 @@ class OfflineFirstUserDataRepositoryTest {
         }
 
     @Test
-    fun offlineFirstUserDataRepository_toggle_followed_topics_logic_delegates_to_nia_preferences() =
+    fun offlineFirstUserDataRepository_toggle_followed_topics_logic_delegates_to_opb_preferences() =
         testScope.runTest {
             subject.setTopicIdFollowed(followedTopicId = "0", followed = true)
 
@@ -93,7 +92,7 @@ class OfflineFirstUserDataRepositoryTest {
             )
 
             assertEquals(
-                niaPreferencesDataSource.userData
+                opbPreferencesDataSource.userData
                     .map { it.followedTopics }
                     .first(),
                 subject.userData
@@ -103,7 +102,7 @@ class OfflineFirstUserDataRepositoryTest {
         }
 
     @Test
-    fun offlineFirstUserDataRepository_set_followed_topics_logic_delegates_to_nia_preferences() =
+    fun offlineFirstUserDataRepository_set_followed_topics_logic_delegates_to_opb_preferences() =
         testScope.runTest {
             subject.setFollowedTopicIds(followedTopicIds = setOf("1", "2"))
 
@@ -115,7 +114,7 @@ class OfflineFirstUserDataRepositoryTest {
             )
 
             assertEquals(
-                niaPreferencesDataSource.userData
+                opbPreferencesDataSource.userData
                     .map { it.followedTopics }
                     .first(),
                 subject.userData
@@ -125,7 +124,7 @@ class OfflineFirstUserDataRepositoryTest {
         }
 
     @Test
-    fun offlineFirstUserDataRepository_bookmark_news_resource_logic_delegates_to_nia_preferences() =
+    fun offlineFirstUserDataRepository_bookmark_news_resource_logic_delegates_to_opb_preferences() =
         testScope.runTest {
             subject.setNewsResourceBookmarked(newsResourceId = "0", bookmarked = true)
 
@@ -146,7 +145,7 @@ class OfflineFirstUserDataRepositoryTest {
             )
 
             assertEquals(
-                niaPreferencesDataSource.userData
+                opbPreferencesDataSource.userData
                     .map { it.bookmarkedNewsResources }
                     .first(),
                 subject.userData
@@ -156,7 +155,7 @@ class OfflineFirstUserDataRepositoryTest {
         }
 
     @Test
-    fun offlineFirstUserDataRepository_update_viewed_news_resources_delegates_to_nia_preferences() =
+    fun offlineFirstUserDataRepository_update_viewed_news_resources_delegates_to_opb_preferences() =
         runTest {
             subject.setNewsResourceViewed(newsResourceId = "0", viewed = true)
 
@@ -177,7 +176,7 @@ class OfflineFirstUserDataRepositoryTest {
             )
 
             assertEquals(
-                niaPreferencesDataSource.userData
+                opbPreferencesDataSource.userData
                     .map { it.viewedNewsResources }
                     .first(),
                 subject.userData
@@ -187,7 +186,7 @@ class OfflineFirstUserDataRepositoryTest {
         }
 
     @Test
-    fun offlineFirstUserDataRepository_set_theme_brand_delegates_to_nia_preferences() =
+    fun offlineFirstUserDataRepository_set_theme_brand_delegates_to_opb_preferences() =
         testScope.runTest {
             subject.setThemeBrand(ThemeBrand.ANDROID)
 
@@ -199,7 +198,7 @@ class OfflineFirstUserDataRepositoryTest {
             )
             assertEquals(
                 ThemeBrand.ANDROID,
-                niaPreferencesDataSource
+                opbPreferencesDataSource
                     .userData
                     .map { it.themeBrand }
                     .first(),
@@ -207,7 +206,7 @@ class OfflineFirstUserDataRepositoryTest {
         }
 
     @Test
-    fun offlineFirstUserDataRepository_set_dynamic_color_delegates_to_nia_preferences() =
+    fun offlineFirstUserDataRepository_set_dynamic_color_delegates_to_opb_preferences() =
         testScope.runTest {
             subject.setDynamicColorPreference(true)
 
@@ -219,7 +218,7 @@ class OfflineFirstUserDataRepositoryTest {
             )
             assertEquals(
                 true,
-                niaPreferencesDataSource
+                opbPreferencesDataSource
                     .userData
                     .map { it.useDynamicColor }
                     .first(),
@@ -227,7 +226,7 @@ class OfflineFirstUserDataRepositoryTest {
         }
 
     @Test
-    fun offlineFirstUserDataRepository_set_dark_theme_config_delegates_to_nia_preferences() =
+    fun offlineFirstUserDataRepository_set_dark_theme_config_delegates_to_opb_preferences() =
         testScope.runTest {
             subject.setDarkThemeConfig(DarkThemeConfig.DARK)
 
@@ -239,7 +238,7 @@ class OfflineFirstUserDataRepositoryTest {
             )
             assertEquals(
                 DarkThemeConfig.DARK,
-                niaPreferencesDataSource
+                opbPreferencesDataSource
                     .userData
                     .map { it.darkThemeConfig }
                     .first(),

@@ -57,11 +57,11 @@ fun MacrobenchmarkScope.startActivityAndAllowNotifications() {
 }
 
 /**
- * Waits for and returns the `niaTopAppBar`
+ * Waits for and returns the `OPBTopAppBar`
  */
 fun MacrobenchmarkScope.getTopAppBar(): UiObject2 {
-    device.wait(Until.hasObject(By.res("niaTopAppBar")), 2_000)
-    return device.findObject(By.res("niaTopAppBar"))
+    device.wait(Until.hasObject(By.res("opbTopAppBar")), 2_000)
+    return device.findObject(By.res("opbTopAppBar"))
 }
 
 /**

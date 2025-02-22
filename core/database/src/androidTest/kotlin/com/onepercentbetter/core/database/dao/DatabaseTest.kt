@@ -19,13 +19,13 @@ package com.onepercentbetter.core.database.dao
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.onepercentbetter.core.database.NiaDatabase
+import com.onepercentbetter.core.database.OpbDatabase
 import org.junit.After
 import org.junit.Before
 
 internal abstract class DatabaseTest {
 
-    private lateinit var db: NiaDatabase
+    private lateinit var db: OpbDatabase
     protected lateinit var newsResourceDao: com.onepercentbetter.core.database.dao.NewsResourceDao
     protected lateinit var topicDao: TopicDao
 
@@ -35,7 +35,7 @@ internal abstract class DatabaseTest {
             val context = ApplicationProvider.getApplicationContext<Context>()
             Room.inMemoryDatabaseBuilder(
                 context,
-                NiaDatabase::class.java,
+                OpbDatabase::class.java,
             ).build()
         }
         newsResourceDao = db.newsResourceDao()

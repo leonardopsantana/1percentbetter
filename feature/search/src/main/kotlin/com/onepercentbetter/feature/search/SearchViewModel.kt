@@ -28,6 +28,11 @@ import com.onepercentbetter.core.data.repository.UserDataRepository
 import com.onepercentbetter.core.domain.GetRecentSearchQueriesUseCase
 import com.onepercentbetter.core.domain.GetSearchContentsUseCase
 import com.onepercentbetter.core.model.data.UserSearchResult
+import com.onepercentbetter.feature.search.SearchResultUiState.EmptyQuery
+import com.onepercentbetter.feature.search.SearchResultUiState.LoadFailed
+import com.onepercentbetter.feature.search.SearchResultUiState.Loading
+import com.onepercentbetter.feature.search.SearchResultUiState.SearchNotReady
+import com.onepercentbetter.feature.search.SearchResultUiState.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -37,11 +42,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import com.onepercentbetter.feature.search.SearchResultUiState.EmptyQuery
-import com.onepercentbetter.feature.search.SearchResultUiState.LoadFailed
-import com.onepercentbetter.feature.search.SearchResultUiState.Loading
-import com.onepercentbetter.feature.search.SearchResultUiState.SearchNotReady
-import com.onepercentbetter.feature.search.SearchResultUiState.Success
 import javax.inject.Inject
 
 @HiltViewModel

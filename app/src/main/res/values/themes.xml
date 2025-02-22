@@ -18,10 +18,10 @@
 
     <!-- Allows us to override night specific attributes in the
          values-night folder. -->
-    <style name="NightAdjusted.Theme.Nia" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="NightAdjusted.Theme.OPB" parent="android:Theme.Material.Light.NoActionBar" />
 
     <!-- The final theme we use -->
-    <style name="Theme.Nia" parent="NightAdjusted.Theme.Nia">
+    <style name="Theme.OPB" parent="NightAdjusted.Theme.OPB">
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
     </style>
 
@@ -30,9 +30,9 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
     </style>
 
-    <style name="Theme.Nia.Splash" parent="NightAdjusted.Theme.Splash">
+    <style name="Theme.OPB.Splash" parent="NightAdjusted.Theme.Splash">
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
-        <item name="postSplashScreenTheme">@style/Theme.Nia</item>
+        <item name="postSplashScreenTheme">@style/Theme.OPB</item>
     </style>
 
 </resources>

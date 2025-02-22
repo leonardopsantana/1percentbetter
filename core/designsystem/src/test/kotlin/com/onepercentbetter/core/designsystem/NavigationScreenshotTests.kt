@@ -28,10 +28,10 @@ import androidx.compose.ui.test.FontScale
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onRoot
 import com.github.takahirom.roborazzi.captureRoboImage
-import com.onepercentbetter.core.designsystem.component.NiaNavigationBar
-import com.onepercentbetter.core.designsystem.component.NiaNavigationBarItem
-import com.onepercentbetter.core.designsystem.icon.NiaIcons
-import com.onepercentbetter.core.designsystem.theme.NiaTheme
+import com.onepercentbetter.core.designsystem.component.OPBNavigationBar
+import com.onepercentbetter.core.designsystem.component.OPBNavigationBarItem
+import com.onepercentbetter.core.designsystem.icon.OPBIcons
+import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.testing.util.DefaultRoborazziOptions
 import com.onepercentbetter.core.testing.util.captureMultiTheme
 import dagger.hilt.android.testing.HiltTestApplication
@@ -56,7 +56,7 @@ class NavigationScreenshotTests {
     fun navigation_multipleThemes() {
         composeTestRule.captureMultiTheme("Navigation") {
             Surface {
-                NiaNavigationBarExample()
+                OPBNavigationBarExample()
             }
         }
     }
@@ -70,8 +70,8 @@ class NavigationScreenshotTests {
                 DeviceConfigurationOverride(
                     DeviceConfigurationOverride.FontScale(2f),
                 ) {
-                    NiaTheme {
-                        NiaNavigationBarExample("Looong item")
+                    OPBTheme {
+                        OPBNavigationBarExample("Looong item")
                     }
                 }
             }
@@ -85,19 +85,19 @@ class NavigationScreenshotTests {
     }
 
     @Composable
-    private fun NiaNavigationBarExample(label: String = "Item") {
-        NiaNavigationBar {
+    private fun OPBNavigationBarExample(label: String = "Item") {
+        OPBNavigationBar {
             (0..2).forEach { index ->
-                NiaNavigationBarItem(
+                OPBNavigationBarItem(
                     icon = {
                         Icon(
-                            imageVector = NiaIcons.UpcomingBorder,
+                            imageVector = OPBIcons.UpcomingBorder,
                             contentDescription = "",
                         )
                     },
                     selectedIcon = {
                         Icon(
-                            imageVector = NiaIcons.Upcoming,
+                            imageVector = OPBIcons.Upcoming,
                             contentDescription = "",
                         )
                     },

@@ -16,8 +16,8 @@
 
 package com.onepercentbetter.core.network.di
 
-import com.onepercentbetter.core.network.NiaNetworkDataSource
-import com.onepercentbetter.core.network.demo.DemoNiaNetworkDataSource
+import com.onepercentbetter.core.network.OPBNetworkDataSource
+import com.onepercentbetter.core.network.demo.DemoOPBNetworkDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,5 +28,5 @@ import dagger.hilt.components.SingletonComponent
 internal interface FlavoredNetworkModule {
 
     @Binds
-    fun binds(impl: DemoNiaNetworkDataSource): NiaNetworkDataSource
+    fun binds(impl: DemoOPBNetworkDataSource): OPBNetworkDataSource
 }

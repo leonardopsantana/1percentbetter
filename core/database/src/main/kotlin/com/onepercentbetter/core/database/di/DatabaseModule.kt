@@ -18,7 +18,7 @@ package com.onepercentbetter.core.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.onepercentbetter.core.database.NiaDatabase
+import com.onepercentbetter.core.database.OpbDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,11 +31,11 @@ import javax.inject.Singleton
 internal object DatabaseModule {
     @Provides
     @Singleton
-    fun providesNiaDatabase(
+    fun providesOPBDatabase(
         @ApplicationContext context: Context,
-    ): NiaDatabase = Room.databaseBuilder(
+    ): OpbDatabase = Room.databaseBuilder(
         context,
-        NiaDatabase::class.java,
-        "nia-database",
+        OpbDatabase::class.java,
+        "opb-database",
     ).build()
 }

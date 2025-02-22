@@ -1,6 +1,6 @@
 # Architecture Learning Journey
 
-In this learning journey you will learn about the Now in Android app architecture: its layers, key classes and the interactions between them.
+In this learning journey you will learn about the One percent better app architecture: its layers, key classes and the interactions between them.
 
 
 ## Goals and requirements
@@ -82,7 +82,7 @@ Here's what's happening in each step. The easiest way to find the associated cod
    </td>
    <td>The user data repository obtains a stream of <code>UserData</code> objects from a local data source backed by Proto DataStore.
    </td>
-   <td><code>NiaPreferencesDataSource.userData</code>
+   <td><code>OPBPreferencesDataSource.userData</code>
    </td>
   </tr>
   <tr>
@@ -96,7 +96,7 @@ Here's what's happening in each step. The easiest way to find the associated cod
   <tr>
    <td>5
    </td>
-   <td><code>OfflineFirstNewsRepository</code> calls <code>RetrofitNiaNetwork</code> to execute the actual API request using <a href="https://square.github.io/retrofit/">Retrofit</a>.
+   <td><code>OfflineFirstNewsRepository</code> calls <code>RetrofitOPBNetwork</code> to execute the actual API request using <a href="https://square.github.io/retrofit/">Retrofit</a>.
    </td>
    <td><code>OfflineFirstNewsRepository.syncWith</code>
    </td>
@@ -104,17 +104,17 @@ Here's what's happening in each step. The easiest way to find the associated cod
   <tr>
    <td>6
    </td>
-   <td><code>RetrofitNiaNetwork</code> calls the REST API on the remote server.
+   <td><code>RetrofitOPBNetwork</code> calls the REST API on the remote server.
    </td>
-   <td><code>RetrofitNiaNetwork.getNewsResources</code>
+   <td><code>RetrofitOPBNetwork.getNewsResources</code>
    </td>
   </tr>
   <tr>
    <td>7
    </td>
-   <td><code>RetrofitNiaNetwork</code> receives the network response from the remote server.
+   <td><code>RetrofitOPBNetwork</code> receives the network response from the remote server.
    </td>
-   <td><code>RetrofitNiaNetwork.getNewsResources</code>
+   <td><code>RetrofitOPBNetwork.getNewsResources</code>
    </td>
   </tr>
   <tr>
@@ -222,7 +222,7 @@ A repository may depend on one or more data sources. For example, the `OfflineFi
    </td>
   </tr>
   <tr>
-   <td>NiaPreferencesDataSource
+   <td>OPBPreferencesDataSource
    </td>
    <td><a href="https://developer.android.com/topic/libraries/architecture/datastore">Proto DataStore</a>
    </td>
@@ -230,7 +230,7 @@ A repository may depend on one or more data sources. For example, the `OfflineFi
    </td>
   </tr>
   <tr>
-   <td>NiaNetworkDataSource
+   <td>OPBNetworkDataSource
    </td>
    <td>Remote API accessed using Retrofit
    </td>
@@ -258,7 +258,7 @@ These use cases are used to simplify and remove duplicate logic from ViewModels.
 
 For example, `GetUserNewsResourcesUseCase` combines a stream (implemented using `Flow`) of `NewsResource`s from a `NewsRepository` with a stream of `UserData` objects from a `UserDataRepository` to create a stream of `UserNewsResource`s. This stream is used by various ViewModels to display news resources on screen with their bookmarked state.  
 
-Notably, the domain layer in Now in Android _does not_ (for now) contain any use cases for event handling. Events are handled by the UI layer calling methods on repositories directly.
+Notably, the domain layer in One percent better _does not_ (for now) contain any use cases for event handling. Events are handled by the UI layer calling methods on repositories directly.
 
 ## UI Layer
 

@@ -22,8 +22,8 @@ import com.onepercentbetter.core.data.repository.NewsRepository
 import com.onepercentbetter.core.data.repository.NewsResourceQuery
 import com.onepercentbetter.core.model.data.NewsResource
 import com.onepercentbetter.core.network.Dispatcher
-import com.onepercentbetter.core.network.NiaDispatchers.IO
-import com.onepercentbetter.core.network.demo.DemoNiaNetworkDataSource
+import com.onepercentbetter.core.network.OPBDispatchers.IO
+import com.onepercentbetter.core.network.demo.DemoOPBNetworkDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -38,7 +38,7 @@ import javax.inject.Inject
  */
 class FakeNewsRepository @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
-    private val datasource: DemoNiaNetworkDataSource,
+    private val datasource: DemoOPBNetworkDataSource,
 ) : NewsRepository {
 
     override fun getNewsResources(
