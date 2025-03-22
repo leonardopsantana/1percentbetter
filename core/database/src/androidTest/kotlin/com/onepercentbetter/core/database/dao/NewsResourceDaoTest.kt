@@ -2,8 +2,8 @@
 
 package com.onepercentbetter.core.database.dao
 
-import com.onepercentbetter.core.database.model.TaskEntity
 import com.onepercentbetter.core.database.model.CategoryEntity
+import com.onepercentbetter.core.database.model.TaskEntity
 import com.onepercentbetter.core.database.model.asModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

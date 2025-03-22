@@ -4,8 +4,8 @@ package com.onepercentbetter.core.data.test.repository
 
 import com.onepercentbetter.core.data.Synchronizer
 import com.onepercentbetter.core.data.model.asExternalModel
-import com.onepercentbetter.core.data.repository.task.TaskRepository
 import com.onepercentbetter.core.data.repository.task.NewsResourceQuery
+import com.onepercentbetter.core.data.repository.task.TaskRepository
 import com.onepercentbetter.core.network.Dispatcher
 import com.onepercentbetter.core.network.OPBDispatchers.IO
 import com.onepercentbetter.core.network.demo.DemoOPBNetworkDataSource

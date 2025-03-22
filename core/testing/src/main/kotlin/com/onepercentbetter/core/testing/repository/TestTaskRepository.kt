@@ -3,8 +3,8 @@
 package com.onepercentbetter.core.testing.repository
 
 import com.onepercentbetter.core.data.Synchronizer
-import com.onepercentbetter.core.data.repository.task.TaskRepository
 import com.onepercentbetter.core.data.repository.task.NewsResourceQuery
+import com.onepercentbetter.core.data.repository.task.TaskRepository
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow

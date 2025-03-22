@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class InterestsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    val userDataRepository: UserDataRepository
+    val userDataRepository: UserDataRepository,
 ) : ViewModel() {
 
     // Key used to save and retrieve the currently selected topic id from saved state.

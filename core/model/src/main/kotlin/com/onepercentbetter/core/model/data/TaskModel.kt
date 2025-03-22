@@ -7,5 +7,5 @@ data class TaskModel(
     val title: String,
     val isDone: Boolean,
     val date: Instant,
-    val categoryId: String
+    val categoryId: String,
 )

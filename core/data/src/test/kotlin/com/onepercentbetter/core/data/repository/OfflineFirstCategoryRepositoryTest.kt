@@ -6,8 +6,8 @@ import com.onepercentbetter.core.data.Synchronizer
 import com.onepercentbetter.core.data.model.asEntity
 import com.onepercentbetter.core.data.repository.category.OfflineFirstCategoryRepository
 import com.onepercentbetter.core.data.testdoubles.CollectionType
-import com.onepercentbetter.core.data.testdoubles.TestOPBNetworkDataSource
 import com.onepercentbetter.core.data.testdoubles.TestCategoryDao
+import com.onepercentbetter.core.data.testdoubles.TestOPBNetworkDataSource
 import com.onepercentbetter.core.database.dao.CategoryDao
 import com.onepercentbetter.core.database.model.CategoryEntity
 import com.onepercentbetter.core.database.model.asModel

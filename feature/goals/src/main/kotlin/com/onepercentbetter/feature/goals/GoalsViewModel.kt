@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-
-
 package com.onepercentbetter.feature.goals
 
 import androidx.lifecycle.SavedStateHandle
@@ -35,7 +33,7 @@ import javax.inject.Inject
 class GoalsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val userDataRepository: UserDataRepository,
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
 ) : ViewModel() {
 
     val goalId = savedStateHandle.toRoute<GoalsRoute>()

@@ -2,10 +2,10 @@
 
 package com.onepercentbetter.core.data.di
 
-import com.onepercentbetter.core.data.repository.task.TaskRepository
 import com.onepercentbetter.core.data.repository.category.CategoryRepository
 import com.onepercentbetter.core.data.repository.category.OfflineFirstCategoryRepository
 import com.onepercentbetter.core.data.repository.task.OfflineFirstTaskRepository
+import com.onepercentbetter.core.data.repository.task.TaskRepository
 import com.onepercentbetter.core.data.repository.user.OfflineFirstUserDataRepository
 import com.onepercentbetter.core.data.repository.user.UserDataRepository
 import com.onepercentbetter.core.data.util.ConnectivityManagerNetworkMonitor

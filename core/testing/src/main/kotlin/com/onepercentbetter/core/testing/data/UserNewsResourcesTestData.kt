@@ -5,8 +5,8 @@
 package com.onepercentbetter.core.testing.data
 
 import com.onepercentbetter.core.model.data.DarkThemeConfig
-import com.onepercentbetter.core.model.data.UserData
 import com.onepercentbetter.core.model.data.TaskModel
+import com.onepercentbetter.core.model.data.UserData
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -16,7 +16,7 @@ val userNewsResourcesTestData: List<TaskModel> = UserData(
     bookmarkedNewsResources = setOf("1", "4"),
     viewedNewsResources = setOf("1", "2", "4"),
     followedTopics = emptySet(),
-    darkThemeConfig = DarkThemeConfig.DARK
+    darkThemeConfig = DarkThemeConfig.DARK,
 ).let { userData ->
     listOf(
         TaskModel(

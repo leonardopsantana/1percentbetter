@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
         // This allows us to react to dark/light mode changes.
         var themeSettings by mutableStateOf(
             ThemeSettings(
-                darkTheme = resources.configuration.isSystemInDarkTheme
+                darkTheme = resources.configuration.isSystemInDarkTheme,
             ),
         )
 
@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
                     viewModel.uiState,
                 ) { systemDark, uiState ->
                     ThemeSettings(
-                        darkTheme = uiState.shouldUseDarkTheme(systemDark)
+                        darkTheme = uiState.shouldUseDarkTheme(systemDark),
                     )
                 }
                     .onEach { themeSettings = it }
@@ -122,7 +122,7 @@ class MainActivity : ComponentActivity() {
                 LocalTimeZone provides currentTimeZone,
             ) {
                 OPBTheme(
-                    darkTheme = themeSettings.darkTheme
+                    darkTheme = themeSettings.darkTheme,
                 ) {
                     OPBApp(appState)
                 }
@@ -158,5 +158,5 @@ private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)
  * This wrapping class allows us to combine all the changes and prevent unnecessary recompositions.
  */
 data class ThemeSettings(
-    val darkTheme: Boolean
+    val darkTheme: Boolean,
 )

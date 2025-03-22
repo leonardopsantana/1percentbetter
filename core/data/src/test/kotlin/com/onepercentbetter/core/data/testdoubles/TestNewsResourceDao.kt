@@ -2,9 +2,9 @@
 
 package com.onepercentbetter.core.data.testdoubles
 
-import com.onepercentbetter.core.database.model.TaskEntity
-import com.onepercentbetter.core.database.model.PopulatedNewsResource
 import com.onepercentbetter.core.database.model.CategoryEntity
+import com.onepercentbetter.core.database.model.PopulatedNewsResource
+import com.onepercentbetter.core.database.model.TaskEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map

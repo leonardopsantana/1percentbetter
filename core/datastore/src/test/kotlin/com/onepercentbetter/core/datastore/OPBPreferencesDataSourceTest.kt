@@ -17,5 +17,4 @@ class OPBPreferencesDataSourceTest {
     fun setup() {
         subject = OPBPreferencesDataSource(InMemoryDataStore(UserPreferences.getDefaultInstance()))
     }
-
 }

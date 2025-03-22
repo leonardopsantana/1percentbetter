@@ -6,8 +6,8 @@ import com.onepercentbetter.core.data.testdoubles.CollectionType.NewsResources
 import com.onepercentbetter.core.data.testdoubles.CollectionType.Topics
 import com.onepercentbetter.core.network.OPBNetworkDataSource
 import com.onepercentbetter.core.network.demo.DemoOPBNetworkDataSource
-import com.onepercentbetter.core.network.model.TaskResponse
 import com.onepercentbetter.core.network.model.CategoryResponse
+import com.onepercentbetter.core.network.model.TaskResponse
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.serialization.json.Json

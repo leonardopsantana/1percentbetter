@@ -3,13 +3,13 @@
 package com.onepercentbetter.core.data.test
 
 import com.onepercentbetter.core.data.di.DataModule
-import com.onepercentbetter.core.data.repository.task.TaskRepository
 import com.onepercentbetter.core.data.repository.category.CategoryRepository
+import com.onepercentbetter.core.data.repository.task.TaskRepository
 import com.onepercentbetter.core.data.repository.user.UserDataRepository
-import com.onepercentbetter.core.data.test.repository.FakeTaskRepository
+import com.onepercentbetter.core.data.test.repository.FakeCategoryRepository
 import com.onepercentbetter.core.data.test.repository.FakeRecentSearchRepository
 import com.onepercentbetter.core.data.test.repository.FakeSearchContentsRepository
-import com.onepercentbetter.core.data.test.repository.FakeCategoryRepository
+import com.onepercentbetter.core.data.test.repository.FakeTaskRepository
 import com.onepercentbetter.core.data.test.repository.FakeUserDataRepository
 import com.onepercentbetter.core.data.util.NetworkMonitor
 import com.onepercentbetter.core.data.util.TimeZoneMonitor

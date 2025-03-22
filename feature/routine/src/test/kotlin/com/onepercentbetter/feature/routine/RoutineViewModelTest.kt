@@ -7,8 +7,8 @@ import com.onepercentbetter.core.analytics.AnalyticsEvent
 import com.onepercentbetter.core.analytics.AnalyticsEvent.Param
 import com.onepercentbetter.core.model.data.TaskModel
 import com.onepercentbetter.core.notifications.DEEP_LINK_NEWS_RESOURCE_ID_KEY
-import com.onepercentbetter.core.testing.repository.TestTaskRepository
 import com.onepercentbetter.core.testing.repository.TestCategoryRepository
+import com.onepercentbetter.core.testing.repository.TestTaskRepository
 import com.onepercentbetter.core.testing.repository.TestUserDataRepository
 import com.onepercentbetter.core.testing.repository.emptyUserData
 import com.onepercentbetter.core.testing.util.MainDispatcherRule
@@ -56,7 +56,7 @@ class RoutineViewModelTest {
             savedStateHandle = savedStateHandle,
             analyticsHelper = analyticsHelper,
             userDataRepository = userDataRepository,
-            userNewsResourceRepository = userNewsResourceRepository
+            userNewsResourceRepository = userNewsResourceRepository,
         )
     }
 
@@ -142,7 +142,7 @@ class RoutineViewModelTest {
 
         val followedTopicIds = setOf("1")
         val userData = emptyUserData.copy(
-            followedTopics = followedTopicIds
+            followedTopics = followedTopicIds,
         )
 
         topicsRepository.sendTopics(sampleTopics)

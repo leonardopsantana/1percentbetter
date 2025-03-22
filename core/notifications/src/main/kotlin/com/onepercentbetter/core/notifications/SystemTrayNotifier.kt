@@ -127,8 +127,7 @@ private fun Context.ensureNotificationChannelExists() {
     NotificationManagerCompat.from(this).createNotificationChannel(channel)
 }
 
-private fun Context.routinePendingIntent(
-): PendingIntent? = PendingIntent.getActivity(
+private fun Context.routinePendingIntent(): PendingIntent? = PendingIntent.getActivity(
     this,
     NEWS_NOTIFICATION_REQUEST_CODE,
     Intent().apply {

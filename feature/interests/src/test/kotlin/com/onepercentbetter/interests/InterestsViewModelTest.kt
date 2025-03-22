@@ -47,7 +47,7 @@ class InterestsViewModelTest {
             savedStateHandle = SavedStateHandle(
                 route = InterestsRoute(initialTopicId = testInputTopics[0].topic.id),
             ),
-            userDataRepository = userDataRepository
+            userDataRepository = userDataRepository,
         )
     }
 

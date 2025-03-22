@@ -21,8 +21,8 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.NoActivityResumedException
 import com.onepercentbetter.MainActivity
 import com.onepercentbetter.R
-import com.onepercentbetter.core.data.repository.task.TaskRepository
 import com.onepercentbetter.core.data.repository.category.CategoryRepository
+import com.onepercentbetter.core.data.repository.task.TaskRepository
 import com.onepercentbetter.core.rules.GrantPostNotificationsPermissionRule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest

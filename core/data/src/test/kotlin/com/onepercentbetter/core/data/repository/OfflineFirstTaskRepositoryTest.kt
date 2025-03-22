@@ -9,14 +9,14 @@ import com.onepercentbetter.core.data.model.topicEntityShells
 import com.onepercentbetter.core.data.repository.task.NewsResourceQuery
 import com.onepercentbetter.core.data.repository.task.OfflineFirstTaskRepository
 import com.onepercentbetter.core.data.testdoubles.CollectionType
+import com.onepercentbetter.core.data.testdoubles.TestCategoryDao
 import com.onepercentbetter.core.data.testdoubles.TestNewsResourceDao
 import com.onepercentbetter.core.data.testdoubles.TestOPBNetworkDataSource
-import com.onepercentbetter.core.data.testdoubles.TestCategoryDao
 import com.onepercentbetter.core.data.testdoubles.filteredInterestsIds
 import com.onepercentbetter.core.data.testdoubles.nonPresentInterestsIds
-import com.onepercentbetter.core.database.model.TaskEntity
-import com.onepercentbetter.core.database.model.PopulatedNewsResource
 import com.onepercentbetter.core.database.model.CategoryEntity
+import com.onepercentbetter.core.database.model.PopulatedNewsResource
+import com.onepercentbetter.core.database.model.TaskEntity
 import com.onepercentbetter.core.database.model.asModel
 import com.onepercentbetter.core.datastore.OPBPreferencesDataSource
 import com.onepercentbetter.core.datastore.test.InMemoryDataStore

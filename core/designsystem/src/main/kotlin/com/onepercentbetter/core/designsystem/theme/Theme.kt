@@ -109,7 +109,7 @@ fun OPBTheme(
     CompositionLocalProvider(
         LocalGradientColors provides defaultGradientColors,
         LocalBackgroundTheme provides backgroundTheme,
-        LocalTintTheme provides  TintTheme(),
+        LocalTintTheme provides TintTheme(),
     ) {
         MaterialTheme(
             colorScheme = colorScheme,

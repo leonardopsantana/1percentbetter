@@ -13,7 +13,6 @@ import androidx.compose.ui.test.performScrollToNode
 import com.onepercentbetter.core.testing.data.followableTopicTestData
 import com.onepercentbetter.core.testing.data.userNewsResourcesTestData
 import com.onepercentbetter.feature.goals.GoalsScreen
-import com.onepercentbetter.feature.goals.GoalsUiState
 import com.onepercentbetter.feature.goals.GoalsUiState.Loading
 import com.onepercentbetter.feature.goals.GoalsUiState.Success
 import org.junit.Before

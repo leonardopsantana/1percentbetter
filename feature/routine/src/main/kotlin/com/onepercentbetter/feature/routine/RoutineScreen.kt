@@ -117,7 +117,6 @@ internal fun RoutineScreen(
         modifier = modifier
             .fillMaxSize(),
     ) {
-
         when (feedState) {
             Loading -> {
                 RoutineLoading(isSyncing, isFeedLoading)
@@ -186,7 +185,6 @@ private fun RoutineLoaded(
                 imageUrl = "",
                 isSelected = false,
                 onClick = { _, _ ->
-
                 },
             )
         }

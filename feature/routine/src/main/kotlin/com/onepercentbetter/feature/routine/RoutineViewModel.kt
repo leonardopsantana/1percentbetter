@@ -1,8 +1,8 @@
 package com.onepercentbetter.feature.routine
 
-import com.onepercentbetter.core.data.repository.task.TaskRepository
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.onepercentbetter.core.data.repository.task.TaskRepository
 import com.onepercentbetter.core.data.repository.user.UserDataRepository
 import com.onepercentbetter.core.data.util.SyncManager
 import com.onepercentbetter.feature.routine.RoutineUiState.Loading
@@ -10,10 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock.System
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -44,10 +41,11 @@ class RoutineViewModel @Inject constructor(
     }
 
     private fun fetchTasks() {
-        viewModelScope.launch {
-            taskRepository.getTasksForDate(System.now()).map {
-                _feedState.value = RoutineUiState.Success(it, daysOfWeek)
-            }
-        }
+        _feedState.value = RoutineUiState.Success(emptyList(), daysOfWeek)
+//        viewModelScope.launch {
+//            taskRepository.getTasksForDate(System.now()).map {
+//                _feedState.value = RoutineUiState.Success(it, daysOfWeek)
+//            }
+//        }
     }
 }

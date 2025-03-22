@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-
-
 package com.onepercentbetter.feature.goals
 
 import androidx.annotation.VisibleForTesting
@@ -67,7 +65,6 @@ import com.onepercentbetter.core.ui.TrackScrollJank
 import com.onepercentbetter.feature.goals.GoalsUiState.Error
 import com.onepercentbetter.feature.goals.GoalsUiState.Loading
 import com.onepercentbetter.feature.goals.GoalsUiState.Success
-import com.onepercentbetter.feature.goals.R.string
 
 @Composable
 fun GoalsScreen(
@@ -112,10 +109,10 @@ internal fun GoalsScreen(
             }
             when (goalsUiState) {
                 Loading -> item {
-                    OPBLoadingWheel(
-                        modifier = modifier,
-                        contentDesc = stringResource(id = string.feature_goals_loading),
-                    )
+//                    OPBLoadingWheel(
+//                        modifier = modifier,
+//                        contentDesc = stringResource(id = string.feature_goals_loading),
+//                    )
                 }
 
                 is Error -> TODO()
@@ -123,7 +120,7 @@ internal fun GoalsScreen(
                     item {
                         TopicToolbar(
                             showBackButton = showBackButton,
-                            onBackClick = onBackClick
+                            onBackClick = onBackClick,
                         )
                     }
 //                    topicBody(

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-
-
 package com.onepercentbetter.core.data.repository.user
 
 import com.onepercentbetter.core.analytics.AnalyticsHelper

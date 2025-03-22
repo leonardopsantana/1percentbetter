@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-
-
 package com.onepercentbetter.core.data.repository.category
 
 import com.onepercentbetter.core.data.Synchronizer

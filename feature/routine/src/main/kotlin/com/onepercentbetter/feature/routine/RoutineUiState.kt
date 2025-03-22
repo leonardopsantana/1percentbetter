@@ -1,6 +1,5 @@
 package com.onepercentbetter.feature.routine
 
-import com.onepercentbetter.core.model.data.TaskModel
 import com.onepercentbetter.core.model.data.TaskWithCategoryModel
 import java.time.LocalDate
 
@@ -21,6 +20,6 @@ sealed interface RoutineUiState {
          * The list of routine of the user.
          */
         val feed: List<TaskWithCategoryModel>,
-        val daysOfWeek: List<LocalDate>
+        val daysOfWeek: List<LocalDate>,
     ) : RoutineUiState
 }

@@ -2,8 +2,8 @@
 
 package com.onepercentbetter.core.data.model
 
-import com.onepercentbetter.core.network.model.TaskResponse
 import com.onepercentbetter.core.network.model.CategoryResponse
+import com.onepercentbetter.core.network.model.TaskResponse
 import com.onepercentbetter.core.network.model.asModel
 import kotlinx.datetime.Instant
 import org.junit.Test

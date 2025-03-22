@@ -42,7 +42,7 @@ internal class OfflineFirstTaskRepository @Inject constructor(
     }
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
-        //call SyncUtilities.changeListSync
+        // call SyncUtilities.changeListSync
         return false
     }
 }

@@ -3,8 +3,8 @@
 package com.onepercentbetter.core.data
 
 import com.onepercentbetter.core.model.data.DarkThemeConfig.FOLLOW_SYSTEM
-import com.onepercentbetter.core.model.data.UserData
 import com.onepercentbetter.core.model.data.TaskModel
+import com.onepercentbetter.core.model.data.UserData
 import kotlinx.datetime.Clock
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

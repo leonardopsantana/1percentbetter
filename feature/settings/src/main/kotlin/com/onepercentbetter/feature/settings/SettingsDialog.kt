@@ -233,7 +233,7 @@ private fun PreviewSettingsDialogLoading() {
         SettingsContent(
             onDismiss = {},
             settingsUiState = Loading,
-            onChangeDarkThemeConfig = {}
+            onChangeDarkThemeConfig = {},
         )
     }
 }

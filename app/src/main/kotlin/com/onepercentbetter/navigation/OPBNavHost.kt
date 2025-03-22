@@ -33,13 +33,13 @@ fun OPBNavHost(
         routineSection(
             onTopicClick = { },
         ) {
-            goalsScreen(
-                showBackButton = true,
-                onBackClick = navController::popBackStack,
-                onTopicClick = {},
-//                onTopicClick = navController::navigateToGoals,
-            )
         }
+        goalsScreen(
+            showBackButton = true,
+            onBackClick = navController::popBackStack,
+            onTopicClick = {},
+//                onTopicClick = navController::navigateToGoals,
+        )
         interestsListDetailScreen()
     }
 }

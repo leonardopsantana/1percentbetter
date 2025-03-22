@@ -17,7 +17,7 @@ data class TaskEntity(
     val categoryId: String,
     val taskTitle: String,
     val isDone: Boolean,
-    val date: Instant
+    val date: Instant,
 )
 
 fun TaskEntity.asModel() = TaskModel(
@@ -25,5 +25,5 @@ fun TaskEntity.asModel() = TaskModel(
     title = taskTitle,
     isDone = isDone,
     date = date,
-    categoryId = categoryId
+    categoryId = categoryId,
 )
