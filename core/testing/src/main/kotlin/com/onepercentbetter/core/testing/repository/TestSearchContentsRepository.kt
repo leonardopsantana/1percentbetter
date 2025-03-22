@@ -2,10 +2,6 @@
 
 package com.onepercentbetter.core.testing.repository
 
-import com.onepercentbetter.core.data.repository.SearchContentsRepository
-import com.onepercentbetter.core.model.data.NewsResource
-import com.onepercentbetter.core.model.data.SearchResult
-import com.onepercentbetter.core.model.data.Topic
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine

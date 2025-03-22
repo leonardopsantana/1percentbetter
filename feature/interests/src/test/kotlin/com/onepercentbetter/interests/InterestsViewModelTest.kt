@@ -4,9 +4,7 @@ package com.onepercentbetter.interests
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.testing.invoke
-import com.onepercentbetter.core.model.data.FollowableTopic
-import com.onepercentbetter.core.model.data.Topic
-import com.onepercentbetter.core.testing.repository.TestTopicsRepository
+import com.onepercentbetter.core.testing.repository.TestCategoryRepository
 import com.onepercentbetter.core.testing.repository.TestUserDataRepository
 import com.onepercentbetter.core.testing.util.MainDispatcherRule
 import com.onepercentbetter.feature.interests.InterestsUiState
@@ -40,7 +38,7 @@ class InterestsViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val userDataRepository = TestUserDataRepository()
-    private val topicsRepository = TestTopicsRepository()
+    private val topicsRepository = TestCategoryRepository()
     private lateinit var viewModel: InterestsViewModel
 
     @Before

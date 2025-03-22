@@ -4,7 +4,6 @@
 
 package com.onepercentbetter.core.testing.data
 
-import com.onepercentbetter.core.model.data.NewsResource
 import kotlinx.datetime.Instant
 
 val newsResourcesTestData: List<NewsResource> = listOf(

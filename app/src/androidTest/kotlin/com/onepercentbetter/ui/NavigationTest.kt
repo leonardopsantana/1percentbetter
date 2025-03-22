@@ -21,9 +21,8 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.NoActivityResumedException
 import com.onepercentbetter.MainActivity
 import com.onepercentbetter.R
-import com.onepercentbetter.core.data.repository.NewsRepository
-import com.onepercentbetter.core.data.repository.TopicsRepository
-import com.onepercentbetter.core.model.data.Topic
+import com.onepercentbetter.core.data.repository.task.TaskRepository
+import com.onepercentbetter.core.data.repository.category.CategoryRepository
 import com.onepercentbetter.core.rules.GrantPostNotificationsPermissionRule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -63,10 +62,10 @@ class NavigationTest {
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     @Inject
-    lateinit var topicsRepository: TopicsRepository
+    lateinit var categoryRepository: CategoryRepository
 
     @Inject
-    lateinit var newsRepository: NewsRepository
+    lateinit var taskRepository: TaskRepository
 
     // The strings used for matching in these tests
     private val navigateUp by composeTestRule.stringResource(FeatureRouTine.string.feature_routine_navigate_up)
@@ -245,7 +244,7 @@ class NavigationTest {
 
             // Select the last topic
             val topic = runBlocking {
-                topicsRepository.getTopics().first().sortedBy(Topic::name).last()
+                categoryRepository.getCategories().first().sortedBy(Topic::name).last()
             }
             onNodeWithTag("interests:topics").performScrollToNode(hasText(topic.name))
             onNodeWithText(topic.name).performClick()
@@ -266,7 +265,7 @@ class NavigationTest {
         composeTestRule.apply {
             // Get the first news resource
             val newsResource = runBlocking {
-                newsRepository.getNewsResources().first().first()
+                taskRepository.getTasksForDate().first().first()
             }
 
             // Get its first topic and follow it

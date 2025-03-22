@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1",
+    "title": "Android Dev Summit ’22: Coming to you, online and around the world! ⛰️",
+    "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh1VWQmqQu6wDswls9f_5NpEQnq4eR57g2NwzWvhKItcKtV6rb_Cyo75XSyL6vvmCIo4tzQn-8taNagEp7QG0KU1L4yMqwbYozNMzBMEFxEN2XintAhy5nLI4RQDaOXr8dgiIFdGOBMdl577Ndelzc0tDBzjI6mz7e4MF8_Tn09KWguZi6I-bS5NbJn/w1200-h630-p-k-no-nu/unnamed%20%2816%29.png"
+  },
+  {
+    "id": "2",
+    "title": "The new Google Pixel Watch is here  — start building for Wear OS! ⌚",
+    "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhH63icac2kmydOI8Fs2I09KiuRA3GUo2pfZ1Wpf0M5JIEoVQ8dj9LYSl8jpxSQlmlsUVXoeXbwN4UbHMCf5p0M7FHh_EXzMeFRAJ-6feI9-7eIyhBmtGZSD5o-MItwFLH_ESi15Cxd01AlznWaGy9WDqhK0NWtMQwiWELg3xE1I7hba-_7eVqs747V/w1200-h630-p-k-no-nu/WhasNewinPixelDevices_Social.png"
+  },
+  {
+    "id": "3",
+    "title": "Listen to our major Text to Speech upgrades for 64 bit devices 💬",
+    "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrHro6d3BTw7ZZ4IXgfb6_8aESB7-SsWfelDSSInZVamiMSnYpBZzGBaZBBrWxWwYgLqOHuOtroGvGjxrwzdUkhjwuIvM1u6chIblGKS1gQ6JVkjXr-Vztyk2zoYb1ylvhNgLgC5q6M-7LaiXT1xnAT96DvkPx89APNb8JEaz-1mnMRcfaOYYBHzQL/w1200-h630-p-k-no-nu/Text%20to%20Speech%20-%20Social%20-%201024x512.png"
+  },
+  {
+    "id": "4",
+    "title": "MAD Skills Compose: Powerful Toolkit",
+    "image": "https://miro.medium.com/max/1200/1*3FZeNmAPZDYUCmgL0cBXoA.png"
+  },
+  {
+    "id": "5",
+    "title": "MAD Skills Compose: Accelerate development with tooling",
+    "image": "https://miro.medium.com/max/1200/1*WVUBQsNgePqQxmrHjaID4g.png"
+  },
+  {
+    "id": "6",
+    "title": "Deep Links Crash Course: Part 3 - Troubleshooting",
+    "image": "https://i.ytimg.com/vi/OAxJ2kWG4ZI/maxresdefault.jpg"
+  },
+  {
+    "id": "7",
+    "title": "Deep Links Crash Course: Part 4 - Deep links for your business",
+    "image": "https://i.ytimg.com/vi/UvMIswgsJF8/maxresdefault.jpg"
+  },
+  {
+    "id": "8",
+    "title": "Migrating the AOSP QuickSearchBox App to Kotlin",
+    "image": "https://miro.medium.com/max/720/1*cWnPe-kD4hAVuH3IIcNUcA.png"
+  },
+  {
+    "id": "9",
+    "title": "Prepare your Android Project for Android Gradle plugin 8.0 API changes",
+    "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgy74acii7wq-Z2pW8TUSga1YGpRKjLZjroOlZlUillRJuTFIlGpUi93PPletKlkcAaz9u6NgF8_LejO9686VYEWNtO2ypawLgpY2QW7JMtrMSVTlPsRGgEDUiQJKUfzEXw2Q_Y7qX1CSUlH9lma8Jjdm3AqMogbEI6PScD3AK1XsWgHmVeqJlVqUiK/w1200-h630-p-k-no-nu/Header-PrepareyourAndroidProjectforAGP8.0Changes%20.png"
+  },
+  {
+    "id": "10",
+    "title": "Optimize for Android (Go edition) : Lessons from Google apps Part 2",
+    "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiD7uoBIqlA_WYXwuhyDxKy1Nt2ibaa_GYd9l8ewfQcC7f-f11t0WRCTTS6XhwnkJMqWUxSX-nxAq9DD8oBbk_Om2ik0yNMOV8lHw0sGmRAixLY2T0dxpKtQe0DnsVrzmexNSX1-BYdz9p0cvCtdXoxgDi1Mx6OLixzC5JAnxEEAf1TkHrTQON0fURg/w1200-h630-p-k-no-nu/MAD%20App%20Architecture%20launch%20-%20Mobile%20%281%29%20%281%29.png"
+  }
+]

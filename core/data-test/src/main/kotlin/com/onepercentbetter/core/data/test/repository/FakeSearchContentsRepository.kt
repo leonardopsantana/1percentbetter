@@ -2,8 +2,6 @@
 
 package com.onepercentbetter.core.data.test.repository
 
-import com.onepercentbetter.core.data.repository.SearchContentsRepository
-import com.onepercentbetter.core.model.data.SearchResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject

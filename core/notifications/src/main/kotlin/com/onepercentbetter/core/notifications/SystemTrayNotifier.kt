@@ -11,14 +11,13 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
-import android.net.Uri
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.core.app.ActivityCompat.checkSelfPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.InboxStyle
 import androidx.core.app.NotificationManagerCompat
-import com.onepercentbetter.core.model.data.NewsResource
+import com.onepercentbetter.core.model.data.TaskModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -38,8 +37,8 @@ internal class SystemTrayNotifier @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : Notifier {
 
-    override fun postNewsNotifications(
-        newsResources: List<NewsResource>,
+    override fun postRoutineNotifications(
+        newsResources: List<TaskModel>,
     ) = with(context) {
         if (checkSelfPermission(this, permission.POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
             return
@@ -51,8 +50,7 @@ internal class SystemTrayNotifier @Inject constructor(
             createNewsNotification {
                 setSmallIcon(R.drawable.core_notifications_ic_opb_notification)
                     .setContentTitle(newsResource.title)
-                    .setContentText(newsResource.content)
-                    .setContentIntent(newsPendingIntent(newsResource))
+                    .setContentIntent(routinePendingIntent())
                     .setGroup(NEWS_NOTIFICATION_GROUP)
                     .setAutoCancel(true)
             }
@@ -88,7 +86,7 @@ internal class SystemTrayNotifier @Inject constructor(
      * Creates an inbox style summary notification for news updates
      */
     private fun newsNotificationStyle(
-        newsResources: List<NewsResource>,
+        newsResources: List<TaskModel>,
         title: String,
     ): InboxStyle = newsResources
         .fold(InboxStyle()) { inboxStyle, newsResource -> inboxStyle.addLine(newsResource.title) }
@@ -129,14 +127,12 @@ private fun Context.ensureNotificationChannelExists() {
     NotificationManagerCompat.from(this).createNotificationChannel(channel)
 }
 
-private fun Context.newsPendingIntent(
-    newsResource: NewsResource,
+private fun Context.routinePendingIntent(
 ): PendingIntent? = PendingIntent.getActivity(
     this,
     NEWS_NOTIFICATION_REQUEST_CODE,
     Intent().apply {
         action = Intent.ACTION_VIEW
-        data = Uri.EMPTY //verificar
         component = ComponentName(
             packageName,
             TARGET_ACTIVITY_NAME,

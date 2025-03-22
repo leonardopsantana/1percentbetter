@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 14,
-    "identityHash": "51271b81bde7c7997d67fb23c8f31780",
+    "identityHash": "cf0a3f81f7b18a807700f916634f2e84",
     "entities": [
       {
-        "tableName": "news_resources",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `content` TEXT NOT NULL, `url` TEXT NOT NULL, `header_image_url` TEXT, `publish_date` INTEGER NOT NULL, `type` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "tableName": "routine",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `isDone` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,33 +21,9 @@
             "notNull": true
           },
           {
-            "fieldPath": "content",
-            "columnName": "content",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "url",
-            "columnName": "url",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "headerImageUrl",
-            "columnName": "header_image_url",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "publishDate",
-            "columnName": "publish_date",
+            "fieldPath": "isDone",
+            "columnName": "isDone",
             "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "type",
-            "columnName": "type",
-            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -62,7 +38,7 @@
       },
       {
         "tableName": "news_resources_topics",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`news_resource_id` TEXT NOT NULL, `topic_id` TEXT NOT NULL, PRIMARY KEY(`news_resource_id`, `topic_id`), FOREIGN KEY(`news_resource_id`) REFERENCES `news_resources`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`topic_id`) REFERENCES `topics`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`news_resource_id` TEXT NOT NULL, `topic_id` TEXT NOT NULL, PRIMARY KEY(`news_resource_id`, `topic_id`), FOREIGN KEY(`news_resource_id`) REFERENCES `routine`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`topic_id`) REFERENCES `topics`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "newsResourceId",
@@ -106,7 +82,7 @@
         ],
         "foreignKeys": [
           {
-            "table": "news_resources",
+            "table": "routine",
             "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
@@ -302,7 +278,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '51271b81bde7c7997d67fb23c8f31780')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cf0a3f81f7b18a807700f916634f2e84')"
     ]
   }
 }

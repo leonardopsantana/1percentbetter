@@ -5,22 +5,21 @@
 package com.onepercentbetter.core.testing.data
 
 import com.onepercentbetter.core.model.data.DarkThemeConfig
-import com.onepercentbetter.core.model.data.NewsResource
 import com.onepercentbetter.core.model.data.UserData
-import com.onepercentbetter.core.model.data.UserNewsResource
+import com.onepercentbetter.core.model.data.TaskModel
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 
-val userNewsResourcesTestData: List<UserNewsResource> = UserData(
+val userNewsResourcesTestData: List<TaskModel> = UserData(
     bookmarkedNewsResources = setOf("1", "4"),
     viewedNewsResources = setOf("1", "2", "4"),
     followedTopics = emptySet(),
     darkThemeConfig = DarkThemeConfig.DARK
 ).let { userData ->
     listOf(
-        UserNewsResource(
+        TaskModel(
             newsResource = NewsResource(
                 id = "1",
                 title = "Android Basics with Compose",
@@ -41,7 +40,7 @@ val userNewsResourcesTestData: List<UserNewsResource> = UserData(
             ),
             userData = userData,
         ),
-        UserNewsResource(
+        TaskModel(
             newsResource = NewsResource(
                 id = "2",
                 title = "Thanks for helping us reach 1M YouTube Subscribers",
@@ -57,7 +56,7 @@ val userNewsResourcesTestData: List<UserNewsResource> = UserData(
             ),
             userData = userData,
         ),
-        UserNewsResource(
+        TaskModel(
             newsResource = NewsResource(
                 id = "3",
                 title = "Transformations and customisations in the Paging Library",
@@ -73,7 +72,7 @@ val userNewsResourcesTestData: List<UserNewsResource> = UserData(
             ),
             userData = userData,
         ),
-        UserNewsResource(
+        TaskModel(
             newsResource = NewsResource(
                 id = "4",
                 title = "New Jetpack Release",

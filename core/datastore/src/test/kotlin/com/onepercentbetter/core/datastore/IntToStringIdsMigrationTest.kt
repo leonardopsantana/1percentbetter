@@ -2,7 +2,6 @@
 
 package com.onepercentbetter.core.datastore
 
-import com.onepercentbetter.core.datastore.IntToStringIdsMigration
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.test.assertEquals

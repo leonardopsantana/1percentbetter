@@ -2,11 +2,9 @@
 
 package com.onepercentbetter.core.data.model
 
-import com.onepercentbetter.core.model.data.NewsResource
-import com.onepercentbetter.core.model.data.Topic
-import com.onepercentbetter.core.network.model.NetworkNewsResource
-import com.onepercentbetter.core.network.model.NetworkTopic
-import com.onepercentbetter.core.network.model.asExternalModel
+import com.onepercentbetter.core.network.model.TaskResponse
+import com.onepercentbetter.core.network.model.CategoryResponse
+import com.onepercentbetter.core.network.model.asModel
 import kotlinx.datetime.Instant
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -15,7 +13,7 @@ class NetworkEntityTest {
 
     @Test
     fun networkTopicMapsToDatabaseModel() {
-        val networkModel = NetworkTopic(
+        val networkModel = CategoryResponse(
             id = "0",
             name = "Test",
             shortDescription = "short description",
@@ -25,18 +23,18 @@ class NetworkEntityTest {
         )
         val entity = networkModel.asEntity()
 
-        assertEquals("0", entity.id)
+        assertEquals("0", entity.categoryId)
         assertEquals("Test", entity.name)
         assertEquals("short description", entity.shortDescription)
         assertEquals("long description", entity.longDescription)
         assertEquals("URL", entity.url)
-        assertEquals("image URL", entity.imageUrl)
+        assertEquals("image URL", entity.image)
     }
 
     @Test
     fun networkNewsResourceMapsToDatabaseModel() {
         val networkModel =
-            NetworkNewsResource(
+            TaskResponse(
                 id = "0",
                 title = "title",
                 content = "content",
@@ -48,7 +46,7 @@ class NetworkEntityTest {
         val entity = networkModel.asEntity()
 
         assertEquals("0", entity.id)
-        assertEquals("title", entity.title)
+        assertEquals("title", entity.taskTitle)
         assertEquals("content", entity.content)
         assertEquals("url", entity.url)
         assertEquals("headerImageUrl", entity.headerImageUrl)
@@ -58,7 +56,7 @@ class NetworkEntityTest {
 
     @Test
     fun networkTopicMapsToExternalModel() {
-        val networkTopic = NetworkTopic(
+        val categoryResponse = CategoryResponse(
             id = "0",
             name = "Test",
             shortDescription = "short description",
@@ -76,12 +74,12 @@ class NetworkEntityTest {
             imageUrl = "imageUrl",
         )
 
-        assertEquals(expected, networkTopic.asExternalModel())
+        assertEquals(expected, categoryResponse.asModel())
     }
 
     @Test
     fun networkNewsResourceMapsToExternalModel() {
-        val networkNewsResource = NetworkNewsResource(
+        val taskResponse = TaskResponse(
             id = "0",
             title = "title",
             content = "content",
@@ -92,8 +90,8 @@ class NetworkEntityTest {
             topics = listOf("1", "2"),
         )
 
-        val networkTopics = listOf(
-            NetworkTopic(
+        val categoryRespons = listOf(
+            CategoryResponse(
                 id = "1",
                 name = "Test 1",
                 shortDescription = "short description 1",
@@ -101,7 +99,7 @@ class NetworkEntityTest {
                 url = "url 1",
                 imageUrl = "imageUrl 1",
             ),
-            NetworkTopic(
+            CategoryResponse(
                 id = "2",
                 name = "Test 2",
                 shortDescription = "short description 2",
@@ -119,8 +117,8 @@ class NetworkEntityTest {
             headerImageUrl = "headerImageUrl",
             publishDate = Instant.fromEpochMilliseconds(1),
             type = "Article 📚",
-            topics = networkTopics.map(NetworkTopic::asExternalModel),
+            topics = categoryRespons.map(CategoryResponse::asModel),
         )
-        assertEquals(expected, networkNewsResource.asExternalModel(networkTopics))
+        assertEquals(expected, taskResponse.asExternalModel(categoryRespons))
     }
 }

@@ -15,9 +15,8 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.window.core.layout.WindowSizeClass
 import com.github.takahirom.roborazzi.captureRoboImage
-import com.onepercentbetter.core.data.repository.TopicsRepository
-import com.onepercentbetter.core.data.repository.UserDataRepository
-import com.onepercentbetter.core.data.repository.UserNewsResourceRepository
+import com.onepercentbetter.core.data.repository.category.CategoryRepository
+import com.onepercentbetter.core.data.repository.user.UserDataRepository
 import com.onepercentbetter.core.data.util.NetworkMonitor
 import com.onepercentbetter.core.data.util.TimeZoneMonitor
 import com.onepercentbetter.core.designsystem.theme.OPBTheme
@@ -73,7 +72,7 @@ class OPBAppScreenSizesScreenshotTests {
     lateinit var userDataRepository: UserDataRepository
 
     @Inject
-    lateinit var topicsRepository: TopicsRepository
+    lateinit var categoryRepository: CategoryRepository
 
     @Inject
     lateinit var userNewsResourceRepository: UserNewsResourceRepository
@@ -85,7 +84,7 @@ class OPBAppScreenSizesScreenshotTests {
         // Configure user data
         runBlocking {
             userDataRepository.setFollowedTopicIds(
-                setOf(topicsRepository.getTopics().first().first().id),
+                setOf(categoryRepository.getCategories().first().first().id),
             )
         }
     }

@@ -120,8 +120,6 @@ internal fun OPBApp(
     modifier: Modifier = Modifier,
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),
 ) {
-    val unreadDestinations by appState.topLevelDestinationsWithUnreadResources
-        .collectAsStateWithLifecycle()
     val currentDestination = appState.currentDestination
 
     if (showSettingsDialog) {
@@ -133,7 +131,6 @@ internal fun OPBApp(
     OPBNavigationSuiteScaffold(
         navigationSuiteItems = {
             appState.topLevelDestinations.forEach { destination ->
-                val hasUnread = unreadDestinations.contains(destination)
                 val selected = currentDestination
                     .isRouteInHierarchy(destination.baseRoute)
                 item(
@@ -155,7 +152,7 @@ internal fun OPBApp(
                     modifier =
                     Modifier
                         .testTag("OPBNavItem")
-                        .then(if (hasUnread) Modifier.notificationDot() else Modifier),
+                        .then(Modifier),
                 )
             }
         },

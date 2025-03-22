@@ -1,12 +1,10 @@
-
-
 package com.onepercentbetter.core.network.retrofit
 
 import androidx.tracing.trace
 import com.onepercentbetter.core.network.OPBNetworkDataSource
-import com.onepercentbetter.core.network.model.NetworkChangeList
-import com.onepercentbetter.core.network.model.NetworkNewsResource
-import com.onepercentbetter.core.network.model.NetworkTopic
+import com.onepercentbetter.core.network.model.CategoryResponse
+import com.onepercentbetter.core.network.model.TaskResponse
+import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import okhttp3.Call
@@ -22,25 +20,13 @@ import javax.inject.Singleton
  * Retrofit API declaration for OPB Network API
  */
 private interface RetrofitOpbNetworkApi {
-    @GET(value = "topics")
-    suspend fun getTopics(
-        @Query("id") ids: List<String>?,
-    ): NetworkResponse<List<NetworkTopic>>
+    @GET(value = "categories")
+    suspend fun getCategories(): NetworkResponse<List<CategoryResponse>>
 
-    @GET(value = "newsresources")
-    suspend fun getNewsResources(
-        @Query("id") ids: List<String>?,
-    ): NetworkResponse<List<NetworkNewsResource>>
-
-    @GET(value = "changelists/topics")
-    suspend fun getTopicChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
-
-    @GET(value = "changelists/newsresources")
-    suspend fun getNewsResourcesChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
+    @GET(value = "task")
+    suspend fun getTasksForDate(
+        @Query("date") date: Instant,
+    ): NetworkResponse<List<TaskResponse>>
 }
 
 private const val OPB_BASE_URL = _root_ide_package_.com.onepercentbetter.core.network.BuildConfig.BACKEND_URL
@@ -75,15 +61,9 @@ internal class RetrofitOPBNetwork @Inject constructor(
             .create(RetrofitOpbNetworkApi::class.java)
     }
 
-    override suspend fun getTopics(ids: List<String>?): List<NetworkTopic> =
-        networkApi.getTopics(ids = ids).data
+    override suspend fun getCategories(): List<CategoryResponse> =
+        networkApi.getCategories().data
 
-    override suspend fun getNewsResources(ids: List<String>?): List<NetworkNewsResource> =
-        networkApi.getNewsResources(ids = ids).data
-
-    override suspend fun getTopicChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getTopicChangeList(after = after)
-
-    override suspend fun getNewsResourceChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getNewsResourcesChangeList(after = after)
+    override suspend fun getTasksForDate(date: Instant): List<TaskResponse> =
+        networkApi.getTasksForDate(date).data
 }

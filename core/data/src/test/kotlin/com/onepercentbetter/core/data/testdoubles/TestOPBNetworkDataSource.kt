@@ -6,9 +6,8 @@ import com.onepercentbetter.core.data.testdoubles.CollectionType.NewsResources
 import com.onepercentbetter.core.data.testdoubles.CollectionType.Topics
 import com.onepercentbetter.core.network.OPBNetworkDataSource
 import com.onepercentbetter.core.network.demo.DemoOPBNetworkDataSource
-import com.onepercentbetter.core.network.model.NetworkChangeList
-import com.onepercentbetter.core.network.model.NetworkNewsResource
-import com.onepercentbetter.core.network.model.NetworkTopic
+import com.onepercentbetter.core.network.model.TaskResponse
+import com.onepercentbetter.core.network.model.CategoryResponse
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.serialization.json.Json
@@ -28,27 +27,27 @@ class TestOPBNetworkDataSource : OPBNetworkDataSource {
         Json { ignoreUnknownKeys = true },
     )
 
-    private val allTopics = runBlocking { source.getTopics() }
+    private val allTopics = runBlocking { source.getCategories() }
 
-    private val allNewsResources = runBlocking { source.getNewsResources() }
+    private val allNewsResources = runBlocking { source.getTasksForDate() }
 
     private val changeLists: MutableMap<CollectionType, List<NetworkChangeList>> = mutableMapOf(
         Topics to allTopics
-            .mapToChangeList(idGetter = NetworkTopic::id),
+            .mapToChangeList(idGetter = CategoryResponse::id),
         NewsResources to allNewsResources
-            .mapToChangeList(idGetter = NetworkNewsResource::id),
+            .mapToChangeList(idGetter = TaskResponse::id),
     )
 
-    override suspend fun getTopics(ids: List<String>?): List<NetworkTopic> =
+    override suspend fun getCategories(ids: List<String>?): List<CategoryResponse> =
         allTopics.matchIds(
             ids = ids,
-            idGetter = NetworkTopic::id,
+            idGetter = CategoryResponse::id,
         )
 
-    override suspend fun getNewsResources(ids: List<String>?): List<NetworkNewsResource> =
+    override suspend fun getTasksForDate(ids: List<String>?): List<TaskResponse> =
         allNewsResources.matchIds(
             ids = ids,
-            idGetter = NetworkNewsResource::id,
+            idGetter = TaskResponse::id,
         )
 
     override suspend fun getTopicChangeList(after: Int?): List<NetworkChangeList> =

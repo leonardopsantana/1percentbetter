@@ -4,9 +4,6 @@
 
 package com.onepercentbetter.core.testing.data
 
-import com.onepercentbetter.core.model.data.FollowableTopic
-import com.onepercentbetter.core.model.data.Topic
-
 val followableTopicTestData: List<FollowableTopic> = listOf(
     FollowableTopic(
         topic = Topic(

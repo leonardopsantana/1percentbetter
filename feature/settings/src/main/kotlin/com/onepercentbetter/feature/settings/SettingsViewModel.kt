@@ -4,7 +4,7 @@ package com.onepercentbetter.feature.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.onepercentbetter.core.data.repository.UserDataRepository
+import com.onepercentbetter.core.data.repository.user.UserDataRepository
 import com.onepercentbetter.core.model.data.DarkThemeConfig
 import com.onepercentbetter.feature.settings.SettingsUiState.Loading
 import com.onepercentbetter.feature.settings.SettingsUiState.Success

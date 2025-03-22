@@ -2,7 +2,7 @@
 
 package com.onepercentbetter.core.testing.repository
 
-import com.onepercentbetter.core.data.repository.UserDataRepository
+import com.onepercentbetter.core.data.repository.user.UserDataRepository
 import com.onepercentbetter.core.model.data.DarkThemeConfig
 import com.onepercentbetter.core.model.data.UserData
 import kotlinx.coroutines.channels.BufferOverflow.DROP_OLDEST

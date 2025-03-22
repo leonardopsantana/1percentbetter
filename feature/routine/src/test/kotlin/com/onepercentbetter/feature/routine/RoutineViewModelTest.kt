@@ -5,13 +5,10 @@ package com.onepercentbetter.feature.routine
 import androidx.lifecycle.SavedStateHandle
 import com.onepercentbetter.core.analytics.AnalyticsEvent
 import com.onepercentbetter.core.analytics.AnalyticsEvent.Param
-import com.onepercentbetter.core.data.repository.CompositeUserNewsResourceRepository
-import com.onepercentbetter.core.model.data.NewsResource
-import com.onepercentbetter.core.model.data.Topic
-import com.onepercentbetter.core.model.data.UserNewsResource
+import com.onepercentbetter.core.model.data.TaskModel
 import com.onepercentbetter.core.notifications.DEEP_LINK_NEWS_RESOURCE_ID_KEY
-import com.onepercentbetter.core.testing.repository.TestNewsRepository
-import com.onepercentbetter.core.testing.repository.TestTopicsRepository
+import com.onepercentbetter.core.testing.repository.TestTaskRepository
+import com.onepercentbetter.core.testing.repository.TestCategoryRepository
 import com.onepercentbetter.core.testing.repository.TestUserDataRepository
 import com.onepercentbetter.core.testing.repository.emptyUserData
 import com.onepercentbetter.core.testing.util.MainDispatcherRule
@@ -42,8 +39,8 @@ class RoutineViewModelTest {
     private val syncManager = TestSyncManager()
     private val analyticsHelper = TestAnalyticsHelper()
     private val userDataRepository = TestUserDataRepository()
-    private val topicsRepository = TestTopicsRepository()
-    private val newsRepository = TestNewsRepository()
+    private val topicsRepository = TestCategoryRepository()
+    private val newsRepository = TestTaskRepository()
     private val userNewsResourceRepository = CompositeUserNewsResourceRepository(
         newsRepository = newsRepository,
         userDataRepository = userDataRepository,
@@ -112,8 +109,8 @@ class RoutineViewModelTest {
         assertEquals(
             RoutineUiState.Success(
                 feed = listOf(
-                    UserNewsResource(sampleNewsResources[1], userData),
-                    UserNewsResource(sampleNewsResources[2], userData),
+                    TaskModel(sampleNewsResources[1], userData),
+                    TaskModel(sampleNewsResources[2], userData),
                 ),
             ),
             viewModel.feedState.value,
@@ -165,8 +162,8 @@ class RoutineViewModelTest {
         assertEquals(
             RoutineUiState.Success(
                 feed = listOf(
-                    UserNewsResource(newsResource = sampleNewsResources[1], userDataExpected),
-                    UserNewsResource(newsResource = sampleNewsResources[2], userDataExpected),
+                    TaskModel(newsResource = sampleNewsResources[1], userDataExpected),
+                    TaskModel(newsResource = sampleNewsResources[2], userDataExpected),
                 ),
             ),
             viewModel.feedState.value,
@@ -182,7 +179,7 @@ class RoutineViewModelTest {
         savedStateHandle[DEEP_LINK_NEWS_RESOURCE_ID_KEY] = sampleNewsResources.first().id
 
         assertEquals(
-            expected = UserNewsResource(
+            expected = TaskModel(
                 newsResource = sampleNewsResources.first(),
                 userData = emptyUserData,
             ),

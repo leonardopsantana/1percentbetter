@@ -24,7 +24,7 @@ class NewsResourceCardTest {
 
         composeTestRule.setContent {
             NewsResourceCardExpanded(
-                userNewsResource = newsWithKnownResourceType,
+                routineModel = newsWithKnownResourceType,
                 isBookmarked = false,
                 hasBeenViewed = false,
                 onToggleBookmark = {},
@@ -53,7 +53,7 @@ class NewsResourceCardTest {
 
         composeTestRule.setContent {
             NewsResourceCardExpanded(
-                userNewsResource = newsWithEmptyResourceType,
+                routineModel = newsWithEmptyResourceType,
                 isBookmarked = false,
                 hasBeenViewed = false,
                 onToggleBookmark = {},
@@ -97,7 +97,7 @@ class NewsResourceCardTest {
 
         composeTestRule.setContent {
             NewsResourceCardExpanded(
-                userNewsResource = unreadNews,
+                routineModel = unreadNews,
                 isBookmarked = false,
                 hasBeenViewed = false,
                 onToggleBookmark = {},
@@ -121,7 +121,7 @@ class NewsResourceCardTest {
 
         composeTestRule.setContent {
             NewsResourceCardExpanded(
-                userNewsResource = readNews,
+                routineModel = readNews,
                 isBookmarked = false,
                 hasBeenViewed = true,
                 onToggleBookmark = {},

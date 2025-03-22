@@ -12,9 +12,8 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.espresso.Espresso
-import com.onepercentbetter.core.data.repository.TopicsRepository
+import com.onepercentbetter.core.data.repository.category.CategoryRepository
 import com.onepercentbetter.core.designsystem.theme.OPBTheme
-import com.onepercentbetter.core.model.data.Topic
 import com.onepercentbetterui.interests2pane.InterestsListDetailScreen
 import com.onepercentbetteruitesthiltmanifest.HiltComponentActivity
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -48,11 +47,11 @@ class InterestsListDetailScreenTest {
     val composeTestRule = createAndroidComposeRule<HiltComponentActivity>()
 
     @Inject
-    lateinit var topicsRepository: TopicsRepository
+    lateinit var categoryRepository: CategoryRepository
 
     /** Convenience function for getting all topics during tests, */
     private fun getTopics(): List<Topic> = runBlocking {
-        topicsRepository.getTopics().first().sortedBy { it.name }
+        categoryRepository.getCategories().first().sortedBy { it.name }
     }
 
     // The strings used for matching in these tests.

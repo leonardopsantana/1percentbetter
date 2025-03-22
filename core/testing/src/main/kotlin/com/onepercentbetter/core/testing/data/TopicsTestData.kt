@@ -4,8 +4,6 @@
 
 package com.onepercentbetter.core.testing.data
 
-import com.onepercentbetter.core.model.data.Topic
-
 val topicsTestData: List<Topic> = listOf(
     Topic(
         id = "2",

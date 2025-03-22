@@ -1,15 +1,10 @@
-
-
 package com.onepercentbetter.core.data.model
 
-import com.onepercentbetter.core.database.model.TopicEntity
-import com.onepercentbetter.core.network.model.NetworkTopic
+import com.onepercentbetter.core.database.model.CategoryEntity
+import com.onepercentbetter.core.network.model.CategoryResponse
 
-fun NetworkTopic.asEntity() = TopicEntity(
-    id = id,
-    name = name,
-    shortDescription = shortDescription,
-    longDescription = longDescription,
-    url = url,
-    imageUrl = imageUrl,
+fun CategoryResponse.asEntity() = CategoryEntity(
+    categoryId = id,
+    title = title,
+    image = image,
 )

@@ -8,6 +8,7 @@ import androidx.compose.material.icons.automirrored.rounded.ShortText
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.Book
 import androidx.compose.material.icons.outlined.Bookmarks
+import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Upcoming
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Book
@@ -30,7 +31,8 @@ object OPBIcons {
     val BookmarkBorder = Icons.Rounded.BookmarkBorder
     val Bookmarks = Icons.Rounded.Bookmarks
     val BookmarksBorder = Icons.Outlined.Bookmarks
-    val Check = Icons.Rounded.Check
+    val Check = Icons.Outlined.Check
+    val CheckFilled = Icons.Rounded.Check
     val Close = Icons.Rounded.Close
     val Grid3x3 = Icons.Rounded.Grid3x3
     val MoreVert = Icons.Default.MoreVert

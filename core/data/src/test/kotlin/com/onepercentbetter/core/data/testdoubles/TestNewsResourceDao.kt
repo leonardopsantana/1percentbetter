@@ -2,11 +2,9 @@
 
 package com.onepercentbetter.core.data.testdoubles
 
-import com.onepercentbetter.core.database.dao.NewsResourceDao
-import com.onepercentbetter.core.database.model.NewsResourceEntity
-import com.onepercentbetter.core.database.model.NewsResourceTopicCrossRef
+import com.onepercentbetter.core.database.model.TaskEntity
 import com.onepercentbetter.core.database.model.PopulatedNewsResource
-import com.onepercentbetter.core.database.model.TopicEntity
+import com.onepercentbetter.core.database.model.CategoryEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
@@ -20,11 +18,11 @@ val nonPresentInterestsIds = setOf("2")
  */
 class TestNewsResourceDao : NewsResourceDao {
 
-    private val entitiesStateFlow = MutableStateFlow(emptyList<NewsResourceEntity>())
+    private val entitiesStateFlow = MutableStateFlow(emptyList<TaskEntity>())
 
     internal var topicCrossReferences: List<NewsResourceTopicCrossRef> = listOf()
 
-    override fun getNewsResources(
+    override fun getRoutines(
         useFilterTopicIds: Boolean,
         filterTopicIds: Set<String>,
         useFilterNewsIds: Boolean,
@@ -78,13 +76,13 @@ class TestNewsResourceDao : NewsResourceDao {
                 result.map { it.entity.id }
             }
 
-    override suspend fun upsertNewsResources(newsResourceEntities: List<NewsResourceEntity>) {
+    override suspend fun upsertNewsResources(newsResourceEntities: List<TaskEntity>) {
         entitiesStateFlow.update { oldValues ->
             // New values come first so they overwrite old values
             (newsResourceEntities + oldValues)
-                .distinctBy(NewsResourceEntity::id)
+                .distinctBy(TaskEntity::id)
                 .sortedWith(
-                    compareBy(NewsResourceEntity::publishDate).reversed(),
+                    compareBy(TaskEntity::publishDate).reversed(),
                 )
         }
     }
@@ -105,20 +103,20 @@ class TestNewsResourceDao : NewsResourceDao {
     }
 }
 
-private fun NewsResourceEntity.asPopulatedNewsResource(
+private fun TaskEntity.asPopulatedNewsResource(
     topicCrossReferences: List<NewsResourceTopicCrossRef>,
 ) = PopulatedNewsResource(
     entity = this,
     topics = topicCrossReferences
         .filter { it.newsResourceId == id }
         .map { newsResourceTopicCrossRef ->
-            TopicEntity(
-                id = newsResourceTopicCrossRef.topicId,
+            CategoryEntity(
+                categoryId = newsResourceTopicCrossRef.topicId,
                 name = "name",
                 shortDescription = "short description",
                 longDescription = "long description",
                 url = "URL",
-                imageUrl = "image URL",
+                image = "image URL",
             )
         },
 )

@@ -4,13 +4,10 @@ package com.onepercentbetter.feature.interests
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import com.onepercentbetter.core.data.repository.UserDataRepository
-import com.onepercentbetter.core.model.data.FollowableTopic
+import com.onepercentbetter.core.data.repository.user.UserDataRepository
 import com.onepercentbetter.feature.interests.navigation.InterestsRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,12 +35,6 @@ class InterestsViewModel @Inject constructor(
 //        initialValue = Loading,
 //    )
 
-    fun followTopic(followedTopicId: String, followed: Boolean) {
-        viewModelScope.launch {
-            userDataRepository.setTopicIdFollowed(followedTopicId, followed)
-        }
-    }
-
     fun onTopicClick(topicId: String?) {
         savedStateHandle[selectedTopicIdKey] = topicId
     }
@@ -54,7 +45,7 @@ sealed interface InterestsUiState {
 
     data class Interests(
         val selectedTopicId: String?,
-        val topics: List<FollowableTopic>,
+//        val topics: List<FollowableTopic>,
     ) : InterestsUiState
 
     data object Empty : InterestsUiState

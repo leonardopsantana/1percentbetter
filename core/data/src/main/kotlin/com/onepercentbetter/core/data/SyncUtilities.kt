@@ -3,8 +3,6 @@
 package com.onepercentbetter.core.data
 
 import android.util.Log
-import com.onepercentbetter.core.datastore.ChangeListVersions
-import com.onepercentbetter.core.network.model.NetworkChangeList
 import kotlin.coroutines.cancellation.CancellationException
 
 /**
@@ -12,9 +10,9 @@ import kotlin.coroutines.cancellation.CancellationException
  * source for a [Syncable].
  */
 interface Synchronizer {
-    suspend fun getChangeListVersions(): ChangeListVersions
+//    suspend fun getChangeListVersions(): ChangeListVersions
 
-    suspend fun updateChangeListVersions(update: ChangeListVersions.() -> ChangeListVersions)
+//    suspend fun updateChangeListVersions(update: ChangeListVersions.() -> ChangeListVersions)
 
     /**
      * Syntactic sugar to call [Syncable.syncWith] while omitting the synchronizer argument
@@ -31,7 +29,7 @@ interface Syncable {
      * Synchronizes the local database backing the repository with the network.
      * Returns if the sync was successful or not.
      */
-    suspend fun syncWith(synchronizer: com.onepercentbetter.core.data.Synchronizer): Boolean
+    suspend fun syncWith(synchronizer: Synchronizer): Boolean
 }
 
 /**
@@ -50,41 +48,3 @@ private suspend fun <T> suspendRunCatching(block: suspend () -> T): Result<T> = 
     )
     Result.failure(exception)
 }
-
-/**
- * Utility function for syncing a repository with the network.
- * [versionReader] Reads the current version of the model that needs to be synced
- * [changeListFetcher] Fetches the change list for the model
- * [versionUpdater] Updates the [ChangeListVersions] after a successful sync
- * [modelDeleter] Deletes models by consuming the ids of the models that have been deleted.
- * [modelUpdater] Updates models by consuming the ids of the models that have changed.
- *
- * Note that the blocks defined above are never run concurrently, and the [Synchronizer]
- * implementation must guarantee this.
- */
-suspend fun com.onepercentbetter.core.data.Synchronizer.changeListSync(
-    versionReader: (ChangeListVersions) -> Int,
-    changeListFetcher: suspend (Int) -> List<NetworkChangeList>,
-    versionUpdater: ChangeListVersions.(Int) -> ChangeListVersions,
-    modelDeleter: suspend (List<String>) -> Unit,
-    modelUpdater: suspend (List<String>) -> Unit,
-) = com.onepercentbetter.core.data.suspendRunCatching {
-    // Fetch the change list since last sync (akin to a git fetch)
-    val currentVersion = versionReader(getChangeListVersions())
-    val changeList = changeListFetcher(currentVersion)
-    if (changeList.isEmpty()) return@suspendRunCatching true
-
-    val (deleted, updated) = changeList.partition(NetworkChangeList::isDelete)
-
-    // Delete models that have been deleted server-side
-    modelDeleter(deleted.map(NetworkChangeList::id))
-
-    // Using the change list, pull down and save the changes (akin to a git pull)
-    modelUpdater(updated.map(NetworkChangeList::id))
-
-    // Update the last synced version (akin to updating local git HEAD)
-    val latestVersion = changeList.last().changeListVersion
-    updateChangeListVersions {
-        versionUpdater(latestVersion)
-    }
-}.isSuccess

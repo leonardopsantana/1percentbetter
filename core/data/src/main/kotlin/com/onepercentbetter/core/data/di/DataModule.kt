@@ -2,16 +2,12 @@
 
 package com.onepercentbetter.core.data.di
 
-import com.onepercentbetter.core.data.repository.DefaultRecentSearchRepository
-import com.onepercentbetter.core.data.repository.DefaultSearchContentsRepository
-import com.onepercentbetter.core.data.repository.NewsRepository
-import com.onepercentbetter.core.data.repository.OfflineFirstNewsRepository
-import com.onepercentbetter.core.data.repository.OfflineFirstTopicsRepository
-import com.onepercentbetter.core.data.repository.OfflineFirstUserDataRepository
-import com.onepercentbetter.core.data.repository.RecentSearchRepository
-import com.onepercentbetter.core.data.repository.SearchContentsRepository
-import com.onepercentbetter.core.data.repository.TopicsRepository
-import com.onepercentbetter.core.data.repository.UserDataRepository
+import com.onepercentbetter.core.data.repository.task.TaskRepository
+import com.onepercentbetter.core.data.repository.category.CategoryRepository
+import com.onepercentbetter.core.data.repository.category.OfflineFirstCategoryRepository
+import com.onepercentbetter.core.data.repository.task.OfflineFirstTaskRepository
+import com.onepercentbetter.core.data.repository.user.OfflineFirstUserDataRepository
+import com.onepercentbetter.core.data.repository.user.UserDataRepository
 import com.onepercentbetter.core.data.util.ConnectivityManagerNetworkMonitor
 import com.onepercentbetter.core.data.util.NetworkMonitor
 import com.onepercentbetter.core.data.util.TimeZoneBroadcastMonitor
@@ -26,29 +22,19 @@ import dagger.hilt.components.SingletonComponent
 abstract class DataModule {
 
     @Binds
-    internal abstract fun bindsTopicRepository(
-        topicsRepository: OfflineFirstTopicsRepository,
-    ): TopicsRepository
+    internal abstract fun bindsCategoryRepository(
+        topicsRepository: OfflineFirstCategoryRepository,
+    ): CategoryRepository
 
     @Binds
-    internal abstract fun bindsNewsResourceRepository(
-        newsRepository: OfflineFirstNewsRepository,
-    ): NewsRepository
+    internal abstract fun bindsTaskRepository(
+        newsRepository: OfflineFirstTaskRepository,
+    ): TaskRepository
 
     @Binds
     internal abstract fun bindsUserDataRepository(
         userDataRepository: OfflineFirstUserDataRepository,
     ): UserDataRepository
-
-    @Binds
-    internal abstract fun bindsRecentSearchRepository(
-        recentSearchRepository: DefaultRecentSearchRepository,
-    ): RecentSearchRepository
-
-    @Binds
-    internal abstract fun bindsSearchContentsRepository(
-        searchContentsRepository: DefaultSearchContentsRepository,
-    ): SearchContentsRepository
 
     @Binds
     internal abstract fun bindsNetworkMonitor(

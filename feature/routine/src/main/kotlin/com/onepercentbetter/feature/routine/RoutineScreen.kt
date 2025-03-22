@@ -1,5 +1,6 @@
 package com.onepercentbetter.feature.routine
 
+import android.Manifest.permission
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.activity.compose.ReportDrawnWhen
@@ -9,66 +10,67 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.Orientation.Vertical
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells.Adaptive
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
-import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus.Denied
 import com.google.accompanist.permissions.rememberPermissionState
+import com.onepercentbetter.core.designsystem.component.DynamicAsyncImage
+import com.onepercentbetter.core.designsystem.component.OPBIconToggleButton
 import com.onepercentbetter.core.designsystem.component.OPBOverlayLoadingWheel
 import com.onepercentbetter.core.designsystem.component.scrollbar.DraggableScrollbar
 import com.onepercentbetter.core.designsystem.component.scrollbar.rememberDraggableScroller
 import com.onepercentbetter.core.designsystem.component.scrollbar.scrollbarState
+import com.onepercentbetter.core.designsystem.icon.OPBIcons
 import com.onepercentbetter.core.designsystem.theme.OPBTheme
-import com.onepercentbetter.core.model.data.UserNewsResource
-import com.onepercentbetter.core.ui.DevicePreviews
+import com.onepercentbetter.core.model.data.TaskWithCategoryModel
 import com.onepercentbetter.core.ui.TrackScreenViewEvent
 import com.onepercentbetter.core.ui.TrackScrollJank
-import com.onepercentbetter.core.ui.UserNewsResourcePreviewParameterProvider
 import com.onepercentbetter.core.ui.conditional
 import com.onepercentbetter.feature.routine.RoutineUiState.Loading
 import com.onepercentbetter.feature.routine.RoutineUiState.Success
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 @Composable
@@ -84,8 +86,8 @@ internal fun RoutineScreen(
         isSyncing = isSyncing,
         feedState = feedState,
         onTopicClick = onTopicClick,
-        onNewsResourcesCheckedChanged = viewModel::updateNewsResourceSaved,
-        onNewsResourceViewed = { viewModel.setNewsResourceViewed(it, true) },
+        onNewsResourcesCheckedChanged = { _, _ -> },
+        onNewsResourceViewed = { },
         modifier = modifier,
     )
 }
@@ -99,7 +101,7 @@ internal fun RoutineScreen(
     onNewsResourceViewed: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val isFeedLoading = feedState is RoutineUiState.Loading
+    val isFeedLoading = feedState is Loading
 
     // This code should be called when the UI is ready for use and relates to Time To Full Display.
     ReportDrawnWhen { !isSyncing && !isFeedLoading }
@@ -145,7 +147,7 @@ internal fun RoutineScreen(
                 .padding(horizontal = 2.dp)
                 .align(Alignment.CenterEnd),
             state = scrollbarState,
-            orientation = Orientation.Vertical,
+            orientation = Vertical,
             onThumbMoved = state.rememberDraggableScroller(
                 itemsAvailable = itemsAvailable,
             ),
@@ -159,7 +161,7 @@ internal fun RoutineScreen(
 @Composable
 private fun RoutineLoaded(
     state: LazyStaggeredGridState,
-    feedState: RoutineUiState,
+    feedState: Success,
     onNewsResourcesCheckedChanged: (String, Boolean) -> Unit,
     onNewsResourceViewed: (String) -> Unit,
     onTopicClick: (String) -> Unit,
@@ -173,23 +175,92 @@ private fun RoutineLoaded(
             .testTag("routine:feed"),
         state = state,
     ) {
-        newsFeed(
-            feedState = feedState,
-            onNewsResourcesCheckedChanged = onNewsResourcesCheckedChanged,
-            onNewsResourceViewed = onNewsResourceViewed,
-            onTopicClick = onTopicClick,
-        )
+        items(
+            items = feedState.feed,
+            key = { it.task.id },
+            contentType = { "routineItem" },
+        ) { feedItem ->
+            RoutineItem(
+                name = feedItem.task.id,
+                topicId = "",
+                imageUrl = "",
+                isSelected = false,
+                onClick = { _, _ ->
 
-        item(span = StaggeredGridItemSpan.FullLine, contentType = "bottomSpacing") {
-            Column {
-                Spacer(modifier = Modifier.height(8.dp))
-                // Add space for the content to clear the "offline" snackbar.
-                // TODO: Check that the Scaffold handles this correctly in OPBApp
-                // if (isOffline) Spacer(modifier = Modifier.height(48.dp))
-                Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
-            }
+                },
+            )
         }
     }
+}
+
+@Composable
+private fun RoutineItem(
+    name: String,
+    topicId: String,
+    imageUrl: String,
+    isSelected: Boolean,
+    onClick: (String, Boolean) -> Unit,
+) {
+//    Surface(
+//        modifier = Modifier
+//            .width(312.dp)
+//            .heightIn(min = 56.dp),
+//        shape = RoundedCornerShape(corner = CornerSize(8.dp)),
+//        color = MaterialTheme.colorScheme.surface,
+//        selected = isSelected,
+//        onClick = {
+//            onClick(topicId, !isSelected)
+//        },
+//    ) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(start = 12.dp, end = 8.dp),
+    ) {
+        TopicIcon(
+            imageUrl = imageUrl,
+        )
+        Text(
+            text = name,
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier
+                .padding(horizontal = 12.dp)
+                .weight(1f),
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        OPBIconToggleButton(
+            checked = isSelected,
+            onCheckedChange = { checked -> onClick(topicId, checked) },
+            icon = {
+                Icon(
+                    imageVector = OPBIcons.Close,
+                    contentDescription = name,
+                )
+            },
+            checkedIcon = {
+                Icon(
+                    imageVector = OPBIcons.CheckFilled,
+                    contentDescription = name,
+                )
+            },
+        )
+    }
+//    }
+}
+
+@Composable
+fun TopicIcon(
+    imageUrl: String,
+    modifier: Modifier = Modifier,
+) {
+    DynamicAsyncImage(
+        placeholder = painterResource(R.drawable.feature_foryou_ic_icon_placeholder),
+        imageUrl = imageUrl,
+        // decorative
+        contentDescription = null,
+        modifier = modifier
+            .padding(10.dp)
+            .size(32.dp),
+    )
 }
 
 @Composable
@@ -221,43 +292,68 @@ private fun RoutineLoading(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DaysRoutine(daysOfWeek: List<LocalDate>) {
-    HorizontalUncontainedCarousel(
-        state = rememberCarouselState(initialItem = daysOfWeek.size - 1) { daysOfWeek.size },
-        itemWidth = 90.dp,
-    ) { index ->
-        Card(
-            onClick = {
-                index.toString()
+    val scrollState = rememberScrollState()
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        coroutineScope.launch {
+            scrollState.scrollTo(scrollState.maxValue)
+        }
+    }
+
+    Row(
+        modifier = Modifier.horizontalScroll(scrollState),
+    ) {
+        daysOfWeek.forEachIndexed { index, day ->
+            CardDay(index, daysOfWeek, day)
+        }
+    }
+}
+
+@Composable
+private fun CardDay(
+    index: Int,
+    daysOfWeek: List<LocalDate>,
+    day: LocalDate,
+) {
+    Card(
+        onClick = {
+            index.toString()
+        },
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        // Use custom label for accessibility services to communicate button's action to user.
+        // Pass null for action to only override the label and not the actual action.
+        modifier = Modifier
+            .padding(4.dp)
+            .semantics {
+                onClick(label = index.toString(), action = null)
             },
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-            // Use custom label for accessibility services to communicate button's action to user.
-            // Pass null for action to only override the label and not the actual action.
+    ) {
+        val todayColor = MaterialTheme.colorScheme.primaryContainer
+        Box(
             modifier = Modifier
-                .semantics {
-                    onClick(label = index.toString(), action = null)
-                },
-        ) {
-            val todayColor = MaterialTheme.colorScheme.primaryContainer
-            Box(
-                modifier = Modifier
-                    .conditional(index == daysOfWeek.size - 1) {
-                        background(todayColor)
-                    }
-                    .padding(16.dp),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .widthIn(50.dp),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Text(daysOfWeek[index].dayOfWeek.toString()[0].toString(), style = MaterialTheme.typography.titleSmall)
-                    Text(daysOfWeek[index].dayOfMonth.toString(), style = MaterialTheme.typography.headlineSmall)
+                .conditional(index == daysOfWeek.size - 1) {
+                    background(todayColor)
                 }
+                .padding(16.dp),
+        ) {
+            Column(
+                modifier = Modifier
+                    .widthIn(50.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    day.dayOfWeek.toString()[0].toString(),
+                    style = MaterialTheme.typography.titleSmall,
+                )
+                Text(
+                    day.dayOfMonth.toString(),
+                    style = MaterialTheme.typography.headlineSmall,
+                )
             }
         }
     }
@@ -271,7 +367,7 @@ private fun NotificationPermissionEffect() {
     if (LocalInspectionMode.current) return
     if (VERSION.SDK_INT < VERSION_CODES.TIRAMISU) return
     val notificationsPermissionState = rememberPermissionState(
-        android.Manifest.permission.POST_NOTIFICATIONS,
+        permission.POST_NOTIFICATIONS,
     )
     LaunchedEffect(notificationsPermissionState) {
         val status = notificationsPermissionState.status
@@ -291,92 +387,16 @@ private fun feedItemsSize(
     return feedSize
 }
 
-@DevicePreviews
 @Composable
 fun RoutineScreenPopulatedFeed(
-    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
-    userNewsResources: List<UserNewsResource>,
+    taskModels: List<TaskWithCategoryModel>,
 ) {
     OPBTheme {
         RoutineScreen(
             isSyncing = false,
             feedState = Success(
-                feed = userNewsResources,
-                daysOfWeek = emptyList()
-            ),
-            onNewsResourcesCheckedChanged = { _, _ -> },
-            onNewsResourceViewed = {},
-            onTopicClick = {},
-        )
-    }
-}
-
-@DevicePreviews
-@Composable
-fun RoutineScreenOfflinePopulatedFeed(
-    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
-    userNewsResources: List<UserNewsResource>,
-) {
-    OPBTheme {
-        RoutineScreen(
-            isSyncing = false,
-            feedState = Success(
-                feed = userNewsResources,
-                daysOfWeek = emptyList()
-            ),
-            onNewsResourcesCheckedChanged = { _, _ -> },
-            onNewsResourceViewed = {},
-            onTopicClick = {},
-        )
-    }
-}
-
-@DevicePreviews
-@Composable
-fun RoutineScreenTopicSelection(
-    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
-    userNewsResources: List<UserNewsResource>,
-) {
-    OPBTheme {
-        RoutineScreen(
-            isSyncing = false,
-            feedState = Success(
-                feed = userNewsResources,
-                daysOfWeek = emptyList()
-            ),
-            onNewsResourcesCheckedChanged = { _, _ -> },
-            onNewsResourceViewed = {},
-            onTopicClick = {},
-        )
-    }
-}
-
-@DevicePreviews
-@Composable
-fun RoutineScreenLoading() {
-    OPBTheme {
-        RoutineScreen(
-            isSyncing = false,
-            feedState = RoutineUiState.Loading,
-            onNewsResourcesCheckedChanged = { _, _ -> },
-            onNewsResourceViewed = {},
-            onTopicClick = {},
-        )
-    }
-}
-
-@DevicePreviews
-@Composable
-fun RoutineScreenPopulatedAndLoading(
-    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
-    userNewsResources: List<UserNewsResource>,
-) {
-    OPBTheme {
-        RoutineScreen(
-            isSyncing = true,
-            feedState = Success(
-                feed = userNewsResources,
-                daysOfWeek = emptyList()
+                feed = taskModels,
+                daysOfWeek = emptyList(),
             ),
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},

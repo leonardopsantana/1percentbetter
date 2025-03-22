@@ -8,14 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.onepercentbetter.core.designsystem.component.OPBBackground
 import com.onepercentbetter.core.designsystem.component.OPBLoadingWheel
 import com.onepercentbetter.core.designsystem.theme.OPBTheme
-import com.onepercentbetter.core.model.data.FollowableTopic
 import com.onepercentbetter.core.ui.DevicePreviews
-import com.onepercentbetter.core.ui.FollowableTopicPreviewParameterProvider
 import com.onepercentbetter.core.ui.TrackScreenViewEvent
 import com.onepercentbetter.feature.interests.InterestsUiState.Empty
 import com.onepercentbetter.feature.interests.InterestsUiState.Interests
@@ -61,15 +58,15 @@ internal fun InterestsScreen(
                     contentDesc = stringResource(id = R.string.feature_interests_loading),
                 )
 
-            is Interests ->
-                TopicsTabContent(
-                    topics = uiState.topics,
-                    onTopicClick = onTopicClick,
-                    onFollowButtonClick = followTopic,
-                    selectedTopicId = uiState.selectedTopicId,
-                    highlightSelectedTopic = highlightSelectedTopic,
-                    modifier = modifier,
-                )
+            is Interests -> Unit
+//                TopicsTabContent(
+//                    topics = uiState.topics,
+//                    onTopicClick = onTopicClick,
+//                    onFollowButtonClick = followTopic,
+//                    selectedTopicId = uiState.selectedTopicId,
+//                    highlightSelectedTopic = highlightSelectedTopic,
+//                    modifier = modifier,
+//                )
 
             is Empty -> InterestsEmptyScreen()
         }
@@ -82,18 +79,16 @@ private fun InterestsEmptyScreen() {
     Text(text = stringResource(id = R.string.feature_interests_empty_header))
 }
 
-@DevicePreviews
 @Composable
 fun InterestsScreenPopulated(
-    @PreviewParameter(FollowableTopicPreviewParameterProvider::class)
-    followableTopics: List<FollowableTopic>,
+//    followableTopics: List<FollowableTopic>,
 ) {
     OPBTheme {
         OPBBackground {
             InterestsScreen(
                 uiState = Interests(
                     selectedTopicId = null,
-                    topics = followableTopics,
+//                    topics = followableTopics,
                 ),
                 followTopic = { _, _ -> },
                 onTopicClick = {},

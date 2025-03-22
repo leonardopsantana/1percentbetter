@@ -3,8 +3,8 @@
 package com.onepercentbetter.core.network.demo
 
 import JvmUnitTestDemoAssetManager
-import com.onepercentbetter.core.network.model.NetworkNewsResource
-import com.onepercentbetter.core.network.model.NetworkTopic
+import com.onepercentbetter.core.network.model.TaskResponse
+import com.onepercentbetter.core.network.model.CategoryResponse
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDateTime
@@ -34,7 +34,7 @@ class DemoOPBNetworkDataSourceTest {
     @Test
     fun testDeserializationOfTopics() = runTest(testDispatcher) {
         assertEquals(
-            NetworkTopic(
+            CategoryResponse(
                 id = "1",
                 name = "Headlines",
                 shortDescription = "News you'll definitely be interested in",
@@ -42,7 +42,7 @@ class DemoOPBNetworkDataSourceTest {
                 url = "",
                 imageUrl = "https://firebasestorage.googleapis.com/v0/b/now-in-android.appspot.com/o/img%2Fic_topic_Headlines.svg?alt=media&token=506faab0-617a-4668-9e63-4a2fb996603f",
             ),
-            subject.getTopics().first(),
+            subject.getCategories().first(),
         )
     }
 
@@ -50,7 +50,7 @@ class DemoOPBNetworkDataSourceTest {
     @Test
     fun testDeserializationOfNewsResources() = runTest(testDispatcher) {
         assertEquals(
-            NetworkNewsResource(
+            TaskResponse(
                 id = "125",
                 title = "Android Basics with Compose",
                 content = "We released the first two units of Android Basics with Compose, our first free course that teaches Android Development with Jetpack Compose to anyone; you do not need any prior programming experience other than basic computer literacy to get started. ",
@@ -68,7 +68,7 @@ class DemoOPBNetworkDataSourceTest {
                 type = "Codelab",
                 topics = listOf("2", "3", "10"),
             ),
-            subject.getNewsResources().find { it.id == "125" },
+            subject.getTasksForDate().find { it.id == "125" },
         )
     }
 }

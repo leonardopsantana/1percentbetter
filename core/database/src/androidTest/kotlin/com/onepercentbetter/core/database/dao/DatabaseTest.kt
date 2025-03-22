@@ -13,7 +13,7 @@ internal abstract class DatabaseTest {
 
     private lateinit var db: OpbDatabase
     protected lateinit var newsResourceDao: com.onepercentbetter.core.database.dao.NewsResourceDao
-    protected lateinit var topicDao: TopicDao
+    protected lateinit var categoryDao: CategoryDao
 
     @Before
     fun setup() {
@@ -25,7 +25,7 @@ internal abstract class DatabaseTest {
             ).build()
         }
         newsResourceDao = db.newsResourceDao()
-        topicDao = db.topicDao()
+        categoryDao = db.categoryDao()
     }
 
     @After

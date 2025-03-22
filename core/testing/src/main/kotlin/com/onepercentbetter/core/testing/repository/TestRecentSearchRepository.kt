@@ -3,7 +3,6 @@
 package com.onepercentbetter.core.testing.repository
 
 import com.onepercentbetter.core.data.model.RecentSearchQuery
-import com.onepercentbetter.core.data.repository.RecentSearchRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 

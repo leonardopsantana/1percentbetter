@@ -2,7 +2,6 @@
 
 package com.onepercentbetter.core.datastore
 
-import com.onepercentbetter.core.datastore.ListToMapMigration
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.test.assertEquals

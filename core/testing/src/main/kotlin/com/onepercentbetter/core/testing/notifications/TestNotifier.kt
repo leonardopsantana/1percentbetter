@@ -2,7 +2,6 @@
 
 package com.onepercentbetter.core.testing.notifications
 
-import com.onepercentbetter.core.model.data.NewsResource
 import com.onepercentbetter.core.notifications.Notifier
 
 /**
@@ -14,7 +13,7 @@ class TestNotifier : Notifier {
 
     val addedNewsResources: List<List<NewsResource>> = mutableAddedNewResources
 
-    override fun postNewsNotifications(newsResources: List<NewsResource>) {
+    override fun postRoutineNotifications(newsResources: List<NewsResource>) {
         mutableAddedNewResources.add(newsResources)
     }
 }

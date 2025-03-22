@@ -5,12 +5,9 @@ package com.onepercentbetter.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import com.onepercentbetter.feature.bookmarks.navigation.bookmarksScreen
+import com.onepercentbetter.feature.goals.navigation.goalsScreen
 import com.onepercentbetter.feature.routine.navigation.RoutineBaseRoute
 import com.onepercentbetter.feature.routine.navigation.routineSection
-import com.onepercentbetter.feature.interests.navigation.navigateToInterests
-import com.onepercentbetter.feature.topic.navigation.navigateToTopic
-import com.onepercentbetter.feature.topic.navigation.topicScreen
 import com.onepercentbetter.ui.OPBAppState
 import com.onepercentbetter.ui.interests2pane.interestsListDetailScreen
 
@@ -34,18 +31,15 @@ fun OPBNavHost(
         modifier = modifier,
     ) {
         routineSection(
-            onTopicClick = navController::navigateToTopic,
+            onTopicClick = { },
         ) {
-            topicScreen(
+            goalsScreen(
                 showBackButton = true,
                 onBackClick = navController::popBackStack,
-                onTopicClick = navController::navigateToTopic,
+                onTopicClick = {},
+//                onTopicClick = navController::navigateToGoals,
             )
         }
-        bookmarksScreen(
-            onTopicClick = navController::navigateToInterests,
-            onShowSnackbar = onShowSnackbar,
-        )
         interestsListDetailScreen()
     }
 }

@@ -21,7 +21,6 @@ import androidx.metrics.performance.JankStats
 import androidx.tracing.trace
 import com.onepercentbetter.core.analytics.AnalyticsHelper
 import com.onepercentbetter.core.analytics.LocalAnalyticsHelper
-import com.onepercentbetter.core.data.repository.UserNewsResourceRepository
 import com.onepercentbetter.core.data.util.NetworkMonitor
 import com.onepercentbetter.core.data.util.TimeZoneMonitor
 import com.onepercentbetter.core.designsystem.theme.OPBTheme
@@ -54,9 +53,6 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var analyticsHelper: AnalyticsHelper
-
-    @Inject
-    lateinit var userNewsResourceRepository: UserNewsResourceRepository
 
     private val viewModel: MainActivityViewModel by viewModels()
 
@@ -116,7 +112,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             val appState = rememberOPBAppState(
                 networkMonitor = networkMonitor,
-                userNewsResourceRepository = userNewsResourceRepository,
                 timeZoneMonitor = timeZoneMonitor,
             )
 

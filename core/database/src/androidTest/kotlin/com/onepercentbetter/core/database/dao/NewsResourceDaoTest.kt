@@ -2,10 +2,9 @@
 
 package com.onepercentbetter.core.database.dao
 
-import com.onepercentbetter.core.database.model.NewsResourceEntity
-import com.onepercentbetter.core.database.model.NewsResourceTopicCrossRef
-import com.onepercentbetter.core.database.model.TopicEntity
-import com.onepercentbetter.core.database.model.asExternalModel
+import com.onepercentbetter.core.database.model.TaskEntity
+import com.onepercentbetter.core.database.model.CategoryEntity
+import com.onepercentbetter.core.database.model.asModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Instant
@@ -15,7 +14,7 @@ import kotlin.test.assertEquals
 internal class NewsResourceDaoTest : DatabaseTest() {
 
     @Test
-    fun getNewsResources_allEntries_areOrderedByPublishDateDesc() = runTest {
+    fun getRoutines_allEntries_areOrderedByPublishDateDesc() = runTest {
         val newsResourceEntities = listOf(
             testNewsResource(
                 id = "0",
@@ -38,19 +37,19 @@ internal class NewsResourceDaoTest : DatabaseTest() {
             newsResourceEntities,
         )
 
-        val savedNewsResourceEntities = newsResourceDao.getNewsResources()
+        val savedNewsResourceEntities = newsResourceDao.getRoutines()
             .first()
 
         assertEquals(
             listOf(3L, 2L, 1L, 0L),
             savedNewsResourceEntities.map {
-                it.asExternalModel().publishDate.toEpochMilliseconds()
+                it.asModel().publishDate.toEpochMilliseconds()
             },
         )
     }
 
     @Test
-    fun getNewsResources_filteredById_areOrderedByDescendingPublishDate() = runTest {
+    fun getRoutines_filteredById_areOrderedByDescendingPublishDate() = runTest {
         val newsResourceEntities = listOf(
             testNewsResource(
                 id = "0",
@@ -73,7 +72,7 @@ internal class NewsResourceDaoTest : DatabaseTest() {
             newsResourceEntities,
         )
 
-        val savedNewsResourceEntities = newsResourceDao.getNewsResources(
+        val savedNewsResourceEntities = newsResourceDao.getRoutines(
             useFilterNewsIds = true,
             filterNewsIds = setOf("3", "0"),
         )
@@ -88,7 +87,7 @@ internal class NewsResourceDaoTest : DatabaseTest() {
     }
 
     @Test
-    fun getNewsResources_filteredByTopicId_areOrderedByDescendingPublishDate() = runTest {
+    fun getRoutines_filteredByTopicId_areOrderedByDescendingPublishDate() = runTest {
         val topicEntities = listOf(
             testTopicEntity(
                 id = "1",
@@ -120,11 +119,11 @@ internal class NewsResourceDaoTest : DatabaseTest() {
         val newsResourceTopicCrossRefEntities = topicEntities.mapIndexed { index, topicEntity ->
             NewsResourceTopicCrossRef(
                 newsResourceId = index.toString(),
-                topicId = topicEntity.id,
+                topicId = topicEntity.categoryId,
             )
         }
 
-        topicDao.insertOrIgnoreTopics(
+        categoryDao.insertOrIgnoreTopics(
             topicEntities = topicEntities,
         )
         newsResourceDao.upsertNewsResources(
@@ -134,10 +133,10 @@ internal class NewsResourceDaoTest : DatabaseTest() {
             newsResourceTopicCrossRefEntities,
         )
 
-        val filteredNewsResources = newsResourceDao.getNewsResources(
+        val filteredNewsResources = newsResourceDao.getRoutines(
             useFilterTopicIds = true,
             filterTopicIds = topicEntities
-                .map(TopicEntity::id)
+                .map(CategoryEntity::categoryId)
                 .toSet(),
         ).first()
 
@@ -148,7 +147,7 @@ internal class NewsResourceDaoTest : DatabaseTest() {
     }
 
     @Test
-    fun getNewsResources_filteredByIdAndTopicId_areOrderedByDescendingPublishDate() = runTest {
+    fun getRoutines_filteredByIdAndTopicId_areOrderedByDescendingPublishDate() = runTest {
         val topicEntities = listOf(
             testTopicEntity(
                 id = "1",
@@ -180,11 +179,11 @@ internal class NewsResourceDaoTest : DatabaseTest() {
         val newsResourceTopicCrossRefEntities = topicEntities.mapIndexed { index, topicEntity ->
             NewsResourceTopicCrossRef(
                 newsResourceId = index.toString(),
-                topicId = topicEntity.id,
+                topicId = topicEntity.categoryId,
             )
         }
 
-        topicDao.insertOrIgnoreTopics(
+        categoryDao.insertOrIgnoreTopics(
             topicEntities = topicEntities,
         )
         newsResourceDao.upsertNewsResources(
@@ -194,10 +193,10 @@ internal class NewsResourceDaoTest : DatabaseTest() {
             newsResourceTopicCrossRefEntities,
         )
 
-        val filteredNewsResources = newsResourceDao.getNewsResources(
+        val filteredNewsResources = newsResourceDao.getRoutines(
             useFilterTopicIds = true,
             filterTopicIds = topicEntities
-                .map(TopicEntity::id)
+                .map(CategoryEntity::categoryId)
                 .toSet(),
             useFilterNewsIds = true,
             filterNewsIds = setOf("1"),
@@ -235,13 +234,13 @@ internal class NewsResourceDaoTest : DatabaseTest() {
             val (toDelete, toKeep) = newsResourceEntities.partition { it.id.toInt() % 2 == 0 }
 
             newsResourceDao.deleteNewsResources(
-                toDelete.map(NewsResourceEntity::id),
+                toDelete.map(TaskEntity::id),
             )
 
             assertEquals(
-                toKeep.map(NewsResourceEntity::id)
+                toKeep.map(TaskEntity::id)
                     .toSet(),
-                newsResourceDao.getNewsResources().first()
+                newsResourceDao.getRoutines().first()
                     .map { it.entity.id }
                     .toSet(),
             )
@@ -251,21 +250,21 @@ internal class NewsResourceDaoTest : DatabaseTest() {
 private fun testTopicEntity(
     id: String = "0",
     name: String,
-) = TopicEntity(
-    id = id,
+) = CategoryEntity(
+    categoryId = id,
     name = name,
     shortDescription = "",
     longDescription = "",
     url = "",
-    imageUrl = "",
+    image = "",
 )
 
 private fun testNewsResource(
     id: String = "0",
     millisSinceEpoch: Long = 0,
-) = NewsResourceEntity(
+) = TaskEntity(
     id = id,
-    title = "",
+    taskTitle = "",
     content = "",
     url = "",
     headerImageUrl = "",

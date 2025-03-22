@@ -16,21 +16,18 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import androidx.tracing.trace
-import com.onepercentbetter.core.data.repository.UserNewsResourceRepository
 import com.onepercentbetter.core.data.util.NetworkMonitor
 import com.onepercentbetter.core.data.util.TimeZoneMonitor
 import com.onepercentbetter.core.ui.TrackDisposableJank
-import com.onepercentbetter.feature.bookmarks.navigation.navigateToBookmarks
+import com.onepercentbetter.feature.goals.navigation.navigateToGoals
 import com.onepercentbetter.feature.interests.navigation.navigateToInterests
 import com.onepercentbetter.feature.routine.navigation.navigateRoutine
 import com.onepercentbetter.navigation.TopLevelDestination
-import com.onepercentbetter.navigation.TopLevelDestination.BOOKMARKS
+import com.onepercentbetter.navigation.TopLevelDestination.GOALS
 import com.onepercentbetter.navigation.TopLevelDestination.INTERESTS
 import com.onepercentbetter.navigation.TopLevelDestination.ROUTINE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.TimeZone
@@ -38,7 +35,6 @@ import kotlinx.datetime.TimeZone
 @Composable
 fun rememberOPBAppState(
     networkMonitor: NetworkMonitor,
-    userNewsResourceRepository: UserNewsResourceRepository,
     timeZoneMonitor: TimeZoneMonitor,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     navController: NavHostController = rememberNavController(),
@@ -48,14 +44,12 @@ fun rememberOPBAppState(
         navController,
         coroutineScope,
         networkMonitor,
-        userNewsResourceRepository,
         timeZoneMonitor,
     ) {
         OPBAppState(
             navController = navController,
             coroutineScope = coroutineScope,
             networkMonitor = networkMonitor,
-            userNewsResourceRepository = userNewsResourceRepository,
             timeZoneMonitor = timeZoneMonitor,
         )
     }
@@ -66,7 +60,6 @@ class OPBAppState(
     val navController: NavHostController,
     coroutineScope: CoroutineScope,
     networkMonitor: NetworkMonitor,
-    userNewsResourceRepository: UserNewsResourceRepository,
     timeZoneMonitor: TimeZoneMonitor,
 ) {
     private val previousDestination = mutableStateOf<NavDestination?>(null)
@@ -106,23 +99,6 @@ class OPBAppState(
      */
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.entries
 
-    /**
-     * The top level destinations that have unread news resources.
-     */
-    val topLevelDestinationsWithUnreadResources: StateFlow<Set<TopLevelDestination>> =
-        userNewsResourceRepository.observeAllForFollowedTopics()
-            .combine(userNewsResourceRepository.observeAllBookmarked()) { routineNewsResources, bookmarkedNewsResources ->
-                setOfNotNull(
-                    ROUTINE.takeIf { routineNewsResources.any { !it.hasBeenViewed } },
-                    BOOKMARKS.takeIf { bookmarkedNewsResources.any { !it.hasBeenViewed } },
-                )
-            }
-            .stateIn(
-                coroutineScope,
-                SharingStarted.WhileSubscribed(5_000),
-                initialValue = emptySet(),
-            )
-
     val currentTimeZone = timeZoneMonitor.currentTimeZone
         .stateIn(
             coroutineScope,
@@ -155,7 +131,7 @@ class OPBAppState(
 
             when (topLevelDestination) {
                 ROUTINE -> navController.navigateRoutine(topLevelNavOptions)
-                BOOKMARKS -> navController.navigateToBookmarks(topLevelNavOptions)
+                GOALS -> navController.navigateToGoals(topLevelNavOptions)
                 INTERESTS -> navController.navigateToInterests(null, topLevelNavOptions)
             }
         }

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercentbetter.MainActivityUiState.Loading
 import com.onepercentbetter.MainActivityUiState.Success
-import com.onepercentbetter.core.data.repository.UserDataRepository
+import com.onepercentbetter.core.data.repository.user.UserDataRepository
 import com.onepercentbetter.core.model.data.DarkThemeConfig
 import com.onepercentbetter.core.model.data.UserData
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -12,10 +12,8 @@ import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkerParameters
 import com.onepercentbetter.core.analytics.AnalyticsHelper
 import com.onepercentbetter.core.data.Synchronizer
-import com.onepercentbetter.core.data.repository.NewsRepository
-import com.onepercentbetter.core.data.repository.SearchContentsRepository
-import com.onepercentbetter.core.data.repository.TopicsRepository
-import com.onepercentbetter.core.datastore.ChangeListVersions
+import com.onepercentbetter.core.data.repository.category.CategoryRepository
+import com.onepercentbetter.core.data.repository.task.TaskRepository
 import com.onepercentbetter.core.datastore.OPBPreferencesDataSource
 import com.onepercentbetter.core.network.Dispatcher
 import com.onepercentbetter.core.network.OPBDispatchers.IO
@@ -38,9 +36,8 @@ internal class SyncWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
     private val opbPreferences: OPBPreferencesDataSource,
-    private val topicRepository: TopicsRepository,
-    private val newsRepository: NewsRepository,
-    private val searchContentsRepository: SearchContentsRepository,
+    private val topicRepository: CategoryRepository,
+    private val taskRepository: TaskRepository,
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
     private val analyticsHelper: AnalyticsHelper,
     private val syncSubscriber: SyncSubscriber,
@@ -58,13 +55,13 @@ internal class SyncWorker @AssistedInject constructor(
             // First sync the repositories in parallel
             val syncedSuccessfully = awaitAll(
                 async { topicRepository.sync() },
-                async { newsRepository.sync() },
+                async { taskRepository.sync() },
             ).all { it }
 
             analyticsHelper.logSyncFinished(syncedSuccessfully)
 
             if (syncedSuccessfully) {
-                searchContentsRepository.populateFtsData()
+//                searchContentsRepository.populateFtsData()
                 Result.success()
             } else {
                 Result.retry()
@@ -72,12 +69,12 @@ internal class SyncWorker @AssistedInject constructor(
         }
     }
 
-    override suspend fun getChangeListVersions(): ChangeListVersions =
-        opbPreferences.getChangeListVersions()
-
-    override suspend fun updateChangeListVersions(
-        update: ChangeListVersions.() -> ChangeListVersions,
-    ) = opbPreferences.updateChangeListVersion(update)
+//    override suspend fun getChangeListVersions(): ChangeListVersions =
+//        opbPreferences.getChangeListVersions()
+//
+//    override suspend fun updateChangeListVersions(
+//        update: ChangeListVersions.() -> ChangeListVersions,
+//    ) = opbPreferences.updateChangeListVersion(update)
 
     companion object {
         /**

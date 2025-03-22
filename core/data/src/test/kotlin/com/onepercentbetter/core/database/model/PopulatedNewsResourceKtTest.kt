@@ -2,8 +2,6 @@
 
 package com.onepercentbetter.core.database.model
 
-import com.onepercentbetter.core.model.data.NewsResource
-import com.onepercentbetter.core.model.data.Topic
 import kotlinx.datetime.Instant
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -12,9 +10,9 @@ class PopulatedNewsResourceKtTest {
     @Test
     fun populated_news_resource_can_be_mapped_to_news_resource() {
         val populatedNewsResource = PopulatedNewsResource(
-            entity = com.onepercentbetter.core.database.model.NewsResourceEntity(
+            entity = com.onepercentbetter.core.database.model.TaskEntity(
                 id = "1",
-                title = "news",
+                taskTitle = "news",
                 content = "Hilt",
                 url = "url",
                 headerImageUrl = "headerImageUrl",
@@ -22,17 +20,17 @@ class PopulatedNewsResourceKtTest {
                 publishDate = Instant.fromEpochMilliseconds(1),
             ),
             topics = listOf(
-                TopicEntity(
-                    id = "3",
+                CategoryEntity(
+                    categoryId = "3",
                     name = "name",
                     shortDescription = "short description",
                     longDescription = "long description",
                     url = "URL",
-                    imageUrl = "image URL",
+                    image = "image URL",
                 ),
             ),
         )
-        val newsResource = populatedNewsResource.asExternalModel()
+        val newsResource = populatedNewsResource.asModel()
 
         assertEquals(
             NewsResource(

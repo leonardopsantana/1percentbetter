@@ -12,8 +12,7 @@ import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.composable
 import androidx.navigation.createGraph
 import androidx.navigation.testing.TestNavHostController
-import com.onepercentbetter.core.data.repository.CompositeUserNewsResourceRepository
-import com.onepercentbetter.core.testing.repository.TestNewsRepository
+import com.onepercentbetter.core.testing.repository.TestTaskRepository
 import com.onepercentbetter.core.testing.repository.TestUserDataRepository
 import com.onepercentbetter.core.testing.util.TestNetworkMonitor
 import com.onepercentbetter.core.testing.util.TestTimeZoneMonitor
@@ -49,7 +48,7 @@ class OPBAppStateTest {
     private val timeZoneMonitor = TestTimeZoneMonitor()
 
     private val userNewsResourceRepository =
-        CompositeUserNewsResourceRepository(TestNewsRepository(), TestUserDataRepository())
+        CompositeUserNewsResourceRepository(TestTaskRepository(), TestUserDataRepository())
 
     // Subject under test.
     private lateinit var state: OPBAppState

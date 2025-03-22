@@ -46,8 +46,7 @@ import androidx.core.graphics.Insets
 import androidx.core.view.WindowInsetsCompat
 import androidx.window.core.layout.WindowSizeClass
 import com.github.takahirom.roborazzi.captureRoboImage
-import com.onepercentbetter.core.data.repository.TopicsRepository
-import com.onepercentbetter.core.data.repository.UserNewsResourceRepository
+import com.onepercentbetter.core.data.repository.category.CategoryRepository
 import com.onepercentbetter.core.data.test.repository.FakeUserDataRepository
 import com.onepercentbetter.core.data.util.NetworkMonitor
 import com.onepercentbetter.core.data.util.TimeZoneMonitor
@@ -106,7 +105,7 @@ class SnackbarInsetsScreenshotTests {
     lateinit var userDataRepository: FakeUserDataRepository
 
     @Inject
-    lateinit var topicsRepository: TopicsRepository
+    lateinit var categoryRepository: CategoryRepository
 
     @Inject
     lateinit var userNewsResourceRepository: UserNewsResourceRepository
@@ -118,7 +117,7 @@ class SnackbarInsetsScreenshotTests {
         // Configure user data
         runBlocking {
             userDataRepository.setFollowedTopicIds(
-                setOf(topicsRepository.getTopics().first().first().id),
+                setOf(categoryRepository.getCategories().first().first().id),
             )
         }
     }

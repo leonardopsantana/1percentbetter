@@ -1,12 +1,9 @@
-
-
 package com.onepercentbetter.core.datastore.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
-import com.onepercentbetter.core.datastore.IntToStringIdsMigration
 import com.onepercentbetter.core.datastore.UserPreferences
 import com.onepercentbetter.core.datastore.UserPreferencesSerializer
 import com.onepercentbetter.core.network.Dispatcher
@@ -36,9 +33,6 @@ object DataStoreModule {
         DataStoreFactory.create(
             serializer = userPreferencesSerializer,
             scope = CoroutineScope(scope.coroutineContext + ioDispatcher),
-            migrations = listOf(
-                IntToStringIdsMigration,
-            ),
         ) {
             context.dataStoreFile("user_preferences.pb")
         }

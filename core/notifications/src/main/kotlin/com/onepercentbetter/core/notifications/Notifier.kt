@@ -2,11 +2,11 @@
 
 package com.onepercentbetter.core.notifications
 
-import com.onepercentbetter.core.model.data.NewsResource
+import com.onepercentbetter.core.model.data.TaskModel
 
 /**
  * Interface for creating notifications in the app
  */
 interface Notifier {
-    fun postNewsNotifications(newsResources: List<NewsResource>)
+    fun postRoutineNotifications(newsResources: List<TaskModel>)
 }
