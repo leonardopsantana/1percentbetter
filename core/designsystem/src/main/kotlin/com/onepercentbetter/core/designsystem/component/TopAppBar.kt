@@ -26,26 +26,23 @@ import com.onepercentbetter.core.designsystem.theme.OPBTheme
 @Composable
 fun OPBTopAppBar(
     @StringRes titleRes: Int,
-    navigationIcon: ImageVector,
-    navigationIconContentDescription: String,
     actionIcon: ImageVector,
     actionIconContentDescription: String,
     modifier: Modifier = Modifier,
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
-    onNavigationClick: () -> Unit = {},
     onActionClick: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
         title = { Text(text = stringResource(id = titleRes)) },
-        navigationIcon = {
-            IconButton(onClick = onNavigationClick) {
-                Icon(
-                    imageVector = navigationIcon,
-                    contentDescription = navigationIconContentDescription,
-                    tint = MaterialTheme.colorScheme.onSurface,
-                )
-            }
-        },
+//        navigationIcon = {
+//            IconButton(onClick = onNavigationClick) {
+//                Icon(
+//                    imageVector = navigationIcon,
+//                    contentDescription = navigationIconContentDescription,
+//                    tint = MaterialTheme.colorScheme.onSurface,
+//                )
+//            }
+//        },
         actions = {
             IconButton(onClick = onActionClick) {
                 Icon(
@@ -67,8 +64,6 @@ private fun OPBTopAppBarPreview() {
     OPBTheme {
         OPBTopAppBar(
             titleRes = android.R.string.untitled,
-            navigationIcon = OPBIcons.Search,
-            navigationIconContentDescription = "Navigation icon",
             actionIcon = OPBIcons.MoreVert,
             actionIconContentDescription = "Action icon",
         )

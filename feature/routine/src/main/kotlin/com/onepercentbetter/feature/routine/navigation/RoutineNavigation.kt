@@ -24,7 +24,7 @@ fun NavController.navigateRoutine(navOptions: NavOptions) =
  *  @param onTopicClick - Called when a topic is clicked, contains the ID of the topic
  *  @param topicDestination - Destination for topic content
  */
-fun NavGraphBuilder.routineSection(
+fun NavGraphBuilder.routineScreen(
     onTopicClick: (String) -> Unit,
     topicDestination: NavGraphBuilder.() -> Unit,
 ) {

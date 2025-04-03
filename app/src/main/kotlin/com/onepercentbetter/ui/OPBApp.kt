@@ -191,10 +191,6 @@ internal fun OPBApp(
                     shouldShowTopAppBar = true
                     OPBTopAppBar(
                         titleRes = destination.titleTextId,
-                        navigationIcon = OPBIcons.Person,
-                        navigationIconContentDescription = stringResource(
-                            id = settingsR.string.feature_settings_top_app_bar_navigation_icon_description,
-                        ),
                         actionIcon = OPBIcons.Settings,
                         actionIconContentDescription = stringResource(
                             id = settingsR.string.feature_settings_top_app_bar_action_icon_description,
@@ -203,7 +199,6 @@ internal fun OPBApp(
                             containerColor = Color.Transparent,
                         ),
                         onActionClick = { onTopAppBarActionClick() },
-                        onNavigationClick = { },
                     )
                 }
 

@@ -7,9 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.onepercentbetter.feature.goals.navigation.goalsScreen
 import com.onepercentbetter.feature.routine.navigation.RoutineBaseRoute
-import com.onepercentbetter.feature.routine.navigation.routineSection
+import com.onepercentbetter.feature.routine.navigation.routineScreen
 import com.onepercentbetter.ui.OPBAppState
-import com.onepercentbetter.ui.interests2pane.interestsListDetailScreen
 
 /**
  * Top-level navigation graph. Navigation is organized as explained at
@@ -30,7 +29,7 @@ fun OPBNavHost(
         startDestination = RoutineBaseRoute,
         modifier = modifier,
     ) {
-        routineSection(
+        routineScreen(
             onTopicClick = { },
         ) {
         }
@@ -40,6 +39,5 @@ fun OPBNavHost(
             onTopicClick = {},
 //                onTopicClick = navController::navigateToGoals,
         )
-        interestsListDetailScreen()
     }
 }

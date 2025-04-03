@@ -20,11 +20,9 @@ import com.onepercentbetter.core.data.util.NetworkMonitor
 import com.onepercentbetter.core.data.util.TimeZoneMonitor
 import com.onepercentbetter.core.ui.TrackDisposableJank
 import com.onepercentbetter.feature.goals.navigation.navigateToGoals
-import com.onepercentbetter.feature.interests.navigation.navigateToInterests
 import com.onepercentbetter.feature.routine.navigation.navigateRoutine
 import com.onepercentbetter.navigation.TopLevelDestination
 import com.onepercentbetter.navigation.TopLevelDestination.GOALS
-import com.onepercentbetter.navigation.TopLevelDestination.INTERESTS
 import com.onepercentbetter.navigation.TopLevelDestination.ROUTINE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -132,7 +130,6 @@ class OPBAppState(
             when (topLevelDestination) {
                 ROUTINE -> navController.navigateRoutine(topLevelNavOptions)
                 GOALS -> navController.navigateToGoals(topLevelNavOptions)
-                INTERESTS -> navController.navigateToInterests(null, topLevelNavOptions)
             }
         }
     }

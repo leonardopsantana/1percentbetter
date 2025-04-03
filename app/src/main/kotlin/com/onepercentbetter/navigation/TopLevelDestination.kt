@@ -7,12 +7,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.onepercentbetter.R
 import com.onepercentbetter.core.designsystem.icon.OPBIcons
 import com.onepercentbetter.feature.goals.navigation.GoalsRoute
-import com.onepercentbetter.feature.interests.navigation.InterestsRoute
 import com.onepercentbetter.feature.routine.navigation.RoutineBaseRoute
 import com.onepercentbetter.feature.routine.navigation.RoutineRoute
 import kotlin.reflect.KClass
 import com.onepercentbetter.feature.goals.R as goalsR
-import com.onepercentbetter.feature.interests.R as interestS
 import com.onepercentbetter.feature.routine.R as rouTine
 
 /**
@@ -51,12 +49,5 @@ enum class TopLevelDestination(
         iconTextId = goalsR.string.feature_goals_title,
         titleTextId = goalsR.string.feature_goals_title,
         route = GoalsRoute::class,
-    ),
-    INTERESTS(
-        selectedIcon = OPBIcons.Grid3x3,
-        unselectedIcon = OPBIcons.Grid3x3,
-        iconTextId = interestS.string.feature_interests_title,
-        titleTextId = interestS.string.feature_interests_title,
-        route = InterestsRoute::class,
-    ),
+    )
 }

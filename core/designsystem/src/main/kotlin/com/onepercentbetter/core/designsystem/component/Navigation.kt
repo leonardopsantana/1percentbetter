@@ -252,16 +252,14 @@ class OPBNavigationSuiteScope internal constructor(
 @ThemePreviews
 @Composable
 fun OPBNavigationBarPreview() {
-    val items = listOf("For you", "Saved", "Interests")
+    val items = listOf("Routine", "Goals")
     val icons = listOf(
         OPBIcons.UpcomingBorder,
         OPBIcons.BookmarksBorder,
-        OPBIcons.Grid3x3,
     )
     val selectedIcons = listOf(
         OPBIcons.Upcoming,
         OPBIcons.Bookmarks,
-        OPBIcons.Grid3x3,
     )
 
     OPBTheme {
@@ -292,16 +290,14 @@ fun OPBNavigationBarPreview() {
 @ThemePreviews
 @Composable
 fun OPBNavigationRailPreview() {
-    val items = listOf("For you", "Saved", "Interests")
+    val items = listOf("Routine", "Goals")
     val icons = listOf(
         OPBIcons.UpcomingBorder,
-        OPBIcons.BookmarksBorder,
-        OPBIcons.Grid3x3,
+        OPBIcons.BookmarksBorder
     )
     val selectedIcons = listOf(
         OPBIcons.Upcoming,
-        OPBIcons.Bookmarks,
-        OPBIcons.Grid3x3,
+        OPBIcons.Bookmarks
     )
 
     OPBTheme {

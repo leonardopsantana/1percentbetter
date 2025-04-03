@@ -66,7 +66,6 @@ include(":core:testing")
 include(":core:ui")
 
 include(":feature:routine")
-include(":feature:interests")
 include(":feature:goals")
 include(":feature:settings")
 include(":lint")
