@@ -255,11 +255,11 @@ fun OPBNavigationBarPreview() {
     val items = listOf("Routine", "Goals")
     val icons = listOf(
         OPBIcons.UpcomingBorder,
-        OPBIcons.BookmarksBorder,
+        OPBIcons.AdsClickBorder,
     )
     val selectedIcons = listOf(
         OPBIcons.Upcoming,
-        OPBIcons.Bookmarks,
+        OPBIcons.AdsClick,
     )
 
     OPBTheme {
@@ -293,11 +293,11 @@ fun OPBNavigationRailPreview() {
     val items = listOf("Routine", "Goals")
     val icons = listOf(
         OPBIcons.UpcomingBorder,
-        OPBIcons.BookmarksBorder
+        OPBIcons.AdsClickBorder
     )
     val selectedIcons = listOf(
         OPBIcons.Upcoming,
-        OPBIcons.Bookmarks
+        OPBIcons.AdsClick
     )
 
     OPBTheme {

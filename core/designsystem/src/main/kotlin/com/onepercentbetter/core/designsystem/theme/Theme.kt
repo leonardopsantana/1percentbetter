@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 val LightDefaultColorScheme = lightColorScheme(
     primary = Yellow40,
     onPrimary = Color.White,
-    primaryContainer = Yellow90,
+    primaryContainer = Yellow80,
     onPrimaryContainer = DarkYellowGray10,
     secondary = Yellow40,
     onSecondary = Color.White,

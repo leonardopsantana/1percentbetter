@@ -4,7 +4,6 @@ package com.onepercentbetter.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.onepercentbetter.R
 import com.onepercentbetter.core.designsystem.icon.OPBIcons
 import com.onepercentbetter.feature.goals.navigation.GoalsRoute
 import com.onepercentbetter.feature.routine.navigation.RoutineBaseRoute
@@ -36,16 +35,16 @@ enum class TopLevelDestination(
     val baseRoute: KClass<*> = route,
 ) {
     ROUTINE(
-        selectedIcon = OPBIcons.Book,
-        unselectedIcon = OPBIcons.BookBorder,
+        selectedIcon = OPBIcons.AccessTime,
+        unselectedIcon = OPBIcons.AccessTimeBorder,
         iconTextId = rouTine.string.feature_routine_title,
-        titleTextId = R.string.app_name,
+        titleTextId = com.onepercentbetter.feature.routine.R.string.feature_routine_title,
         route = RoutineRoute::class,
         baseRoute = RoutineBaseRoute::class,
     ),
     GOALS(
-        selectedIcon = OPBIcons.Bookmarks,
-        unselectedIcon = OPBIcons.BookmarksBorder,
+        selectedIcon = OPBIcons.AdsClick,
+        unselectedIcon = OPBIcons.AdsClickBorder,
         iconTextId = goalsR.string.feature_goals_title,
         titleTextId = goalsR.string.feature_goals_title,
         route = GoalsRoute::class,

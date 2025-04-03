@@ -6,15 +6,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ShortText
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.outlined.Book
-import androidx.compose.material.icons.outlined.Bookmarks
+import androidx.compose.material.icons.outlined.AccessTime
+import androidx.compose.material.icons.outlined.AdsClick
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Upcoming
+import androidx.compose.material.icons.rounded.AccessTime
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.Book
+import androidx.compose.material.icons.rounded.AdsClick
 import androidx.compose.material.icons.rounded.Bookmark
 import androidx.compose.material.icons.rounded.BookmarkBorder
-import androidx.compose.material.icons.rounded.Bookmarks
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Grid3x3
@@ -29,8 +29,8 @@ object OPBIcons {
     val ArrowBack = Icons.AutoMirrored.Rounded.ArrowBack
     val Bookmark = Icons.Rounded.Bookmark
     val BookmarkBorder = Icons.Rounded.BookmarkBorder
-    val Bookmarks = Icons.Rounded.Bookmarks
-    val BookmarksBorder = Icons.Outlined.Bookmarks
+    val AdsClick = Icons.Rounded.AdsClick
+    val AdsClickBorder = Icons.Outlined.AdsClick
     val Check = Icons.Outlined.Check
     val CheckFilled = Icons.Rounded.Check
     val Close = Icons.Rounded.Close
@@ -43,6 +43,6 @@ object OPBIcons {
     val Upcoming = Icons.Rounded.Upcoming
     val UpcomingBorder = Icons.Outlined.Upcoming
     val ViewDay = Icons.Rounded.ViewDay
-    val Book = Icons.Rounded.Book
-    val BookBorder = Icons.Outlined.Book
+    val AccessTime = Icons.Rounded.AccessTime
+    val AccessTimeBorder = Icons.Outlined.AccessTime
 }

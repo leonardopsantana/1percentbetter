@@ -323,12 +323,12 @@ fun OpbCatalog() {
                     val items = listOf("For you", "Saved", "Interests")
                     val icons = listOf(
                         OPBIcons.UpcomingBorder,
-                        OPBIcons.BookmarksBorder,
+                        OPBIcons.AdsClickBorder,
                         OPBIcons.Grid3x3,
                     )
                     val selectedIcons = listOf(
                         OPBIcons.Upcoming,
-                        OPBIcons.Bookmarks,
+                        OPBIcons.AdsClick,
                         OPBIcons.Grid3x3,
                     )
                     OPBNavigationBar {
