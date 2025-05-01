@@ -9,7 +9,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation.Vertical
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -35,21 +35,24 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.onClick
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -67,7 +70,6 @@ import com.onepercentbetter.core.designsystem.theme.OPBTheme
 import com.onepercentbetter.core.model.data.TaskWithCategoryModel
 import com.onepercentbetter.core.ui.TrackScreenViewEvent
 import com.onepercentbetter.core.ui.TrackScrollJank
-import com.onepercentbetter.core.ui.conditional
 import com.onepercentbetter.feature.routine.RoutineUiState.Loading
 import com.onepercentbetter.feature.routine.RoutineUiState.Success
 import kotlinx.coroutines.launch
@@ -301,11 +303,22 @@ private fun DaysRoutine(daysOfWeek: List<LocalDate>) {
         }
     }
 
+
     Row(
         modifier = Modifier.horizontalScroll(scrollState),
     ) {
+        var selectedIndex by remember { mutableIntStateOf(-1) }
+
         daysOfWeek.forEachIndexed { index, day ->
-            CardDay(index, daysOfWeek, day)
+            CardDay(
+                index = index,
+                day = day,
+                isSelected = index == selectedIndex || (selectedIndex == -1 && index == daysOfWeek.size - 1),
+                onCardClick = { newIndex ->
+                    selectedIndex =
+                        if (selectedIndex == newIndex) selectedIndex else newIndex
+                },
+            )
         }
     }
 }
@@ -313,44 +326,45 @@ private fun DaysRoutine(daysOfWeek: List<LocalDate>) {
 @Composable
 private fun CardDay(
     index: Int,
-    daysOfWeek: List<LocalDate>,
     day: LocalDate,
+    isSelected: Boolean,
+    onCardClick: (Int) -> Unit,
 ) {
     Card(
-        onClick = {
-            index.toString()
-        },
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        // Use custom label for accessibility services to communicate button's action to user.
-        // Pass null for action to only override the label and not the actual action.
+        onClick = { onCardClick(index) },
+        shape = RoundedCornerShape(10.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
+        ),
         modifier = Modifier
             .padding(4.dp)
-            .semantics {
-                onClick(label = index.toString(), action = null)
-            },
+            .clickable { onCardClick(index) },
     ) {
-        val todayColor = MaterialTheme.colorScheme.primaryContainer
         Box(
             modifier = Modifier
-                .conditional(index == daysOfWeek.size - 1) {
-                    background(todayColor)
-                }
-                .padding(16.dp),
+                .padding(12.dp)
+                .fillMaxWidth(),
         ) {
             Column(
                 modifier = Modifier
-                    .widthIn(50.dp),
-                verticalArrangement = Arrangement.Center,
+                    .widthIn(48.dp),
+                verticalArrangement = Arrangement.spacedBy(2.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    day.dayOfWeek.toString()[0].toString(),
-                    style = MaterialTheme.typography.titleSmall,
+                    day.dayOfWeek.toString().take(3).lowercase().replaceFirstChar { it.uppercase() },
+                        style = MaterialTheme.typography.titleSmall,
+                    color = if (isSelected) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onSurface,
+                )
+                HorizontalDivider(
+                    thickness = 10.dp,
+                    color = Color.Black,
+                    modifier = Modifier.fillMaxWidth(),
                 )
                 Text(
                     day.dayOfMonth.toString(),
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = if (isSelected) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onSurface,
                 )
             }
         }

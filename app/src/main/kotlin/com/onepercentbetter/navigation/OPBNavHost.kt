@@ -38,6 +38,7 @@ fun OPBNavHost(
             onBackClick = navController::popBackStack,
             onTopicClick = {},
 //                onTopicClick = navController::navigateToGoals,
+            onAddGoalClick = {}
         )
     }
 }

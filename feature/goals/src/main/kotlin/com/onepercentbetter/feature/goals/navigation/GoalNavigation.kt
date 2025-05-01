@@ -16,12 +16,14 @@ fun NavGraphBuilder.goalsScreen(
     showBackButton: Boolean,
     onBackClick: () -> Unit,
     onTopicClick: (String) -> Unit,
+    onAddGoalClick: () -> Unit,
 ) {
     composable<GoalsRoute> {
         GoalsScreen(
             showBackButton = showBackButton,
             onBackClick = onBackClick,
             onTopicClick = onTopicClick,
+            onAddGoalClick = onAddGoalClick
         )
     }
 }

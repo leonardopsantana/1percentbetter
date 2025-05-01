@@ -16,6 +16,7 @@
 
 package com.onepercentbetter.feature.goals
 
+import android.annotation.SuppressLint
 import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
@@ -37,9 +38,14 @@ import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -71,89 +77,101 @@ fun GoalsScreen(
     showBackButton: Boolean,
     onBackClick: () -> Unit,
     onTopicClick: (String) -> Unit,
+    onAddGoalClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: GoalsViewModel = hiltViewModel(),
 ) {
     val goalsUiState = viewModel.goalsState.collectAsStateWithLifecycle()
 
     TrackScreenViewEvent(screenName = "Topic: ${viewModel.goalId}")
-    GoalsScreen(
+    GoalsContent(
         goalsUiState = goalsUiState.value,
         modifier = modifier.testTag("topic:${viewModel.goalId}"),
         showBackButton = showBackButton,
         onBackClick = onBackClick,
         onTopicClick = onTopicClick,
+        onAddGoalClick = onAddGoalClick,
     )
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @VisibleForTesting
 @Composable
-internal fun GoalsScreen(
+internal fun GoalsContent(
     goalsUiState: GoalsUiState,
     showBackButton: Boolean,
     onBackClick: () -> Unit,
     onTopicClick: (String) -> Unit,
+    onAddGoalClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val state = rememberLazyListState()
     TrackScrollJank(scrollableState = state, stateName = "topic:screen")
-    Box(
+    Scaffold(
         modifier = modifier,
+        floatingActionButton = {
+            FloatingActionButton(onClick = { onAddGoalClick.invoke() }) {
+                Icon(Icons.Default.Add, contentDescription = "Add")
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End
     ) {
-        LazyColumn(
-            state = state,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            item {
-                Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
-            }
-            when (goalsUiState) {
-                Loading -> item {
-//                    OPBLoadingWheel(
-//                        modifier = modifier,
-//                        contentDesc = stringResource(id = string.feature_goals_loading),
-//                    )
+        Box {
+            LazyColumn(
+                state = state,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                item {
+                    Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
                 }
-
-                is Error -> TODO()
-                is Success -> {
-                    item {
-                        TopicToolbar(
-                            showBackButton = showBackButton,
-                            onBackClick = onBackClick,
-                        )
+                when (goalsUiState) {
+                    Loading -> item {
+                        //                    OPBLoadingWheel(
+                        //                        modifier = modifier,
+                        //                        contentDesc = stringResource(id = string.feature_goals_loading),
+                        //                    )
                     }
-//                    topicBody(
-//                        name = topicUiState.followableTopic.topic.name,
-//                        description = topicUiState.followableTopic.topic.longDescription,
-//                        news = goalsUiState,
-//                        imageUrl = topicUiState.followableTopic.topic.imageUrl,
-//                        onBookmarkChanged = onBookmarkChanged,
-//                        onNewsResourceViewed = onNewsResourceViewed,
-//                        onTopicClick = onTopicClick,
-//                    )
+
+                    is Error -> TODO()
+                    is Success -> {
+                        item {
+                            TopicToolbar(
+                                showBackButton = showBackButton,
+                                onBackClick = onBackClick,
+                            )
+                        }
+                        //                    topicBody(
+                        //                        name = topicUiState.followableTopic.topic.name,
+                        //                        description = topicUiState.followableTopic.topic.longDescription,
+                        //                        news = goalsUiState,
+                        //                        imageUrl = topicUiState.followableTopic.topic.imageUrl,
+                        //                        onBookmarkChanged = onBookmarkChanged,
+                        //                        onNewsResourceViewed = onNewsResourceViewed,
+                        //                        onTopicClick = onTopicClick,
+                        //                    )
+                    }
+                }
+                item {
+                    Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
                 }
             }
-            item {
-                Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
-            }
-        }
-        val itemsAvailable = topicItemsSize(goalsUiState)
-        val scrollbarState = state.scrollbarState(
-            itemsAvailable = itemsAvailable,
-        )
-        state.DraggableScrollbar(
-            modifier = Modifier
-                .fillMaxHeight()
-                .windowInsetsPadding(WindowInsets.systemBars)
-                .padding(horizontal = 2.dp)
-                .align(Alignment.CenterEnd),
-            state = scrollbarState,
-            orientation = Orientation.Vertical,
-            onThumbMoved = state.rememberDraggableScroller(
+            val itemsAvailable = topicItemsSize(goalsUiState)
+            val scrollbarState = state.scrollbarState(
                 itemsAvailable = itemsAvailable,
-            ),
-        )
+            )
+            state.DraggableScrollbar(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .windowInsetsPadding(WindowInsets.systemBars)
+                    .padding(horizontal = 2.dp)
+                    .align(Alignment.CenterEnd),
+                state = scrollbarState,
+                orientation = Orientation.Vertical,
+                onThumbMoved = state.rememberDraggableScroller(
+                    itemsAvailable = itemsAvailable,
+                ),
+            )
+        }
     }
 }
 
@@ -304,11 +322,12 @@ fun TopicScreenPopulated(
 ) {
     OPBTheme {
         OPBBackground {
-            GoalsScreen(
+            GoalsContent(
                 goalsUiState = Success(taskModels),
                 showBackButton = true,
                 onBackClick = {},
                 onTopicClick = {},
+                onAddGoalClick = {}
             )
         }
     }
@@ -319,11 +338,12 @@ fun TopicScreenPopulated(
 fun TopicScreenLoading() {
     OPBTheme {
         OPBBackground {
-            GoalsScreen(
+            GoalsContent(
                 goalsUiState = Loading,
                 showBackButton = true,
                 onBackClick = {},
                 onTopicClick = {},
+                onAddGoalClick = {}
             )
         }
     }

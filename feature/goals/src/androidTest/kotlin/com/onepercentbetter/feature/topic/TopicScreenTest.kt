@@ -12,7 +12,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollToNode
 import com.onepercentbetter.core.testing.data.followableTopicTestData
 import com.onepercentbetter.core.testing.data.userNewsResourcesTestData
-import com.onepercentbetter.feature.goals.GoalsScreen
+import com.onepercentbetter.feature.goals.GoalsContent
 import com.onepercentbetter.feature.goals.GoalsUiState.Loading
 import com.onepercentbetter.feature.goals.GoalsUiState.Success
 import org.junit.Before
@@ -41,7 +41,7 @@ class TopicScreenTest {
     @Test
     fun opbLoadingWheel_whenScreenIsLoading_showLoading() {
         composeTestRule.setContent {
-            GoalsScreen(
+            GoalsContent(
                 topicUiState = TopicUiState.Loading,
                 goalsUiState = Loading,
                 showBackButton = true,
@@ -62,7 +62,7 @@ class TopicScreenTest {
     fun topicTitle_whenTopicIsSuccess_isShown() {
         val testTopic = followableTopicTestData.first()
         composeTestRule.setContent {
-            GoalsScreen(
+            GoalsContent(
                 topicUiState = TopicUiState.Success(testTopic),
                 goalsUiState = Loading,
                 showBackButton = true,
@@ -88,7 +88,7 @@ class TopicScreenTest {
     @Test
     fun news_whenTopicIsLoading_isNotShown() {
         composeTestRule.setContent {
-            GoalsScreen(
+            GoalsContent(
                 topicUiState = TopicUiState.Loading,
                 goalsUiState = Success(userNewsResourcesTestData),
                 showBackButton = true,
@@ -110,7 +110,7 @@ class TopicScreenTest {
     fun news_whenSuccessAndTopicIsSuccess_isShown() {
         val testTopic = followableTopicTestData.first()
         composeTestRule.setContent {
-            GoalsScreen(
+            GoalsContent(
                 topicUiState = TopicUiState.Success(testTopic),
                 goalsUiState = Success(
                     userNewsResourcesTestData,
